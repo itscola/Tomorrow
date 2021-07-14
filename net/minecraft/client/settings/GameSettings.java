@@ -15,7 +15,7 @@ import libraries.optifine.Lang;
 import libraries.optifine.NaturalTextures;
 import libraries.optifine.RandomMobs;
 import libraries.optifine.Reflector;
-import libraries.shadersmod.client.Shaders;
+import shadersmod.client.Shaders;
 
 import java.io.BufferedReader;
 import java.io.File;

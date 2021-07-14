@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 import libraries.optifine.Config;
 import libraries.optifine.Reflector;
-import libraries.shadersmod.client.SVertexBuilder;
+import shadersmod.client.SVertexBuilder;
 
 public class WorldVertexBufferUploader
 {

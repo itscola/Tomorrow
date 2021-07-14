@@ -4,6 +4,8 @@
 package tomorrow.tomo.event.events.world;
 
 import tomorrow.tomo.event.Event;
+import tomorrow.tomo.utils.cheats.player.Helper;
+import tomorrow.tomo.utils.math.RotationUtil;
 
 public class EventPreUpdate
 extends Event {
@@ -24,6 +26,8 @@ extends Event {
     }
 
     public void setYaw(float yaw) {
+		Helper.mc.thePlayer.renderYawOffset = yaw;
+		Helper.mc.thePlayer.rotationYawHead = yaw;
         this.yaw = yaw;
     }
 
@@ -32,6 +36,7 @@ extends Event {
     }
 
     public void setPitch(float pitch) {
+    	Helper.mc.thePlayer.rotationPitchHead = pitch;
         this.pitch = pitch;
     }
 

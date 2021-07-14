@@ -2,7 +2,6 @@ package tomorrow.tomo.guis.musicPlayer;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 
-import libraries.superskidder.ctrl.Ctrl;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.HttpUtil;
 import net.sf.json.JSONArray;
@@ -17,7 +16,6 @@ import tomorrow.tomo.utils.render.RenderUtil;
 import tomorrow.tomo.utils.render.renderManager.Rect;
 import tomorrow.tomo.utils.render.renderManager.RoundRect;
 
-import javax.media.*;
 import java.awt.*;
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -40,23 +38,21 @@ public class MusicPanel {
     public static Music isPlaying;
     private double percent = 0;
 
-    public Player player;
-
     public double totalTime;
     public float time;
     private TimerUtil timer = new TimerUtil();
 
     public static void initMusic(File file){
-        try {
-            URL url = file.toURI().toURL();
-            MediaLocator locator = new MediaLocator(url);
-            Client.musicPanel.player = Manager.createPlayer(locator);
-            Client.musicPanel.player.addControllerListener(new Ctrl());
-            Client.musicPanel.player.realize();
-
-        } catch (IOException | NoPlayerException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            URL url = file.toURI().toURL();
+//            MediaLocator locator = new MediaLocator(url);
+//            Client.musicPanel.player = Manager.createPlayer(locator);
+//            Client.musicPanel.player.addControllerListener(new Ctrl());
+//            Client.musicPanel.player.realize();
+//
+//        } catch (IOException | NoPlayerException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void render(int mouseX, int mouseY) {

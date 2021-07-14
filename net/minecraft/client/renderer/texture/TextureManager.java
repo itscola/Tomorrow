@@ -5,7 +5,7 @@ import com.google.common.collect.Maps;
 
 import libraries.optifine.Config;
 import libraries.optifine.RandomMobs;
-import libraries.shadersmod.client.ShadersTex;
+import shadersmod.client.ShadersTex;
 
 import java.io.IOException;
 import java.util.Iterator;

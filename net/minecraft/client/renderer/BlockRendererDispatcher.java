@@ -2,7 +2,7 @@ package net.minecraft.client.renderer;
 
 import libraries.optifine.Config;
 import libraries.optifine.Reflector;
-import libraries.shadersmod.client.SVertexBuilder;
+import shadersmod.client.SVertexBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;

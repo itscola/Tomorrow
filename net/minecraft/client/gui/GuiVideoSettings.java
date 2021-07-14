@@ -12,7 +12,7 @@ import libraries.optifine.GuiPerformanceSettingsOF;
 import libraries.optifine.GuiQualitySettingsOF;
 import libraries.optifine.Lang;
 import libraries.optifine.TooltipManager;
-import libraries.shadersmod.client.GuiShaders;
+import shadersmod.client.GuiShaders;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 

@@ -3,7 +3,7 @@
  */
 package tomorrow.tomo.event.events.rendering;
 
-import libraries.shadersmod.client.Shaders;
+import shadersmod.client.Shaders;
 import tomorrow.tomo.event.Event;
 
 public class EventRender3D

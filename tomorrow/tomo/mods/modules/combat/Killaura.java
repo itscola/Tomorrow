@@ -151,7 +151,6 @@ public class Killaura extends Module {
 			}
 			this.target = (EntityLivingBase) this.targets.get(this.index);
 			event.setYaw(RotationUtil.faceTarget(this.target, 1000.0f, 1000.0f, false)[0]);
-			mc.thePlayer.rotationYawHead = RotationUtil.faceTarget(this.target, 1000.0f, 1000.0f, false)[0];
 			if (!AutoHeal.currentlyPotting) {
 				event.setPitch(RotationUtil.faceTarget(this.target, 1000.0f, 1000.0f, false)[1]);
 			}

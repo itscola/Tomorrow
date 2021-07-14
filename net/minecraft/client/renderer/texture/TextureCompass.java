@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.texture;
 
 import libraries.optifine.Config;
-import libraries.shadersmod.client.ShadersTex;
+import shadersmod.client.ShadersTex;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;

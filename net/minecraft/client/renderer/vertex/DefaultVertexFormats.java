@@ -2,7 +2,7 @@ package net.minecraft.client.renderer.vertex;
 
 import libraries.optifine.Config;
 import libraries.optifine.Reflector;
-import libraries.shadersmod.client.SVertexFormat;
+import shadersmod.client.SVertexFormat;
 
 public class DefaultVertexFormats
 {

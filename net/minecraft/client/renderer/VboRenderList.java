@@ -7,7 +7,7 @@ import net.minecraft.util.EnumWorldBlockLayer;
 import org.lwjgl.opengl.GL11;
 
 import libraries.optifine.Config;
-import libraries.shadersmod.client.ShadersRender;
+import shadersmod.client.ShadersRender;
 
 public class VboRenderList extends ChunkRenderContainer
 {

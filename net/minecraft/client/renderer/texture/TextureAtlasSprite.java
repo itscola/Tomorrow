@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 
 import libraries.optifine.Config;
 import libraries.optifine.TextureUtils;
-import libraries.shadersmod.client.Shaders;
+import shadersmod.client.Shaders;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

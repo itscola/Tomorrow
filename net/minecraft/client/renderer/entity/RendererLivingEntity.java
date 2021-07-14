@@ -11,7 +11,7 @@ import com.google.common.collect.Lists;
 
 import libraries.optifine.Config;
 import libraries.optifine.Reflector;
-import libraries.shadersmod.client.Shaders;
+import shadersmod.client.Shaders;
 
 import java.nio.FloatBuffer;
 import java.util.List;
@@ -153,6 +153,9 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                 }
 
                 float f8 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
+                if (entity == Minecraft.getMinecraft().thePlayer) {
+                    f8 = entity.rotationPitchHead;
+                }
                 this.renderLivingAt(entity, x, y, z);
                 float f7 = this.handleRotationFloat(entity, partialTicks);
                 this.rotateCorpse(entity, f7, f, partialTicks);

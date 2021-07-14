@@ -19,8 +19,7 @@ import org.lwjgl.opengl.GL11;
 
 import libraries.optifine.Config;
 import libraries.optifine.TextureUtils;
-import libraries.shadersmod.client.SVertexBuilder;
-import tomorrow.tomo.Client;
+import shadersmod.client.SVertexBuilder;
 
 public class WorldRenderer
 {

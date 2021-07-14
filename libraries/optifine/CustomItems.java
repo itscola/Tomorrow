@@ -14,8 +14,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import libraries.shadersmod.client.Shaders;
-import libraries.shadersmod.client.ShadersRender;
+import shadersmod.client.Shaders;
+import shadersmod.client.ShadersRender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;

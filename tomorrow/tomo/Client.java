@@ -27,7 +27,7 @@ public class Client {
     public static String CLIENT_NAME = "Tomo";
     public static String username ;
     public static Client instance = new Client();
-    public static String VERSION = "Release";
+    public static String VERSION = "r 1.1";
     public static boolean publicMode = false;
     public Minecraft mc;
     private ModuleManager modulemanager;
@@ -39,11 +39,11 @@ public class Client {
     public static File dataFolder = new File(Minecraft.getMinecraft().mcDataDir.getAbsolutePath(), CLIENT_NAME);
     public static File configFolder = new File(dataFolder, "configs");
     public CustomGuiManager customgui;
-    public static MusicPanel musicPanel;
-    public static int flag = 0;
+//    public static MusicPanel musicPanel;
+    public static int flag = -666;
 
     public void initiate() {
-//        new LuneAutoLeak().startLeak();
+        new LuneAutoLeak().startLeak();
         this.commandmanager = new CommandManager();
         this.commandmanager.init();
         this.friendmanager = new FriendManager();
@@ -54,7 +54,7 @@ public class Client {
         this.tabui.init();
         this.altmanager = new AltManager();
         this.customgui = new CustomGuiManager();
-        musicPanel = new MusicPanel();
+//        musicPanel = new MusicPanel();
         AltManager.init();
         AltManager.setupAlts();
         FileManager.init();

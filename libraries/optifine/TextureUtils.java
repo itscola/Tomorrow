@@ -31,8 +31,8 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 import org.lwjgl.opengl.GLContext;
 
-import libraries.shadersmod.client.MultiTexID;
-import libraries.shadersmod.client.Shaders;
+import shadersmod.client.MultiTexID;
+import shadersmod.client.Shaders;
 
 public class TextureUtils
 {

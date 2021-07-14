@@ -3,7 +3,7 @@ package libraries.optifine;
 import java.util.HashMap;
 import java.util.Map;
 
-import libraries.shadersmod.client.Shaders;
+import shadersmod.client.Shaders;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;

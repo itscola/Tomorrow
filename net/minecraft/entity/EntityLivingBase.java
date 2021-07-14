@@ -187,6 +187,7 @@ public abstract class EntityLivingBase extends Entity
     /** Number of ticks since last jump */
     private int jumpTicks;
     private float absorptionAmount;
+	public float rotationPitchHead;
 
     /**
      * Called by the /kill command.
@@ -385,6 +386,7 @@ public abstract class EntityLivingBase extends Entity
         this.prevRotationYawHead = this.rotationYawHead;
         this.prevRotationYaw = this.rotationYaw;
         this.prevRotationPitch = this.rotationPitch;
+        this.rotationPitchHead = this.rotationPitch;
         this.worldObj.theProfiler.endSection();
     }
 

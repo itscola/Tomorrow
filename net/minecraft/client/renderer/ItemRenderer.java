@@ -31,7 +31,7 @@ import org.lwjgl.opengl.GL11;
 import libraries.optifine.Config;
 import libraries.optifine.DynamicLights;
 import libraries.optifine.Reflector;
-import libraries.shadersmod.client.Shaders;
+import shadersmod.client.Shaders;
 
 public class ItemRenderer
 {

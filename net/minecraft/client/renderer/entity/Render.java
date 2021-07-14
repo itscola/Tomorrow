@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 import libraries.optifine.Config;
-import libraries.shadersmod.client.Shaders;
+import shadersmod.client.Shaders;
 
 public abstract class Render<T extends Entity>
 {

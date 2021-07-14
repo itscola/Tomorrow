@@ -149,7 +149,8 @@ public class ModuleManager
                 continue;
             return m;
         }
-        return null;
+        System.out.println("一个功能没有获取到:" + cls.getName());
+        return modules.get(0);
     }
 
 

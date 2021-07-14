@@ -199,7 +199,7 @@ public class TomoClickGui extends GuiScreen {
 //        if (inAnim > 5) {
 //            GlStateManager.translate(inAnim, 0, 0);
 //        }
-        Client.musicPanel.render(mouseX,mouseY);
+//        Client.musicPanel.render(mouseX,mouseY);
 
         //拖动
         if (isHovered(windowX, windowY, windowX + width, windowY + 20, mouseX, mouseY) && Mouse.isButtonDown(0)) {
@@ -662,7 +662,7 @@ public class TomoClickGui extends GuiScreen {
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
-        Client.musicPanel.onMouse(mouseX,mouseY,mouseButton);
+//        Client.musicPanel.onMouse(mouseX,mouseY,mouseButton);
         //顶部图标
         float typeX = windowX + 20;
         for (Enum<?> e : ClickType.values()) {
@@ -736,12 +736,12 @@ public class TomoClickGui extends GuiScreen {
         if (MusicPanel.inputBox.isFocused()) {
             MusicPanel.inputBox.textboxKeyTyped(typedChar, keyCode);
             if(keyCode == Keyboard.KEY_RETURN){
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Client.musicPanel.getMusics();
-                    }
-                }).start();
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Client.musicPanel.getMusics();
+//                    }
+//                }).start();
             }
         }
     }

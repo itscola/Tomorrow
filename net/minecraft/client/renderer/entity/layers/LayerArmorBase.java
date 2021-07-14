@@ -5,8 +5,8 @@ import com.google.common.collect.Maps;
 import libraries.optifine.Config;
 import libraries.optifine.CustomItems;
 import libraries.optifine.Reflector;
-import libraries.shadersmod.client.Shaders;
-import libraries.shadersmod.client.ShadersRender;
+import shadersmod.client.Shaders;
+import shadersmod.client.ShadersRender;
 
 import java.util.Map;
 import net.minecraft.client.model.ModelBase;

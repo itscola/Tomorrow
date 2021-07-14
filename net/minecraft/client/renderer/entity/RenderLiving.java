@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity;
 
 import libraries.optifine.Config;
-import libraries.shadersmod.client.Shaders;
+import shadersmod.client.Shaders;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -12,7 +12,6 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityHanging;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
 
 public abstract class RenderLiving<T extends EntityLiving> extends RendererLivingEntity<T>
 {

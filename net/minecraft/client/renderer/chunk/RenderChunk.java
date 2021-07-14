@@ -7,7 +7,7 @@ import libraries.optifine.BlockPosM;
 import libraries.optifine.Config;
 import libraries.optifine.Reflector;
 import libraries.optifine.ReflectorForge;
-import libraries.shadersmod.client.SVertexBuilder;
+import shadersmod.client.SVertexBuilder;
 
 import java.nio.FloatBuffer;
 import java.util.EnumMap;

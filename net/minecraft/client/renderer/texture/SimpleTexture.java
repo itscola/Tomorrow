@@ -12,7 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import libraries.optifine.Config;
-import libraries.shadersmod.client.ShadersTex;
+import shadersmod.client.ShadersTex;
 
 public class SimpleTexture extends AbstractTexture
 {

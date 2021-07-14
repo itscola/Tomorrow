@@ -13,8 +13,8 @@ import libraries.optifine.RandomMobs;
 import libraries.optifine.Reflector;
 import libraries.optifine.ReflectorForge;
 import libraries.optifine.TextureUtils;
-import libraries.shadersmod.client.Shaders;
-import libraries.shadersmod.client.ShadersRender;
+import shadersmod.client.Shaders;
+import shadersmod.client.ShadersRender;
 
 import java.io.IOException;
 import java.lang.reflect.Field;

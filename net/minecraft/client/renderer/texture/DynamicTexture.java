@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import libraries.optifine.Config;
-import libraries.shadersmod.client.ShadersTex;
+import shadersmod.client.ShadersTex;
 import net.minecraft.client.resources.IResourceManager;
 
 public class DynamicTexture extends AbstractTexture

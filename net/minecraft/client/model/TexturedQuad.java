@@ -1,7 +1,7 @@
 package net.minecraft.client.model;
 
 import libraries.optifine.Config;
-import libraries.shadersmod.client.SVertexFormat;
+import shadersmod.client.SVertexFormat;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;

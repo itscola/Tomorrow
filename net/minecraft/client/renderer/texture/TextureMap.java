@@ -23,7 +23,7 @@ import libraries.optifine.Config;
 import libraries.optifine.ConnectedTextures;
 import libraries.optifine.Reflector;
 import libraries.optifine.TextureUtils;
-import libraries.shadersmod.client.ShadersTex;
+import shadersmod.client.ShadersTex;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.StitcherException;

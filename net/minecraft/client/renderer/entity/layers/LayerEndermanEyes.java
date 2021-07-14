@@ -1,7 +1,7 @@
 package net.minecraft.client.renderer.entity.layers;
 
 import libraries.optifine.Config;
-import libraries.shadersmod.client.Shaders;
+import shadersmod.client.Shaders;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderEnderman;

@@ -35,7 +35,7 @@ import org.lwjgl.opengl.GL11;
 
 import libraries.optifine.Config;
 import libraries.optifine.Reflector;
-import libraries.shadersmod.client.ShadersTex;
+import shadersmod.client.ShadersTex;
 
 public class RenderItemFrame extends Render
 {
