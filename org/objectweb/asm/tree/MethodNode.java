@@ -370,7 +370,7 @@ public class MethodNode extends MethodVisitor {
   public void accept(MethodVisitor methodVisitor) {
     if (this.parameters != null)
       for (int i = 0, n = this.parameters.size(); i < n; i++)
-        ((ParameterNode)this.parameters.get(i)).accept(methodVisitor);  
+        ((ParameterNode)this.parameters.get(i)).accept(methodVisitor);
     if (this.annotationDefault != null) {
       AnnotationVisitor annotationVisitor = methodVisitor.visitAnnotationDefault();
       AnnotationNode.accept(annotationVisitor, null, this.annotationDefault);
@@ -425,7 +425,7 @@ public class MethodNode extends MethodVisitor {
       this.instructions.resetLabels(); 
     if (this.attrs != null)
       for (int i = 0, n = this.attrs.size(); i < n; i++)
-        methodVisitor.visitAttribute((Attribute)this.attrs.get(i));  
+        methodVisitor.visitAttribute((Attribute)this.attrs.get(i));
     if (this.instructions.size() > 0) {
       methodVisitor.visitCode();
       if (this.tryCatchBlocks != null)
@@ -436,13 +436,13 @@ public class MethodNode extends MethodVisitor {
       this.instructions.accept(methodVisitor);
       if (this.localVariables != null)
         for (int i = 0, n = this.localVariables.size(); i < n; i++)
-          ((LocalVariableNode)this.localVariables.get(i)).accept(methodVisitor);  
+          ((LocalVariableNode)this.localVariables.get(i)).accept(methodVisitor);
       if (this.visibleLocalVariableAnnotations != null)
         for (int i = 0, n = this.visibleLocalVariableAnnotations.size(); i < n; i++)
-          ((LocalVariableAnnotationNode)this.visibleLocalVariableAnnotations.get(i)).accept(methodVisitor, true);  
+          ((LocalVariableAnnotationNode)this.visibleLocalVariableAnnotations.get(i)).accept(methodVisitor, true);
       if (this.invisibleLocalVariableAnnotations != null)
         for (int i = 0, n = this.invisibleLocalVariableAnnotations.size(); i < n; i++)
-          ((LocalVariableAnnotationNode)this.invisibleLocalVariableAnnotations.get(i)).accept(methodVisitor, false);  
+          ((LocalVariableAnnotationNode)this.invisibleLocalVariableAnnotations.get(i)).accept(methodVisitor, false);
       methodVisitor.visitMaxs(this.maxStack, this.maxLocals);
       this.visited = true;
     } 

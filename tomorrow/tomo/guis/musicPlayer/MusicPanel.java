@@ -118,33 +118,33 @@ public class MusicPanel {
                     HttpURLConnection conn = null;
                     InputStream inputStream = null;
                     try {
-                        // ½¨Á¢Á´½Ó
+                        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                         URL httpUrl = new URL(m.url);
                         conn = (HttpURLConnection) httpUrl.openConnection();
-                        //ÒÔPost·½Ê½Ìá½»±íµ¥£¬Ä¬ÈÏget·½Ê½
+                        //ï¿½ï¿½Postï¿½ï¿½Ê½ï¿½á½»ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½getï¿½ï¿½Ê½
 //                        conn.setRequestMethod("get");
                         conn.setDoInput(true);
                         conn.setDoOutput(true);
-                        // post·½Ê½²»ÄÜÊ¹ÓÃ»º´æ
+                        // postï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã»ï¿½ï¿½ï¿½
                         conn.setUseCaches(false);
-                        //Á¬½ÓÖ¸¶¨µÄ×ÊÔ´
+                        //ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´
                         conn.connect();
-                        //»ñÈ¡ÍøÂçÊäÈëÁ÷
+                        //ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                         inputStream = conn.getInputStream();
                         BufferedInputStream bis = new BufferedInputStream(inputStream);
-                        //ÅÐ¶ÏÎÄ¼þµÄ±£´æÂ·¾¶ºóÃæÊÇ·ñÒÔ/½áÎ²
+                        //ï¿½Ð¶ï¿½ï¿½Ä¼ï¿½ï¿½Ä±ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½/ï¿½ï¿½Î²
                         if (!filePath.endsWith("/")) {
 
                             filePath += "/";
 
                         }
-                        //Ð´Èëµ½ÎÄ¼þ£¨×¢ÒâÎÄ¼þ±£´æÂ·¾¶µÄºóÃæÒ»¶¨Òª¼ÓÉÏÎÄ¼þµÄÃû³Æ£©
+                        //Ð´ï¿½ëµ½ï¿½Ä¼ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½Ò»ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½
                         fileOut = new FileOutputStream(filePath + "music.mp3");
                         BufferedOutputStream bos = new BufferedOutputStream(fileOut);
 
                         byte[] buf = new byte[4096];
                         int length = bis.read(buf);
-                        //±£´æÎÄ¼þ
+                        //ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
                         while (length != -1) {
                             bos.write(buf, 0, length);
                             length = bis.read(buf);
@@ -154,7 +154,7 @@ public class MusicPanel {
                         conn.disconnect();
                     } catch (Exception e) {
                         e.printStackTrace();
-                        System.out.println("Å×³öÒì³££¡£¡");
+                        System.out.println("ï¿½×³ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½");
                     }
                     File musicFile = new File("C:/musicdata/music.mp3");
                     initMusic(musicFile);
@@ -200,7 +200,7 @@ public class MusicPanel {
         int size = o2.size();
         for (int i = 0; i < size; i++) {
             JSONObject jo1 = o2.getJSONObject(i);
-//            System.out.println(jo1.getString(jo1.getString("name"))); //Ñ­»··µ»ØÍøÖ·
+//            System.out.println(jo1.getString(jo1.getString("name"))); //Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
 
             String s1 = null;
             try {

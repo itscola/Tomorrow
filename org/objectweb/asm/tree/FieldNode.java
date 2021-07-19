@@ -117,7 +117,7 @@ public class FieldNode extends FieldVisitor {
       }  
     if (this.attrs != null)
       for (int i = 0, n = this.attrs.size(); i < n; i++)
-        fieldVisitor.visitAttribute((Attribute)this.attrs.get(i));  
+        fieldVisitor.visitAttribute((Attribute)this.attrs.get(i));
     fieldVisitor.visitEnd();
   }
 }

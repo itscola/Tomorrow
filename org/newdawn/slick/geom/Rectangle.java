@@ -49,7 +49,7 @@ public class Rectangle extends Shape {
 		if (yp >= maxY) {
 			return false;
 		}
-		
+
 		return true;
 	}
 	

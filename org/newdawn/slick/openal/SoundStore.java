@@ -647,7 +647,7 @@ public class SoundStore {
 				Log.error(e);
 				IOException x = new IOException("Failed to load: "+ref);
 				x.initCause(e);
-				
+
 				throw x;
 			}
 		}
@@ -720,7 +720,7 @@ public class SoundStore {
 				Log.error(e);
 				IOException x = new IOException("Failed to load: "+ref);
 				x.initCause(e);
-				
+
 				throw x;
 			}
 		}

@@ -87,7 +87,7 @@ public abstract class AbstractInsnNode {
   static LabelNode[] clone(List<LabelNode> labels, Map<LabelNode, LabelNode> clonedLabels) {
     LabelNode[] clones = new LabelNode[labels.size()];
     for (int i = 0, n = clones.length; i < n; i++)
-      clones[i] = (LabelNode)clonedLabels.get(labels.get(i)); 
+      clones[i] = (LabelNode)clonedLabels.get(labels.get(i));
     return clones;
   }
   

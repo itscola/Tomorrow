@@ -19,6 +19,7 @@ public class Notification {
     public boolean setBack;
     private float fy, cy = 0;
     private TimerUtil anitimer = new TimerUtil();
+    private AnimationUtils animationUtils = new AnimationUtils();
 
     public Notification(String name, Type type) {
         this.name = name;
@@ -60,12 +61,12 @@ public class Notification {
             timer.reset();
         }
         if (anitimer.delay(10)) {
-            cy = AnimationUtils.animate(fy, cy, 0.1f);
+            cy = animationUtils.animate(fy, cy, 0.1f);
 
             if (!setBack) {
-                x = AnimationUtils.animate(width, x, 0.1f);
+                x = animationUtils.animate(width, x, 0.1f);
             } else {
-                x = AnimationUtils.animate(0, x, 0.1f);
+                x = animationUtils.animate(0, x, 0.1f);
             }
             anitimer.reset();
         }

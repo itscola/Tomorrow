@@ -48,7 +48,7 @@ public class RectProcessor implements ElementProcessor {
 		if (element.getNodeName().equals("rect")) {
 			return true;
 		}
-		
+
 		return false;
 	}
 }

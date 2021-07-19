@@ -4,6 +4,8 @@ import org.lwjgl.input.Keyboard;
 import tomorrow.tomo.event.value.Mode;
 import tomorrow.tomo.guis.clickgui2.TomoClickGui;
 import tomorrow.tomo.guis.clickgui2.theme.Theme;
+import tomorrow.tomo.guis.material.Main;
+import tomorrow.tomo.guis.material.themes.MainWhite;
 import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
@@ -11,11 +13,17 @@ import tomorrow.tomo.mods.ModuleType;
 @Mod(name = "ClickGui", description = ".", type = ModuleType.Render)
 
 public class ClickGui extends Module {
+    public Mode mode = new Mode("Mode", "Mode", Modes.values(), Modes.Material);
     public Mode color = new Mode("Theme", "Theme", themes.values(), themes.Dark);
+
+    enum Modes {
+        VapuLite,
+        Material
+    }
 
     enum themes {
         White,
-        Dark
+        Dark,
     }
 
     public ClickGui() {
@@ -29,12 +37,22 @@ public class ClickGui extends Module {
     public void onEnable() {
 //        mc.displayGuiScreen(new tomorrow.client.guis.clickgui.ClickGui());
 
-        if(color.getValue().equals(themes.Dark)){
-            TomoClickGui.theme.setDark();
-        }else if(color.getValue().equals(themes.White)){
-            TomoClickGui.theme.setWhite();
+        if (color.getValue().equals(themes.Dark)) {
+            if(mode.getValue().equals(Modes.VapuLite)) {
+                TomoClickGui.theme.setDark();
+                mc.displayGuiScreen(new TomoClickGui());
+            }else if(mode.getValue().equals(Modes.Material)) {
+                // TODO: 2021/7/19 dark mode 
+                mc.displayGuiScreen(new MainWhite());
+            }
+        } else if (color.getValue().equals(themes.White)) {
+            if(mode.getValue().equals(Modes.VapuLite)) {
+                TomoClickGui.theme.setWhite();
+                mc.displayGuiScreen(new TomoClickGui());
+            }else if(mode.getValue().equals(Modes.Material)) {
+                mc.displayGuiScreen(new MainWhite());
+            }
         }
-        mc.displayGuiScreen(new TomoClickGui());
 
         this.setEnabled(false);
     }

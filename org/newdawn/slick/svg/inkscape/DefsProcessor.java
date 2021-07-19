@@ -26,7 +26,7 @@ public class DefsProcessor implements ElementProcessor {
 		if (element.getNodeName().equals("defs")) {
 			return true;
 		}
-		
+
 		return false;
 	}
 

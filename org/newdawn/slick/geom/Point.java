@@ -25,7 +25,7 @@ public class Point extends Shape
      */
     public Shape transform(Transform transform) 
     { 
-        float result[] = new float[points.length]; 
+        float result[] = new float[points.length];
         transform.transform(points, 0, result, 0, points.length / 2); 
         
         return new Point(points[0], points[1]); 

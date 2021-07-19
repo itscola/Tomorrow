@@ -4,7 +4,7 @@ import tomorrow.tomo.utils.cheats.world.TimerUtil;
 
 public class AnimationUtils {
     private static float defaultSpeed = 0.125f;
-    private static TimerUtil timerUtil = new TimerUtil();
+    private TimerUtil timerUtil = new TimerUtil();
     
 
     public static float calculateCompensation(float target, float current, long delta, double speed) {
@@ -31,50 +31,57 @@ public class AnimationUtils {
         return current;
     }
 
-    public static float mvoeUD(float current, float end, float minSpeed) {
+    public float mvoeUD(float current, float end, float minSpeed) {
         return moveUD(current, end, defaultSpeed, minSpeed);
     }
 
-    public static double animate(double target, double current, double speed) {
-        boolean larger;
-        boolean bl = larger = target > current;
-        if (speed < 0.0) {
-            speed = 0.0;
-        } else if (speed > 1.0) {
-            speed = 1.0;
+    public double animate(double target, double current, double speed) {
+        if(timerUtil.delay(4)) {
+            boolean larger;
+            boolean bl = larger = target > current;
+            if (speed < 0.0) {
+                speed = 0.0;
+            } else if (speed > 1.0) {
+                speed = 1.0;
+            }
+            double dif = Math.max(target, current) - Math.min(target, current);
+            double factor = dif * speed;
+            if (factor < 0.1) {
+                factor = 0.1;
+            }
+
+            current = larger ? (current += factor) : (current -= factor);
+            timerUtil.reset();
         }
-        double dif = Math.max(target, current) - Math.min(target, current);
-        double factor = dif * speed;
-        if (factor < 0.1) {
-            factor = 0.1;
-        }
-        current = larger ? (current += factor) : (current -= factor);
         return current;
     }
 
-    public static float animate(float target, float current, float speed) {
-        boolean larger;
-        boolean bl = larger = target > current;
-        if (speed < 0.0f) {
-            speed = 0.0f;
-        } else if (speed > 1.0) {
-            speed = 1.0f;
-        }
-        float dif = Math.max(target, current) - Math.min(target, current);
-        float factor = dif * speed;
-        if (factor < 0.1f) {
-            factor = 0.1f;
-        }
-        current = larger ? (current += factor) : (current -= factor);
+    public float animate(float target, float current, float speed) {
+        if(timerUtil.delay(4)) {
+            boolean larger;
+            boolean bl = larger = target > current;
+            if (speed < 0.0f) {
+                speed = 0.0f;
+            } else if (speed > 1.0) {
+                speed = 1.0f;
+            }
+            float dif = Math.max(target, current) - Math.min(target, current);
+            float factor = dif * speed;
+            if (factor < 0.1f) {
+                factor = 0.1f;
+            }
+            current = larger ? (current += factor) : (current -= factor);
 
+            timerUtil.reset();
+        }
         if (Math.abs(current - target) < 0.2) {
             return target;
-        }else{
+        } else {
             return current;
         }
     }
 
-    public static float moveUD(float current, float end, float smoothSpeed, float minSpeed) {
+    public float moveUD(float current, float end, float smoothSpeed, float minSpeed) {
         float movement = 0;
         if (timerUtil.delay(20)) {
             movement = (end - current) * smoothSpeed;

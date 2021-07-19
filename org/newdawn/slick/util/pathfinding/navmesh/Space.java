@@ -206,7 +206,7 @@ public class Space {
 		if ((y == other.y) && (height == other.height)) {
 			return true;
 		}
-		
+
 		return false;
 	}
 	

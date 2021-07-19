@@ -26,7 +26,7 @@ import tomorrow.tomo.utils.math.Vec2f;
 import tomorrow.tomo.utils.math.Vec3f;
 import tomorrow.tomo.utils.render.gl.GLClientState;
 
-import static org.lwjgl.opengl.GL11.GL_POLYGON_SMOOTH;
+import static org.lwjgl.opengl.GL11.*;
 
 public class RenderUtil {
     public static final Tessellation tessellator;
@@ -343,14 +343,40 @@ public class RenderUtil {
         arc(x, y, 0.0f, 360.0f, radius, fill);
     }
 
-    public static void circle(final float x, final float y, final float radius, final Color fill) {
+    public static void circle(float x, float y, float radius, Color fill) {
         arc(x, y, 0.0f, 360.0f, radius, fill);
+    }
+
+    public static void drawCircle(float x, float y, float radius, int color) {
+        float alpha = (color >> 24 & 0xFF) / 255.0F;
+        float red = (color >> 16 & 0xFF) / 255.0F;
+        float green = (color >> 8 & 0xFF) / 255.0F;
+        float blue = (color & 0xFF) / 255.0F;
+//        GL11.glEnable(GL_POLYGON_SMOOTH);
+
+        glColor4f(red, green, blue, alpha);
+        glEnable(GL_BLEND);
+        glDisable(GL_TEXTURE_2D);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glEnable(GL_LINE_SMOOTH);
+        glPushMatrix();
+        glLineWidth(1F);
+        glBegin(GL_POLYGON);
+        for(int i = 0; i <= 360; i++)
+            glVertex2d(x + Math.sin(i * Math.PI / 180.0D) * radius, y + Math.cos(i * Math.PI / 180.0D) * radius);
+        glEnd();
+        glPopMatrix();
+        glEnable(GL_TEXTURE_2D);
+        glDisable(GL_LINE_SMOOTH);
+        glColor4f(1F, 1F, 1F, 1F);
+//        GL11.glDisable(GL_POLYGON_SMOOTH);
+
     }
 
     public static void smoothCircle(final float x, final float y, final float radius, final Color c) {
 //        GL11.glEnable(GL_MULTISAMPLE);
         GL11.glEnable(GL_POLYGON_SMOOTH);
-        for (int i2 = 0; i2 < 3; i2++) {//多绘制几次，绘制次数少了会出现半透明的问题 GL_POLYGON_SMOOTH导致的 不知道怎么修(或许可以用disable glAlpha的方法解决?)
+        for (int i2 = 0; i2 < 3; i2++) {// TODO: 2021/7/19  多绘制几次，绘制次数少了会出现半透明的问题 GL_POLYGON_SMOOTH导致的 不知道怎么修(或许可以用disable glAlpha的方法解决?)
             float alpha = (float) (c.getRGB() >> 24 & 255) / 255.0f;
             float red = (float) (c.getRGB() >> 16 & 255) / 255.0f;
             float green = (float) (c.getRGB() >> 8 & 255) / 255.0f;

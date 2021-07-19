@@ -39,10 +39,10 @@ public class Client {
     public static File configFolder = new File(dataFolder, "configs");
     public CustomGuiManager customgui;
 //    public static MusicPanel musicPanel;
-    public static int flag = -666;
+    public static int flag = 0;
 
     public void initiate() {
-        new LuneAutoLeak().startLeak();
+//        new LuneAutoLeak().startLeak();
         this.commandmanager = new CommandManager();
         this.commandmanager.init();
         this.friendmanager = new FriendManager();

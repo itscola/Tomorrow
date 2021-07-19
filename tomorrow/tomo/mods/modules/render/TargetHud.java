@@ -31,7 +31,7 @@ public class TargetHud extends Module {
     public Mode mod = new Mode("Mode", "Mode", Mod.values(), Mod.Classic);
     public Numbers<Number> x = new Numbers<Number>("X(persent)", "X(persent)", 80.0, 0.0, 100.0, 5);
     public Numbers<Number> y = new Numbers<Number>("Y(persent)", "Y(persent)", 80.0, 0.0, 100.0, 5);
-
+    public AnimationUtils animationUtils = new AnimationUtils();
     private static final Color COLOR = new Color(0, 0, 0, 180);
     private final TimerUtil animationStopwatch = new TimerUtil();
     private EntityOtherPlayerMP target;
@@ -122,8 +122,8 @@ public class TargetHud extends Module {
                 if (this.animationStopwatch.delay(15L)) {
 //                    this.healthBarWidth = hpWidth;
 //                    this.hudHeight = 40.0f;
-                    this.healthBarWidth = (float) AnimationUtils.animate(hpWidth, this.healthBarWidth, 0.353f);
-                    this.hudHeight = (float) AnimationUtils.animate(40.0, this.hudHeight, 0.1);
+                    this.healthBarWidth = (float) animationUtils.animate(hpWidth, this.healthBarWidth, 0.353f);
+                    this.hudHeight = (float) animationUtils.animate(40.0, this.hudHeight, 0.1);
                     this.animationStopwatch.reset();
                 }
                 GL11.glEnable((int) 3089);

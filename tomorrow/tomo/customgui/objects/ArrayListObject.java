@@ -71,8 +71,8 @@ public class ArrayListObject extends GuiObject {
             float ys = y1;
             if (timer.delay(10)) {
                 for (Module mod : mods) {
-                    mod.animY = AnimationUtils.animate(ys, mod.animY, 0.15f);
-                    mod.animX = AnimationUtils.animate(x1 - (font.getStringWidth(mod.getName() + (mod.getSuffix().isEmpty() ? "" : " ") + ChatFormatting.WHITE + mod.getSuffix()) - 4), mod.animX, 0.15f);
+                    mod.animY = mod.animationUtils.animate(ys, mod.animY, 0.15f);
+                    mod.animX = mod.animationUtils2.animate(x1 - (font.getStringWidth(mod.getName() + (mod.getSuffix().isEmpty() ? "" : " ") + ChatFormatting.WHITE + mod.getSuffix()) - 4), mod.animX, 0.15f);
                     ys += 12;
                 }
                 timer.reset();
