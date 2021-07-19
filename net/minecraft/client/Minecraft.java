@@ -998,7 +998,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         try {
             this.stream.shutdownStream();
             logger.info("Stopping!");
-            Client.instance.shutDown();
 
             try {
                 this.loadWorld((WorldClient) null);

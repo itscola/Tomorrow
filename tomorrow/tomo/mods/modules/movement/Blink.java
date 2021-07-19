@@ -58,7 +58,9 @@ extends Module {
             this.mc.getNetHandler().addToSendQueue(packet);
         }
         this.packetList.clear();
-        this.mc.theWorld.removeEntityFromWorld(this.blinkEntity.getEntityId());
+        if(blinkEntity!=null) {
+            this.mc.theWorld.removeEntityFromWorld(this.blinkEntity.getEntityId());
+        }
     }
 }
 

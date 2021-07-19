@@ -16,7 +16,7 @@ import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Session;
-import tomorrow.tomo.utils.cheats.misc.JsonUtil;
+import tomorrow.tomo.Client;
 
 public class Main
 {
@@ -108,7 +108,8 @@ public class Main
             public void run()
             {
                 Minecraft.stopIntegratedServer();
-                JsonUtil.saveConfig();
+                Client.instance.shutDown();
+//                JsonUtil.saveConfig();
             }
         });
         Thread.currentThread().setName("Client thread");

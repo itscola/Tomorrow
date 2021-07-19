@@ -24,7 +24,7 @@ extends Module {
     private double z;
 
     public Freecam(){
-        super("FreeCam", ModuleType.Player);
+        super("FreeCam", ModuleType.Ghost);
     }
 
 

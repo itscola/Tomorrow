@@ -21,7 +21,6 @@ import tomorrow.tomo.guis.notification.NotificationsManager;
 import tomorrow.tomo.managers.ModuleManager;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
-import tomorrow.tomo.utils.cheats.misc.JsonUtil;
 import tomorrow.tomo.utils.cheats.player.Helper;
 import tomorrow.tomo.utils.cheats.world.TimerUtil;
 import tomorrow.tomo.utils.render.ColorUtils;
@@ -136,7 +135,7 @@ public class TomoClickGui extends GuiScreen {
 
 
     public float smoothTrans(double current, double last) {
-        return (float) (current + (last - current) / (Minecraft.debugFPS / 10));
+        return (float) (current + (last - current) / (Minecraft.getDebugFPS() / 10));
     }
 
     @Override
@@ -590,7 +589,7 @@ public class TomoClickGui extends GuiScreen {
 //                        LoadCloudConfig thread = new LoadCloudConfig(c.getName());
 //                        thread.start();
 //                    } else {
-                    JsonUtil.load(c.name);
+//                    Client.instance.getModuleManager().readSettings(c.name);
                     mc.thePlayer.playSound("random.click", 1, 0.2f);
                     NotificationsManager.addNotification(new Notification("You has loaded config:" + c.name, Notification.Type.Info));
 //                    }
@@ -625,14 +624,15 @@ public class TomoClickGui extends GuiScreen {
                 boolean has = false;
                 for (Config c : configs) {
                     if (c.name.equals(configInputBox.getText())) {
-                        JsonUtil.saveConfig(configInputBox.getText());
+                        Client.instance.getModuleManager().saveSettings(configInputBox.getText());
+
                         valuetimer.reset();
                         has = true;
                     }
                 }
                 if (!has) {
                     configs.add(new Config(configInputBox.getText(), "Location", false));
-                    JsonUtil.saveConfig(configInputBox.getText());
+                    Client.instance.getModuleManager().saveSettings(configInputBox.getText());
                     valuetimer.reset();
                 }
             } else if (isHovered(windowX + 95, windowY + 95, windowX + 105, windowY + 105, mouseX, mouseY) && Mouse.isButtonDown(0) && valuetimer.delay(500) && configs.size() >= 6) {

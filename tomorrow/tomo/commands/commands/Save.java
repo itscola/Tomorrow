@@ -1,8 +1,8 @@
 package tomorrow.tomo.commands.commands;
 
+import tomorrow.tomo.Client;
 import tomorrow.tomo.commands.Command;
 import tomorrow.tomo.utils.cheats.player.Helper;
-import tomorrow.tomo.utils.cheats.misc.JsonUtil;
 
 public class Save extends Command {
     public Save() {
@@ -12,15 +12,15 @@ public class Save extends Command {
     @Override
     public String execute(String[] var1) {
         if (var1.length < 1){
-            Helper.sendMessage("�÷�: .save <load/save>");
+            Helper.sendMessage(".save <load/save>");
         }
 
         if(var1[0].equals("load")){
-            JsonUtil.load();
+            Client.instance.getModuleManager().readSettings();
             Helper.sendMessage("Loaded!");
 
         }else {
-            JsonUtil.saveConfig();
+            Client.instance.getModuleManager().saveSettings();
             Helper.sendMessage("Saved!");
         }
         return null;

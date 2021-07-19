@@ -77,7 +77,8 @@ public class FontLoaders {
                 s2 = ".ttf";
             }
 
-            UnicodeFontRenderer = new UnicodeFontRenderer(Font.createFont(0, class1.getResourceAsStream(append.append(s2).toString())).deriveFont(size), size, -1, -1, false);
+
+            UnicodeFontRenderer = new UnicodeFontRenderer(Font.createFont(0, Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("client/msyh.ttf")).getInputStream()).deriveFont(size), size, -1, -1, false);
             UnicodeFontRenderer.setUnicodeFlag(true);
             UnicodeFontRenderer.setBidiFlag(Minecraft.getMinecraft().getLanguageManager().isCurrentLanguageBidirectional());
             HashMap hashMap = new HashMap();

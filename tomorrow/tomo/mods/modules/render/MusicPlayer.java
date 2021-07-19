@@ -19,7 +19,7 @@ public class MusicPlayer extends Module {
 
     @EventHandler
     public void onRender(EventRender2D e) {
-        mc.fontRendererObj.drawStringWithShadow("正在播放：" + Client.musicPanel.playing, 100, 100, -1);
+        mc.fontRendererObj.drawStringWithShadow("正在播放：", 100, 100, -1);
     }
 
 

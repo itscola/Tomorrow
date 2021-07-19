@@ -16,7 +16,6 @@ import tomorrow.tomo.managers.ModuleManager;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.modules.render.UI.TabUI;
 import tomorrow.tomo.guis.login.AltManager;
-import tomorrow.tomo.utils.cheats.misc.JsonUtil;
 import tomorrow.tomo.utils.cheats.player.Helper;
 import tomorrow.tomo.utils.irc.packets.clientside.ClientConnectPacket;
 import tomorrow.tomo.utils.math.MathUtil;
@@ -58,7 +57,7 @@ public class Client {
         AltManager.init();
         AltManager.setupAlts();
         FileManager.init();
-        JsonUtil.load();
+        modulemanager.readSettings();
         mc = Minecraft.getMinecraft();
 //        try {
 //            new ViaFabric().onInitialize();

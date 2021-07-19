@@ -89,7 +89,6 @@ public class ModuleManager
         modules.add(new ScreenRader());
         modules.add(new DamageParticle());
         modules.add(new ChunkAnimator());
-        modules.add(new MusicPlayer());
 
 
         //Player
@@ -134,7 +133,6 @@ public class ModuleManager
         modules.add(new AutoGG());
 
 
-
 //		this.readSettings();ss
         EventBus.getInstance().register(this);
     }
@@ -143,12 +141,13 @@ public class ModuleManager
         return modules;
     }
 
-    public static Module getModuleByClass(Class<? extends Module> cls) {
-        for (Module m : modules) {
-            if (m.getClass() != cls)
-                continue;
-            return m;
-        }
+    public synchronized static Module getModuleByClass(Class<? extends Module> cls) {
+            for (Module m : modules) {
+                if (m.getClass() != cls)
+                    continue;
+                return m;
+            }
+
         System.out.println("一个功能没有获取到:" + cls.getName());
         return modules.get(0);
     }
@@ -183,28 +182,13 @@ public class ModuleManager
     private void onGLHack(EventRender3D e) {
         GlStateManager.getFloat(2982, (FloatBuffer) GLUtils.MODELVIEW.clear());
         GlStateManager.getFloat(2983, (FloatBuffer) GLUtils.PROJECTION.clear());
-        GlStateManager.glGetInteger(2978, (IntBuffer) GLUtils.VIEWPORT.clear());
+//        GlStateManager.glGetInteger(2978, (IntBuffer) GLUtils.VIEWPORT.clear());
     }
 
     TimerUtil timerUtil = new TimerUtil();
 
     @EventHandler
     private void on2DRender(EventRender2D e) {
-//        if(timerUtil.delay(15000)) {
-//            try {
-//                Client.sendMessage("E");
-//            } catch (Exception ex) {
-//                System.out.println("Connect irc server");
-//                Client.connect(tomorrow.tomo.Client.username, Helper.mc.thePlayer.getName());
-//            }
-//            timerUtil.reset();
-//        }
-
-//        if(Helper.mc.thePlayer != null && (Client.timerUtil.delay(10000))){
-//            Helper.sendMessage("\2474[IRC] Connecting...");
-//            Client.connect(Tomorrow.username, Helper.mc.thePlayer.getName());
-//            Client.timerUtil.reset();
-//        }
         if (this.enabledNeededMod) {
             this.enabledNeededMod = false;
             for (Module m : modules) {
@@ -214,7 +198,8 @@ public class ModuleManager
         }
     }
 
-    private void readSettings() {
+
+    public void readSettings() {
         List<String> binds = FileManager.read("Binds.txt");
         for (String v : binds) {
             String name = v.split(":")[0];
@@ -248,6 +233,38 @@ public class ModuleManager
                 ((Mode) value).setMode(v.split(":")[2]);
             }
         }
+    }
+
+    public void saveSettings() {
+        String values = "";
+        for (Module m : ModuleManager.getModules()) {
+            for (Value v : m.getValues()) {
+                values = String.valueOf(values) + String.format("%s:%s:%s%s", m.getName(), v.getName(), v.getValue(), System.lineSeparator());
+            }
+        }
+        FileManager.save("Values.txt", values, false);
+        String enabled = "";
+        for (Module m : ModuleManager.getModules()) {
+            if (!m.isEnabled()) continue;
+            enabled = String.valueOf(enabled) + String.format("%s%s", m.getName(), System.lineSeparator());
+        }
+        FileManager.save("Enabled.txt", enabled, false);
+    }
+
+    public void saveSettings(String text) {
+        String values = "";
+        for (Module m : ModuleManager.getModules()) {
+            for (Value v : m.getValues()) {
+                values = String.valueOf(values) + String.format("%s:%s:%s%s", m.getName(), v.getName(), v.getValue(), System.lineSeparator());
+            }
+        }
+        FileManager.save("Values.txt", values, false);
+        String enabled = "";
+        for (Module m : ModuleManager.getModules()) {
+            if (!m.isEnabled()) continue;
+            enabled = String.valueOf(enabled) + String.format("%s%s", m.getName(), System.lineSeparator());
+        }
+        FileManager.save("Enabled.txt", enabled, false);
     }
 }
 

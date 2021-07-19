@@ -3,7 +3,6 @@ package tomorrow.tomo.utils.irc;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import tomorrow.tomo.managers.ModuleManager;
 import tomorrow.tomo.mods.modules.misc.IRC;
-import tomorrow.tomo.utils.cheats.misc.JsonUtil;
 import tomorrow.tomo.utils.cheats.player.Helper;
 import tomorrow.tomo.utils.cheats.world.TimerUtil;
 import tomorrow.tomo.utils.irc.packets.clientside.ClientChatPacket;

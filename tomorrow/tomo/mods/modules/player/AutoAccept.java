@@ -11,7 +11,7 @@ import java.awt.Color;
 public class AutoAccept
 extends Module {
     public AutoAccept(){
-        super("AutoAccept", ModuleType.Player);
+        super("AutoAccept", ModuleType.Ghost);
 
     }
 
