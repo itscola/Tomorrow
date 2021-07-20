@@ -6,16 +6,14 @@
  */
 package tomorrow.tomo.mods.modules.render;
 
+import org.lwjgl.opengl.GL11;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.rendering.EventPostRenderPlayer;
 import tomorrow.tomo.event.events.rendering.EventPreRenderPlayer;
 import tomorrow.tomo.event.value.Mode;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
-import java.awt.Color;
-import org.lwjgl.opengl.GL11;
-@Mod(name = "Chams",description = "." , type = ModuleType.Render)
+
 
 public class Chams
 extends Module {

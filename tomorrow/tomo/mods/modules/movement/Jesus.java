@@ -3,20 +3,17 @@
  */
 package tomorrow.tomo.mods.modules.movement;
 
-import tomorrow.tomo.event.EventHandler;
-import tomorrow.tomo.event.events.misc.EventCollideWithBlock;
-import tomorrow.tomo.event.events.world.EventPacketSend;
-import tomorrow.tomo.event.events.world.EventPreUpdate;
-import tomorrow.tomo.mods.Mod;
-import tomorrow.tomo.mods.Module;
-import tomorrow.tomo.mods.ModuleType;
-import java.awt.Color;
-
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.pattern.BlockHelper;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.util.AxisAlignedBB;
-@Mod(name = "Jesus",description = "." , type = ModuleType.Movement)
+import tomorrow.tomo.event.EventHandler;
+import tomorrow.tomo.event.events.misc.EventCollideWithBlock;
+import tomorrow.tomo.event.events.world.EventPacketSend;
+import tomorrow.tomo.event.events.world.EventPreUpdate;
+import tomorrow.tomo.mods.Module;
+import tomorrow.tomo.mods.ModuleType;
+
 public class Jesus
 extends Module {
 

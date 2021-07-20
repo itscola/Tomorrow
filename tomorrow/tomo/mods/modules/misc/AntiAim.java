@@ -14,7 +14,6 @@ import tomorrow.tomo.event.events.rendering.EventRender2D;
 import tomorrow.tomo.event.events.world.EventPacketRecieve;
 import tomorrow.tomo.event.events.world.EventPacketSend;
 import tomorrow.tomo.event.events.world.EventPostUpdate;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 import tomorrow.tomo.utils.cheats.player.Helper;
@@ -23,7 +22,7 @@ import tomorrow.tomo.utils.render.RenderUtil;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.UUID;
-@Mod(name = "FakeLag",description = "." , type = ModuleType.Misc)
+
 public class AntiAim extends Module {
     public ArrayList<Packet> packets = new ArrayList<Packet>();
     private boolean save = false;

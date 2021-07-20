@@ -3,31 +3,28 @@
  */
 package tomorrow.tomo.mods.modules.combat;
 
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemSkull;
+import net.minecraft.item.ItemSoup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.play.client.C09PacketHeldItemChange;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventPostUpdate;
 import tomorrow.tomo.event.events.world.EventPreUpdate;
 import tomorrow.tomo.event.value.Mode;
 import tomorrow.tomo.event.value.Numbers;
 import tomorrow.tomo.event.value.Option;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 import tomorrow.tomo.utils.cheats.world.TimerUtil;
 
-import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemPotion;
-import net.minecraft.item.ItemSoup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.play.client.C09PacketHeldItemChange;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-
-@Mod(name = "AutoHeal", description = "Auto Pot.", type = ModuleType.Combat)
 public class AutoHeal
         extends Module {
-    private Numbers<Double> health = new Numbers<Double>("Health", "health", 3.0, 0.0, 10.0, 0.5);
-    private Numbers<Double> delay = new Numbers<Double>("Delay", "delay", 400.0, 0.0, 1000.0, 10.0);
+    private Numbers<Number> health = new Numbers<Number>("Health", "health", 3.0, 0.0, 10.0, 0.5);
+    private Numbers<Number> delay = new Numbers<Number>("Delay", "delay", 400.0, 0.0, 1000.0, 10.0);
     private Option<Boolean> jump = new Option<Boolean>("Jump", "jump", true);
     private Mode<Enum> mode = new Mode("Mode", "mode", (Enum[]) HealMode.values(), (Enum) HealMode.Potion);
     static boolean currentlyPotting = false;
@@ -42,7 +39,7 @@ public class AutoHeal
 
     @EventHandler
     private void onUpdate(EventPreUpdate e) {
-        if (this.timer.hasReached(this.delay.getValue()) && (double) this.mc.thePlayer.getHealth() <= this.health.getValue() * 2.0) {
+        if (this.timer.hasReached(this.delay.getValue().intValue()) && (double) this.mc.thePlayer.getHealth() <= this.health.getValue().intValue() * 2.0) {
             this.slot = this.mode.getValue() == HealMode.Potion ? this.getPotionSlot() : (this.mode.getValue() == HealMode.Head ? this.getSoupSlot() : this.getPotionSlot());
             boolean bl = this.isUsing = this.slot != -1 && (this.jump.getValue() == false || this.mc.thePlayer.onGround);
             if (this.isUsing) {

@@ -5,13 +5,9 @@ package tomorrow.tomo.mods.modules.render;
 
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventTick;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 
-import java.awt.Color;
-
-@Mod(name = "FullBright", description = ".", type = ModuleType.Render)
 public class FullBright
         extends Module {
     private float old;

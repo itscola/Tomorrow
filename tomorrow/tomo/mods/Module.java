@@ -1,25 +1,24 @@
 package tomorrow.tomo.mods;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import org.lwjgl.input.Keyboard;
 import tomorrow.tomo.Client;
 import tomorrow.tomo.event.EventBus;
-import tomorrow.tomo.event.value.*;
+import tomorrow.tomo.event.value.Mode;
+import tomorrow.tomo.event.value.Numbers;
+import tomorrow.tomo.event.value.Option;
 import tomorrow.tomo.event.value.Value;
-import tomorrow.tomo.guis.font.CFontRenderer;
-import tomorrow.tomo.guis.font.FontLoaders;
 import tomorrow.tomo.guis.notification.Notification;
 import tomorrow.tomo.guis.notification.NotificationsManager;
 import tomorrow.tomo.managers.FileManager;
 import tomorrow.tomo.managers.ModuleManager;
+import tomorrow.tomo.utils.math.AnimationUtils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-
-import net.minecraft.client.Minecraft;
-import org.lwjgl.input.Keyboard;
-import tomorrow.tomo.utils.math.AnimationUtils;
 
 public class Module {
     public String modName;
@@ -122,13 +121,6 @@ public class Module {
 
         for (int var3 = 0; var3 < var4; ++var3) {
             Value value = var5[var3];
-            if (value instanceof Mode) {
-                this.values.add(value);
-            }
-        }
-
-        for (int var3 = 0; var3 < var4; ++var3) {
-            Value value = var5[var3];
             if (value instanceof Numbers) {
                 this.values.add(value);
             }
@@ -137,6 +129,13 @@ public class Module {
         for (int var3 = 0; var3 < var4; ++var3) {
             Value value = var5[var3];
             if (value instanceof Option) {
+                this.values.add(value);
+            }
+        }
+
+        for (int var3 = 0; var3 < var4; ++var3) {
+            Value value = var5[var3];
+            if (value instanceof Mode) {
                 this.values.add(value);
             }
         }

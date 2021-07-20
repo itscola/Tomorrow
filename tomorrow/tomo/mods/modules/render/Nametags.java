@@ -6,22 +6,7 @@
  */
 package tomorrow.tomo.mods.modules.render;
 
-import tomorrow.tomo.event.EventHandler;
-import tomorrow.tomo.event.events.rendering.EventRender3D;
-import tomorrow.tomo.event.value.Mode;
-import tomorrow.tomo.event.value.Numbers;
-import tomorrow.tomo.event.value.Option;
-import tomorrow.tomo.managers.FriendManager;
-import tomorrow.tomo.mods.Mod;
-import tomorrow.tomo.mods.Module;
-import tomorrow.tomo.mods.ModuleType;
-import tomorrow.tomo.mods.modules.player.Teams;
-import tomorrow.tomo.utils.render.RenderUtil;
-
-import java.awt.Color;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-
+import libraries.optifine.Config;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -31,22 +16,29 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemBow;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
-import net.minecraft.item.ItemTool;
-
+import net.minecraft.item.*;
 import org.lwjgl.opengl.GL11;
+import tomorrow.tomo.event.EventHandler;
+import tomorrow.tomo.event.events.rendering.EventRender3D;
+import tomorrow.tomo.event.value.Mode;
+import tomorrow.tomo.event.value.Numbers;
+import tomorrow.tomo.event.value.Option;
+import tomorrow.tomo.managers.FriendManager;
+import tomorrow.tomo.mods.Module;
+import tomorrow.tomo.mods.ModuleType;
+import tomorrow.tomo.mods.modules.player.Teams;
+import tomorrow.tomo.utils.render.RenderUtil;
 
-import libraries.optifine.Config;
+import java.awt.*;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 
-@Mod(name = "Nametags", description = ".", type = ModuleType.Render)
+
 public class Nametags
         extends Module {
     private Mode<Enum> health = new Mode("Health Mode", "healthmode", (Enum[]) HealthMode.values(), (Enum) HealthMode.Hearts);
     private Option<Boolean> dura = new Option<Boolean>("Durability", "durability", true);
-    private Numbers<Double> scale = new Numbers<Double>("Scale", "scale", 3.0, 1.0, 5.0, 0.1);
+    private Numbers<Number> scale = new Numbers<Number>("Scale", "scale", 3.0, 1.0, 5.0, 0.1);
     private ArrayList<Entity> entities = new ArrayList();
     private Option<Boolean> players = new Option<Boolean>("Players", "players", true);
     private Option<Boolean> animals = new Option<Boolean>("Animals", "animals", true);
@@ -133,7 +125,7 @@ public class Nametags
 
     private void startDrawing(float x, float y, float z, EntityPlayer player) {
         float var10001 = this.mc.gameSettings.thirdPersonView == 2 ? -1.0f : 1.0f;
-        double size = Config.zoomMode ? (double) (this.getSize(player) / 10.0f) * this.scale.getValue() * 0.5 : (double) (this.getSize(player) / 10.0f) * this.scale.getValue() * 1.5;
+        double size = Config.zoomMode ? (double) (this.getSize(player) / 10.0f) * this.scale.getValue().floatValue() * 0.5 : (double) (this.getSize(player) / 10.0f) * this.scale.getValue().floatValue() * 1.5;
         GL11.glPushMatrix();
         RenderUtil.startDrawing();
         GL11.glTranslatef((float) x, (float) y, (float) z);

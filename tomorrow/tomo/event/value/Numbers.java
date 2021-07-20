@@ -4,7 +4,7 @@
 package tomorrow.tomo.event.value;
 
 public class Numbers<T extends Number>
-extends Value<T> {
+        extends Value<T> {
     public T min;
     public T max;
     public T inc;
@@ -17,6 +17,25 @@ extends Value<T> {
         this.max = max;
         this.inc = inc;
         this.integer = false;
+    }
+
+    public Numbers(String name, T value, T min, T max, T inc) {
+        super(name, name);
+        this.setValue(value);
+        this.min = min;
+        this.max = max;
+        this.inc = inc;
+        this.integer = false;
+    }
+
+    public Numbers(String name, T value, T min, T max, T inc, boolean visible) {
+        super(name, name);
+        this.setValue(value);
+        this.min = min;
+        this.max = max;
+        this.inc = inc;
+        this.integer = false;
+        this.visible = visible;
     }
 
     public T getMinimum() {

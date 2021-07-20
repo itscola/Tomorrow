@@ -1,10 +1,5 @@
 package tomorrow.tomo.managers;
 
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.client.renderer.GlStateManager;
 import org.lwjgl.input.Keyboard;
 import tomorrow.tomo.event.EventBus;
@@ -16,24 +11,24 @@ import tomorrow.tomo.event.value.Mode;
 import tomorrow.tomo.event.value.Numbers;
 import tomorrow.tomo.event.value.Option;
 import tomorrow.tomo.event.value.Value;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 import tomorrow.tomo.mods.modules.ClientSettings;
 import tomorrow.tomo.mods.modules.combat.*;
+import tomorrow.tomo.mods.modules.misc.AntiAim;
 import tomorrow.tomo.mods.modules.misc.IRC;
-import tomorrow.tomo.mods.modules.player.*;
-import tomorrow.tomo.mods.modules.world.*;
-import tomorrow.tomo.mods.modules.render.*;
+import tomorrow.tomo.mods.modules.misc.MCF;
+import tomorrow.tomo.mods.modules.misc.NoRotate;
 import tomorrow.tomo.mods.modules.movement.*;
-import tomorrow.tomo.mods.modules.misc.*;
-
-
-import tomorrow.tomo.utils.cheats.player.Helper;
-import tomorrow.tomo.utils.irc.Client;
-import tomorrow.tomo.utils.misc.ClassUtils;
+import tomorrow.tomo.mods.modules.player.*;
+import tomorrow.tomo.mods.modules.render.*;
+import tomorrow.tomo.mods.modules.world.*;
 import tomorrow.tomo.utils.cheats.world.TimerUtil;
 import tomorrow.tomo.utils.render.gl.GLUtils;
+
+import java.nio.FloatBuffer;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ModuleManager
         implements Manager {
@@ -133,7 +128,7 @@ public class ModuleManager
         modules.add(new AutoGG());
 
 
-//		this.readSettings();ss
+//		this.readSettings();
         EventBus.getInstance().register(this);
     }
 

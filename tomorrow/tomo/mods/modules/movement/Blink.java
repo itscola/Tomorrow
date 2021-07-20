@@ -3,25 +3,19 @@
  */
 package tomorrow.tomo.mods.modules.movement;
 
+import com.mojang.authlib.GameProfile;
+import net.minecraft.client.entity.EntityOtherPlayerMP;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.client.*;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventPacketSend;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
-import com.mojang.authlib.GameProfile;
-import java.awt.Color;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import net.minecraft.client.entity.EntityOtherPlayerMP;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.client.C02PacketUseEntity;
-import net.minecraft.network.play.client.C03PacketPlayer;
-import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
-import net.minecraft.network.play.client.C0APacketAnimation;
-import net.minecraft.network.play.client.C0BPacketEntityAction;
-@Mod(name = "Blink",description = "." , type = ModuleType.Movement)
 public class Blink
 extends Module {
     private EntityOtherPlayerMP blinkEntity;

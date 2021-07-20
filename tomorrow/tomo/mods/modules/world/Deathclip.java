@@ -5,12 +5,10 @@ package tomorrow.tomo.mods.modules.world;
 
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventPreUpdate;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 import tomorrow.tomo.utils.cheats.world.TimerUtil;
 
-@Mod(name = "DeathClip", description = ".", type = ModuleType.World)
 public class Deathclip
         extends Module {
     private TimerUtil timer = new TimerUtil();

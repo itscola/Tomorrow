@@ -1,16 +1,13 @@
 package tomorrow.tomo.mods.modules.movement;
 
+import net.minecraft.client.gui.GuiChat;
+import net.minecraft.client.settings.KeyBinding;
 import org.lwjgl.input.Keyboard;
-
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventPreUpdate;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 
-import net.minecraft.client.gui.GuiChat;
-import net.minecraft.client.settings.KeyBinding;
-@Mod(name = "InvMove",description = "." , type = ModuleType.Combat)
 public class InvMove extends Module{
 
 	public InvMove(){

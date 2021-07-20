@@ -3,17 +3,12 @@
  */
 package tomorrow.tomo.mods.modules.misc;
 
+import net.minecraft.network.play.client.C0BPacketEntityAction;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventPreUpdate;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 
-import java.awt.Color;
-
-import net.minecraft.network.play.client.C0BPacketEntityAction;
-
-@Mod(name = "Sneak", description = ".", type = ModuleType.Misc)
 public class Sneak
         extends Module {
     public Sneak() {

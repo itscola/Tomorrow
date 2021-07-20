@@ -8,7 +8,6 @@ import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventMove;
 import tomorrow.tomo.event.events.world.EventPreUpdate;
 import tomorrow.tomo.event.value.Mode;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 import tomorrow.tomo.utils.cheats.world.TimerUtil;
@@ -16,9 +15,6 @@ import tomorrow.tomo.utils.math.MathUtil;
 
 import java.util.List;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.play.client.C03PacketPlayer;
-@Mod(name = "Speed",description = "." , type = ModuleType.Movement)
 public class Speed
         extends Module {
     private Mode<Enum> mode = new Mode("Mode", "mode", (Enum[]) SpeedMode.values(), (Enum) SpeedMode.HypixelHop);

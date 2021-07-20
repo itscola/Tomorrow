@@ -3,15 +3,11 @@
  */
 package tomorrow.tomo.mods.modules.misc;
 
+import net.minecraft.entity.player.EnumPlayerModelParts;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventTick;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
-import java.awt.Color;
-
-import net.minecraft.entity.player.EnumPlayerModelParts;
-@Mod(name = "SkinBugs",description = "." , type = ModuleType.Misc)
 public class SkinFlash
 extends Module {
     public SkinFlash(){

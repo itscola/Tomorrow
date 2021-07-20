@@ -10,7 +10,6 @@ import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.rendering.EventRender3D;
 import tomorrow.tomo.event.events.world.EventLivingUpdate;
 import tomorrow.tomo.event.events.world.EventPostUpdate;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 
@@ -20,7 +19,6 @@ import java.math.RoundingMode;
 import java.util.List;
 import java.util.*;
 
-@Mod(name = "DamageParticle", description = ".", type = ModuleType.Render)
 public class DamageParticle extends Module {
     public DamageParticle(){
         super("DamageParticle", ModuleType.Render);

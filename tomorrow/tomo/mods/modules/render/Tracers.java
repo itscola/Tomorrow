@@ -6,21 +6,18 @@
  */
 package tomorrow.tomo.mods.modules.render;
 
-import tomorrow.tomo.event.EventHandler;
-import tomorrow.tomo.event.events.rendering.EventRender3D;
-import tomorrow.tomo.managers.FriendManager;
-import tomorrow.tomo.mods.Mod;
-import tomorrow.tomo.mods.Module;
-import tomorrow.tomo.mods.ModuleType;
-import tomorrow.tomo.utils.math.MathUtil;
-import tomorrow.tomo.utils.render.RenderUtil;
-import java.awt.Color;
-
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import org.lwjgl.opengl.GL11;
-@Mod(name = "Tracers",description = "." , type = ModuleType.Render)
+import tomorrow.tomo.event.EventHandler;
+import tomorrow.tomo.event.events.rendering.EventRender3D;
+import tomorrow.tomo.managers.FriendManager;
+import tomorrow.tomo.mods.Module;
+import tomorrow.tomo.mods.ModuleType;
+import tomorrow.tomo.utils.math.MathUtil;
+import tomorrow.tomo.utils.render.RenderUtil;
+
 public class Tracers
 extends Module {
 

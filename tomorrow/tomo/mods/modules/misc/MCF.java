@@ -6,19 +6,14 @@
  */
 package tomorrow.tomo.mods.modules.misc;
 
+import net.minecraft.entity.player.EntityPlayer;
+import org.lwjgl.input.Mouse;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventPreUpdate;
 import tomorrow.tomo.managers.FriendManager;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 
-import java.awt.Color;
-
-import net.minecraft.entity.player.EntityPlayer;
-import org.lwjgl.input.Mouse;
-
-@Mod(name = "MidClickFriend", description = ".", type = ModuleType.Misc)
 public class MCF
         extends Module {
     private boolean down;

@@ -3,22 +3,19 @@
  */
 package tomorrow.tomo.mods.modules.combat;
 
+import net.minecraft.network.play.client.C02PacketUseEntity;
+import net.minecraft.network.play.client.C03PacketPlayer;
 import tomorrow.tomo.Client;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventPacketSend;
 import tomorrow.tomo.event.events.world.EventPreUpdate;
 import tomorrow.tomo.event.value.Mode;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 import tomorrow.tomo.mods.modules.movement.Speed;
 import tomorrow.tomo.utils.cheats.player.Helper;
 import tomorrow.tomo.utils.cheats.world.TimerUtil;
 
-import net.minecraft.network.play.client.C02PacketUseEntity;
-import net.minecraft.network.play.client.C03PacketPlayer;
-
-@Mod(name = "Criticals",description = "Always make crits." , type = ModuleType.Combat)
 public class Criticals
 extends Module {
     private Mode mode = new Mode("Mode", "mode", (Enum[])CritMode.values(), (Enum)CritMode.Packet);

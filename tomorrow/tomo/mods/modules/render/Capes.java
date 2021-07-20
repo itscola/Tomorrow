@@ -6,11 +6,9 @@ package tomorrow.tomo.mods.modules.render;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.rendering.EventRenderCape;
 import tomorrow.tomo.managers.FriendManager;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
-import java.awt.Color;
-@Mod(name = "Capes",description = "." , type = ModuleType.Render)
+
 public class Capes
 extends Module {
     public Capes(){

@@ -6,35 +6,24 @@
  */
 package tomorrow.tomo.mods.modules.render;
 
-import tomorrow.tomo.event.EventHandler;
-import tomorrow.tomo.event.events.rendering.EventRender3D;
-import tomorrow.tomo.mods.Mod;
-import tomorrow.tomo.mods.Module;
-import tomorrow.tomo.mods.ModuleType;
-import tomorrow.tomo.utils.math.Vec4f;
-import tomorrow.tomo.utils.render.GLUProjection;
-import java.awt.Color;
-
+import libraries.javax.vecmath.Vector3d;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.init.Blocks;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityBrewingStand;
-import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.tileentity.TileEntityDispenser;
-import net.minecraft.tileentity.TileEntityDropper;
-import net.minecraft.tileentity.TileEntityEnderChest;
-import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.tileentity.TileEntityHopper;
+import net.minecraft.tileentity.*;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import org.lwjgl.opengl.GL11;
+import tomorrow.tomo.event.EventHandler;
+import tomorrow.tomo.event.events.rendering.EventRender3D;
+import tomorrow.tomo.mods.Module;
+import tomorrow.tomo.mods.ModuleType;
+import tomorrow.tomo.utils.math.Vec4f;
+import tomorrow.tomo.utils.render.GLUProjection;
 
-import libraries.javax.vecmath.Vector3d;
-@Mod(name = "ChestESP",description = "." , type = ModuleType.Render)
 public class ChestESP
 extends Module {
 

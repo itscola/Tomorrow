@@ -2,7 +2,6 @@ package tomorrow.tomo.mods.modules.misc;
 
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventPostUpdate;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 import tomorrow.tomo.utils.cheats.player.Helper;
@@ -11,7 +10,6 @@ import tomorrow.tomo.utils.irc.User;
 
 import javax.swing.*;
 
-@Mod(name = "IRC", description = ".", type = ModuleType.Misc)
 public class IRC extends Module {
     public IRC(){
         super("IRC", ModuleType.Misc);

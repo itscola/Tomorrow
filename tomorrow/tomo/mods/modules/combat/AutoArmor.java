@@ -1,25 +1,22 @@
 package tomorrow.tomo.mods.modules.combat;
 
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventPreUpdate;
 import tomorrow.tomo.event.value.Numbers;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 import tomorrow.tomo.utils.cheats.world.TimerUtil;
 
 import java.util.Random;
 
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemStack;
-
-@Mod(name = "AutoArmor",description = "Auto Armor." , type = ModuleType.Combat)
 public class AutoArmor
 extends Module {
-    private Numbers<Double> delay = new Numbers<Double>("Delay", "delay", 50.0, 0.0, 1000.0, 10.0);
+    private Numbers<Number> delay = new Numbers<Number>("Delay", "delay", 50.0, 0.0, 1000.0, 10.0);
     private TimerUtil timer = new TimerUtil();
     private int[] boots = new int[]{313, 309, 317, 305, 301};
     private int[] chestplate = new int[]{311, 307, 315, 303, 299};
@@ -41,7 +38,7 @@ extends Module {
             if (this.mc.thePlayer.capabilities.isCreativeMode || this.mc.thePlayer.openContainer != null && this.mc.thePlayer.openContainer.windowId != 0) {
                 return;
             }
-            if (this.timer.hasReached(this.delay.getValue() + (double)new Random().nextInt(4))) {
+            if (this.timer.hasReached(this.delay.getValue().floatValue() + (double)new Random().nextInt(4))) {
                 this.enchantmentValue = -1.0;
                 this.item = -1;
                 int i = 9;

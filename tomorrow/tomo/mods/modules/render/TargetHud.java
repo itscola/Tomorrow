@@ -15,7 +15,6 @@ import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.rendering.EventRender2D;
 import tomorrow.tomo.event.value.Mode;
 import tomorrow.tomo.event.value.Numbers;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 import tomorrow.tomo.mods.modules.combat.Killaura;
@@ -26,7 +25,6 @@ import tomorrow.tomo.utils.render.RenderUtil;
 
 import java.awt.*;
 
-@Mod(name = "TargetHUD", description = ".", type = ModuleType.Render)
 public class TargetHud extends Module {
     public Mode mod = new Mode("Mode", "Mode", Mod.values(), Mod.Classic);
     public Numbers<Number> x = new Numbers<Number>("X(persent)", "X(persent)", 80.0, 0.0, 100.0, 5);

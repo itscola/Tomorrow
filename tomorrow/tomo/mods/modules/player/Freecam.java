@@ -3,19 +3,15 @@
  */
 package tomorrow.tomo.mods.modules.player;
 
+import net.minecraft.client.entity.EntityOtherPlayerMP;
+import net.minecraft.network.play.client.C03PacketPlayer;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.misc.EventCollideWithBlock;
 import tomorrow.tomo.event.events.world.EventPacketRecieve;
 import tomorrow.tomo.event.events.world.EventPreUpdate;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 
-import java.awt.Color;
-
-import net.minecraft.client.entity.EntityOtherPlayerMP;
-import net.minecraft.network.play.client.C03PacketPlayer;
-@Mod(name = "FreeCam",description = "." , type = ModuleType.Player)
 public class Freecam
 extends Module {
     private EntityOtherPlayerMP copy;

@@ -6,19 +6,6 @@
  */
 package tomorrow.tomo.mods.modules.render;
 
-import tomorrow.tomo.event.EventHandler;
-import tomorrow.tomo.event.events.rendering.EventRender2D;
-import tomorrow.tomo.event.value.Mode;
-import tomorrow.tomo.managers.FriendManager;
-import tomorrow.tomo.mods.Mod;
-import tomorrow.tomo.mods.Module;
-import tomorrow.tomo.mods.ModuleType;
-import tomorrow.tomo.utils.math.Vec3f;
-import tomorrow.tomo.utils.render.RenderUtil;
-import tomorrow.tomo.utils.render.gl.GLUtils;
-import java.awt.Color;
-import java.util.ArrayList;
-
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -27,8 +14,19 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import org.lwjgl.opengl.GL11;
+import tomorrow.tomo.event.EventHandler;
+import tomorrow.tomo.event.events.rendering.EventRender2D;
+import tomorrow.tomo.event.value.Mode;
+import tomorrow.tomo.managers.FriendManager;
+import tomorrow.tomo.mods.Module;
+import tomorrow.tomo.mods.ModuleType;
+import tomorrow.tomo.utils.math.Vec3f;
+import tomorrow.tomo.utils.render.RenderUtil;
+import tomorrow.tomo.utils.render.gl.GLUtils;
 
-@Mod(name = "ESP",description = "." , type = ModuleType.Render)
+import java.awt.*;
+import java.util.ArrayList;
+
 public class ESP
 extends Module {
     private ArrayList<Vec3f> points = new ArrayList();

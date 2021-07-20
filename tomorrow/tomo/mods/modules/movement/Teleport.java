@@ -6,18 +6,15 @@
  */
 package tomorrow.tomo.mods.modules.movement;
 
-import tomorrow.tomo.event.EventHandler;
-import tomorrow.tomo.event.events.world.EventPreUpdate;
-import tomorrow.tomo.mods.Mod;
-import tomorrow.tomo.mods.Module;
-import tomorrow.tomo.mods.ModuleType;
-import java.awt.Color;
-
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import org.lwjgl.input.Mouse;
-@Mod(name = "Teleport",description = "." , type = ModuleType.Movement)
+import tomorrow.tomo.event.EventHandler;
+import tomorrow.tomo.event.events.world.EventPreUpdate;
+import tomorrow.tomo.mods.Module;
+import tomorrow.tomo.mods.ModuleType;
+
 public class Teleport
 extends Module {
 

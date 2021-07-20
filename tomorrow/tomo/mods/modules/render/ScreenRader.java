@@ -9,10 +9,9 @@ import org.lwjgl.opengl.GL11;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.rendering.EventRender2D;
 import tomorrow.tomo.event.value.Option;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
-@Mod(name = "ScreenRader",description = "." , type = ModuleType.Render)
+
 public class ScreenRader extends Module {
     Option players = new Option("Players","Players", true);
     Option invisibles = new Option("Invisibles","Invisibles", false);

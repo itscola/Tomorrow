@@ -4,10 +4,16 @@
 package tomorrow.tomo.event.value;
 
 public class Mode<V extends Enum>
-extends Value<V> {
+        extends Value<V> {
     private V[] modes;
 
     public Mode(String displayName, String name, V[] modes, V value) {
+        super(displayName, name);
+        this.modes = modes;
+        this.setValue(value);
+    }
+
+    public Mode(String displayName, String name, V[] modes, V value, boolean visible) {
         super(displayName, name);
         this.modes = modes;
         this.setValue(value);
@@ -18,7 +24,7 @@ extends Value<V> {
     }
 
     public String getModeAsString() {
-        return ((Enum)this.getValue()).name();
+        return ((Enum) this.getValue()).name();
     }
 
     public void setMode(String mode) {

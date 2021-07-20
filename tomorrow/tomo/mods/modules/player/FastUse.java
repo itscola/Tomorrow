@@ -3,13 +3,6 @@
  */
 package tomorrow.tomo.mods.modules.player;
 
-import tomorrow.tomo.event.EventHandler;
-import tomorrow.tomo.event.events.world.EventPreUpdate;
-import tomorrow.tomo.event.value.Option;
-import tomorrow.tomo.mods.Mod;
-import tomorrow.tomo.mods.Module;
-import tomorrow.tomo.mods.ModuleType;
-import java.awt.Color;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemFood;
@@ -19,7 +12,11 @@ import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-@Mod(name = "FastUse",description = "." , type = ModuleType.Player)
+import tomorrow.tomo.event.EventHandler;
+import tomorrow.tomo.event.events.world.EventPreUpdate;
+import tomorrow.tomo.event.value.Option;
+import tomorrow.tomo.mods.Module;
+import tomorrow.tomo.mods.ModuleType;
 public class FastUse
 extends Module {
     private Option<Boolean> guardian = new Option<Boolean>("Guardian", "guardian", true);

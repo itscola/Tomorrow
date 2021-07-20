@@ -11,18 +11,17 @@ import tomorrow.tomo.guis.material.button.Button;
 import tomorrow.tomo.guis.material.button.values.BMode;
 import tomorrow.tomo.guis.material.button.values.BNumbers;
 import tomorrow.tomo.guis.material.button.values.BOption;
-import tomorrow.tomo.mods.Module;
+import tomorrow.tomo.managers.ModuleManager;
+import tomorrow.tomo.mods.modules.ClientSettings;
 
 import java.util.ArrayList;
 
-public class ModuleTab extends Tab {
-    public Module module;
+public class SettingsTab extends Tab {
     private ArrayList<Button> btns = new ArrayList<>();
 
-    public ModuleTab(Module m) {
-        this.module = m;
-        name = m.getName();
-        for (Value v : module.values) {
+    public SettingsTab() {
+        name = "Settings";
+        for (Value v : ModuleManager.getModuleByClass(ClientSettings.class).getValues()) {
             if (v instanceof Option) {
                 Button value = new BOption(startX, startY, v);
                 btns.add(value);
@@ -34,11 +33,9 @@ public class ModuleTab extends Tab {
             } else if (v instanceof Mode) {
                 Button value = new BMode(startX, startY, v);
                 btns.add(value);
-
             }
         }
     }
-
 
     float startX = Main.windowX + 20;
     float startY = Main.windowY + 70;
@@ -47,8 +44,6 @@ public class ModuleTab extends Tab {
         startX = Main.windowX + 20 + Main.animListX;
         startY = Main.windowY + 70;
         for (Button v : btns) {
-            if(!v.v.visible)
-                continue;
             v.x = startX;
             v.y = startY;
             v.draw(mouseX, mouseY);
@@ -71,8 +66,6 @@ public class ModuleTab extends Tab {
         startX = Main.windowX + 20 + Main.animListX;
         startY = Main.windowY + 70;
         for (Button v : btns) {
-            if(!v.v.visible)
-                continue;
             v.mouseClicked(mouseX, mouseY);
         }
     }

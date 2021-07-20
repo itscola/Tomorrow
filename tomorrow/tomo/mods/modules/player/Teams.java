@@ -1,13 +1,11 @@
 package tomorrow.tomo.mods.modules.player;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 import tomorrow.tomo.Client;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
-@Mod(name = "Teams",description = "." , type = ModuleType.Player)
 public class Teams extends Module{
 
     public Teams(){

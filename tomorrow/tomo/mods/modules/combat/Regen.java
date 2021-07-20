@@ -3,19 +3,15 @@
  */
 package tomorrow.tomo.mods.modules.combat;
 
-import tomorrow.tomo.event.EventHandler;
-import tomorrow.tomo.event.events.world.EventPreUpdate;
-import tomorrow.tomo.event.value.Option;
-import tomorrow.tomo.mods.Mod;
-import tomorrow.tomo.mods.Module;
-import tomorrow.tomo.mods.ModuleType;
-import java.awt.Color;
-
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-@Mod(name = "Regen",description = "." , type = ModuleType.Combat)
+import tomorrow.tomo.event.EventHandler;
+import tomorrow.tomo.event.events.world.EventPreUpdate;
+import tomorrow.tomo.mods.Module;
+import tomorrow.tomo.mods.ModuleType;
+
 public class Regen
 extends Module {
     public Regen(){

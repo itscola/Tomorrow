@@ -3,20 +3,18 @@
  */
 package tomorrow.tomo.mods.modules.world;
 
+import net.minecraft.block.state.pattern.BlockHelper;
+import net.minecraft.network.play.client.C03PacketPlayer;
+import net.minecraft.util.MathHelper;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.misc.EventCollideWithBlock;
 import tomorrow.tomo.event.events.world.EventMove;
 import tomorrow.tomo.event.events.world.EventPostUpdate;
 import tomorrow.tomo.event.value.Mode;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 import tomorrow.tomo.utils.math.RotationUtil;
-import java.awt.Color;
-import net.minecraft.block.state.pattern.BlockHelper;
-import net.minecraft.network.play.client.C03PacketPlayer;
-import net.minecraft.util.MathHelper;
-@Mod(name = "Phase",description = "." , type = ModuleType.World)
+
 public class Phase
 extends Module {
     private Mode<Enum> mode = new Mode("Mode", "mode", (Enum[])PhaseMode.values(), (Enum)PhaseMode.NewNCP);

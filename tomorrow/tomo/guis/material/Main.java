@@ -2,37 +2,122 @@ package tomorrow.tomo.guis.material;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
+import tomorrow.tomo.Client;
+import tomorrow.tomo.guis.font.FontLoaders;
 import tomorrow.tomo.guis.material.Tabs.MainTab;
-import tomorrow.tomo.guis.material.themes.MainWhite;
+import tomorrow.tomo.guis.material.Tabs.ModuleTab;
+import tomorrow.tomo.guis.material.button.CButton;
+import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.modules.ClientSettings;
+import tomorrow.tomo.utils.math.AnimationUtils;
+import tomorrow.tomo.utils.render.ColorUtils;
 import tomorrow.tomo.utils.render.RenderUtil;
 import tomorrow.tomo.utils.render.renderManager.Rect;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Main extends GuiScreen {
 
     public static float windowX, windowY, windowWidth, windowHeight;
 
+    public CButton Blist;
+    public CButton Btheme;
+    public CButton Bsettings;
+    public float mouseX;
+    public float mouseY;
+
+    public ArrayList<Category> categories = new ArrayList<>();
+    public static float animListX;
+    public float listRoll2 = 0;
+    public float listRoll = 0;
+
+    public static AnimationUtils listAnim = new AnimationUtils();
+    public static AnimationUtils rollAnim = new AnimationUtils();
+
+    public float bg;
+    public static AnimationUtils bgAnim = new AnimationUtils();
+    public static ArrayList<Tab> tabs = new ArrayList<>();
+    public static Tab currentTab;
+    public static Color clientColor;
     ScaledResolution sr;
+    public static Object currentObj;
 
-    public ArrayList<Tab> tabs = new ArrayList<>();
+    @Override
+    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+        super.mouseClicked(mouseX, mouseY, mouseButton);
+        for (Tab t : tabs) {
+            t.mouseClicked(mouseX, mouseY);
+        }
+        if (!isHovered(windowX + windowWidth - 5, windowY + windowHeight - 5, windowX + windowWidth + 5, windowY + windowHeight + 5, mouseX, mouseY) && Mouse.isButtonDown(0)) {
+            drag2 = false;
+            mouseDX2 = 0;
+            mouseDY2 = 0;
+        }
 
-    public Tab currentTab;
 
-    public Color clientColor;
+        Blist.onMouseClicked(mouseX, mouseY);
+        Btheme.onMouseClicked(mouseX, mouseY);
+        Bsettings.onMouseClicked(mouseX, mouseY);
 
-    public boolean showList;
+        float modsY = windowY + 35 + listRoll;
 
+        for (Category mt : categories) {
+            if (mt.show) {
+                new Rect(windowX, modsY, animListX, 20, new Color(255, 255, 255), new Runnable() {
+                    @Override
+                    public void run() {
+                        if (Mouse.isButtonDown(0)) {
+                            if (!mt.show) {
+                                mt.show = true;
+                            } else {
+                                mt.needRemove = !mt.needRemove;
+                            }
+                        }
+                    }
+                }).render(mouseX, mouseY);
+                modsY += 25;
+                for (Module m : Client.instance.getModuleManager().getModulesInType(mt.moduleType)) {
+                    if (modsY > windowY + 30 && modsY < windowY + windowHeight) {
+                        new Rect(windowX, modsY, animListX, 15, new Color(255, 255, 255), new Runnable() {
+                            @Override
+                            public void run() {
+                                if (Mouse.isButtonDown(0)) {
+                                    m.setEnabled(!m.isEnabled());
+                                } else if (Mouse.isButtonDown(1)) {
+                                    ModuleTab modT = new ModuleTab(m);
+                                    tabs.add(modT);
+                                    currentTab = modT;
+                                }
+                            }
+                        }).render(mouseX, mouseY);
+                    }
+                    FontLoaders.arial18.drawString(m.getName(), windowX + animListX - 120, modsY + 5, new Color(50, 50, 50).getRGB());
+                    modsY += 20;
+                }
+
+            } else {
+                new Rect(windowX, modsY, animListX, 20, new Color(255, 255, 255), new Runnable() {
+                    @Override
+                    public void run() {
+                        if (Mouse.isButtonDown(0)) {
+                            mt.show = !mt.show;
+                        }
+                    }
+                }).render(mouseX, mouseY);
+
+            }
+
+            modsY += 25;
+        }
+    }
 
     @Override
     public void initGui() {
-        clientColor = new Color(ClientSettings.r.getValue().intValue(), ClientSettings.g.getValue().intValue(), ClientSettings.b.getValue().intValue());
         sr = new ScaledResolution(mc);
 
         if (sr.getScaledWidth() < 550 && sr.getScaledHeight() < 300) {
@@ -50,7 +135,9 @@ public class Main extends GuiScreen {
         if (windowY == 0)
             windowY = (sr.getScaledHeight() - windowHeight) / 2;
         if (tabs.size() == 0) {
-            tabs.add(new MainTab());
+            Tab tab = new MainTab();
+            tabs.add(tab);
+            currentTab = tab;
         }
 
         super.initGui();
@@ -64,22 +151,56 @@ public class Main extends GuiScreen {
 
     }
 
-    public void drawBar(float mouseX, float mouseY) {
+    public void drawMWindow(int mouseX, int mouseY) {
+        if (currentObj == null) {
+            this.mouseX = mouseX;
+            this.mouseY = mouseY;
+            if ((mouseDX != 0 && drag) && Mouse.isButtonDown(0)) {
+                windowX = this.mouseX - mouseDX;
+            } else {
+                drag = false;
+                mouseDX = 0;
+                mouseDY = 0;
+            }
+            if ((mouseDY != 0 && drag) && Mouse.isButtonDown(0)) {
+                windowY = this.mouseY - mouseDY;
+            } else {
+                drag = false;
+                mouseDX = 0;
+                mouseDY = 0;
+            }
+        }
+        drawWindow(this.mouseX, this.mouseY);
+    }
 
+    public void drawTasksBar() {
+
+    }
+
+    public void drawBar(float mouseX, float mouseY) {
+        Blist.onRender(windowX + 8, windowY + 8, mouseX, mouseY);
+        Btheme.onRender(windowX + windowWidth - 20, windowY + 8, mouseX, mouseY);
+        Bsettings.onRender(windowX + windowWidth - 40, windowY + 8, mouseX, mouseY);
     }
 
     //Drag verb
     public float mouseDX2, mouseDY2;
     public boolean drag2;
 
+    public void drawBG() {
+        bg = bgAnim.animate(sr.getScaledWidth(), bg, 0.01f);
+        RenderUtil.drawCircle(sr.getScaledWidth() / 2, sr.getScaledHeight() / 2, bg, ColorUtils.reAlpha(clientColor.getRGB(), 0.1f));
+    }
+
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
-
-        drawWindow(mouseX, mouseY);
-
+        clientColor = new Color(ClientSettings.r.getValue().intValue(), ClientSettings.g.getValue().intValue(), ClientSettings.b.getValue().intValue());
+        drawBG();
+        drawMWindow(mouseX, mouseY);
         drawBar(mouseX, mouseY);
-
+        GL11.glEnable(GL11.GL_SCISSOR_TEST);
+        RenderUtil.doGlScissor(windowX, windowY + 30, windowWidth, windowHeight - 30);
         if ((isHovered(windowX + windowWidth - 5, windowY + windowHeight - 5, windowX + windowWidth + 5, windowY + windowHeight + 5, mouseX, mouseY) && Mouse.isButtonDown(0)) || drag2) {
             if (windowWidth > 560) {
                 windowWidth = mouseX - windowX - mouseDX2;
@@ -102,6 +223,9 @@ public class Main extends GuiScreen {
             mouseDX2 = 0;
             mouseDY2 = 0;
         }
+        drawTasksBar();
+        drawList(mouseX, mouseY);
+        GL11.glDisable(GL11.GL_SCISSOR_TEST);
         if (drag2 || isHovered(windowX + windowWidth - 5, windowY + windowHeight - 5, windowX + windowWidth + 5, windowY + windowHeight + 5, mouseX, mouseY)) {
             Mouse.setGrabbed(true);
             RenderUtil.drawCustomImage(mouseX - 4, mouseY - 4, 16, 16, new ResourceLocation("client/clickgui/cur.png"));
@@ -111,8 +235,6 @@ public class Main extends GuiScreen {
                 Mouse.setGrabbed(false);
             }
         }
-
-        drawList(mouseX, mouseY);
     }
 
     public void drawList(float mouseX, float mouseY) {

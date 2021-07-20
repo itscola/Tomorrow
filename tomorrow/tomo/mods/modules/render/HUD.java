@@ -3,7 +3,11 @@
  */
 package tomorrow.tomo.mods.modules.render;
 
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
@@ -14,24 +18,17 @@ import tomorrow.tomo.event.events.rendering.EventRender2D;
 import tomorrow.tomo.event.events.world.EventPostUpdate;
 import tomorrow.tomo.event.value.Mode;
 import tomorrow.tomo.event.value.Option;
+import tomorrow.tomo.guis.font.CFontRenderer;
+import tomorrow.tomo.guis.font.FontLoaders;
 import tomorrow.tomo.guis.notification.NotificationsManager;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 import tomorrow.tomo.mods.modules.render.UI.TabUI;
-import tomorrow.tomo.guis.font.CFontRenderer;
-import tomorrow.tomo.guis.font.FontLoaders;
-
-import java.awt.Color;
-
-import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import tomorrow.tomo.utils.math.AnimationUtils;
 import tomorrow.tomo.utils.render.RenderUtil;
 
-@Mod(name = "HUD", description = ".", type = ModuleType.Render)
+import java.awt.*;
+
 
 public class HUD
         extends Module {

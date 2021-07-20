@@ -1,22 +1,18 @@
 package tomorrow.tomo.mods.modules.movement;
 
+import net.minecraft.block.BlockAir;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.C03PacketPlayer;
+import net.minecraft.util.BlockPos;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventPacketSend;
 import tomorrow.tomo.event.events.world.EventPreUpdate;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
-
-import java.awt.Color;
-import java.util.ArrayList;
-
-import net.minecraft.block.BlockAir;
-import net.minecraft.util.BlockPos;
 import tomorrow.tomo.utils.cheats.world.TimerUtil;
 
-@Mod(name = "AntiVoid",description = "." , type = ModuleType.Movement)
+import java.util.ArrayList;
+
 public class AntiVoid
         extends Module {
     public AntiVoid(){

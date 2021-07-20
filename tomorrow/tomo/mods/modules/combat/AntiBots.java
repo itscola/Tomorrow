@@ -3,19 +3,16 @@
  */
 package tomorrow.tomo.mods.modules.combat;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventPostUpdate;
 import tomorrow.tomo.event.value.Mode;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 import tomorrow.tomo.utils.cheats.player.Helper;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 
-
-@Mod(name = "AntiBot",description = "remove bots." , type = ModuleType.Combat)
 public class AntiBots
 extends Module {
     Mode mode = new Mode<>("Mode","Mode",mods.values(),mods.Basic);

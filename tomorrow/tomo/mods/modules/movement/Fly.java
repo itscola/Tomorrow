@@ -3,18 +3,6 @@
  */
 package tomorrow.tomo.mods.modules.movement;
 
-import tomorrow.tomo.Client;
-import tomorrow.tomo.event.EventHandler;
-import tomorrow.tomo.event.events.world.EventMove;
-import tomorrow.tomo.event.events.world.EventPostUpdate;
-import tomorrow.tomo.event.events.world.EventPreUpdate;
-import tomorrow.tomo.event.value.Mode;
-import tomorrow.tomo.mods.Mod;
-import tomorrow.tomo.mods.Module;
-import tomorrow.tomo.mods.ModuleType;
-import tomorrow.tomo.utils.cheats.world.TimerUtil;
-import tomorrow.tomo.utils.math.MathUtil;
-
 import net.minecraft.block.BlockAir;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.play.client.C03PacketPlayer;
@@ -22,8 +10,18 @@ import net.minecraft.potion.Potion;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovementInput;
+import tomorrow.tomo.Client;
+import tomorrow.tomo.event.EventHandler;
+import tomorrow.tomo.event.events.world.EventMove;
+import tomorrow.tomo.event.events.world.EventPostUpdate;
+import tomorrow.tomo.event.events.world.EventPreUpdate;
+import tomorrow.tomo.event.value.Mode;
+import tomorrow.tomo.mods.Module;
+import tomorrow.tomo.mods.ModuleType;
+import tomorrow.tomo.utils.cheats.world.TimerUtil;
+import tomorrow.tomo.utils.math.MathUtil;
 
-@Mod(name = "Fly",description = "." , type = ModuleType.Movement)
+
 public class Fly
 extends Module {
     public Mode mode = new Mode("Mode", "mode", (Enum[])FlightMode.values(), (Enum)FlightMode.Guardian);

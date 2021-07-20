@@ -3,20 +3,16 @@
  */
 package tomorrow.tomo.mods.modules.movement;
 
+import net.minecraft.network.play.client.C03PacketPlayer;
+import net.minecraft.potion.Potion;
+import net.minecraft.util.MovementInput;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventMove;
 import tomorrow.tomo.event.events.world.EventPreUpdate;
 import tomorrow.tomo.event.value.Mode;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 import tomorrow.tomo.utils.math.MathUtil;
-import java.awt.Color;
-
-import net.minecraft.network.play.client.C03PacketPlayer;
-import net.minecraft.potion.Potion;
-import net.minecraft.util.MovementInput;
-@Mod(name = "LongJump",description = "." , type = ModuleType.Movement)
 public class Longjump
 extends Module {
     private Mode<JumpMode> mode = new Mode("Mode", "mode", (Enum[])JumpMode.values(), (Enum)JumpMode.NCP);

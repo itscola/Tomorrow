@@ -3,15 +3,6 @@
  */
 package tomorrow.tomo.mods.modules.combat;
 
-import tomorrow.tomo.event.EventHandler;
-import tomorrow.tomo.event.events.world.EventPacketRecieve;
-import tomorrow.tomo.event.events.world.EventPreUpdate;
-import tomorrow.tomo.event.value.Option;
-import tomorrow.tomo.mods.Mod;
-import tomorrow.tomo.mods.Module;
-import tomorrow.tomo.mods.ModuleType;
-import tomorrow.tomo.utils.cheats.world.TimerUtil;
-
 import net.minecraft.item.ItemBow;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
@@ -19,8 +10,14 @@ import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
 import net.minecraft.network.play.server.S18PacketEntityTeleport;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import tomorrow.tomo.event.EventHandler;
+import tomorrow.tomo.event.events.world.EventPacketRecieve;
+import tomorrow.tomo.event.events.world.EventPreUpdate;
+import tomorrow.tomo.event.value.Option;
+import tomorrow.tomo.mods.Module;
+import tomorrow.tomo.mods.ModuleType;
+import tomorrow.tomo.utils.cheats.world.TimerUtil;
 
-@Mod(name = "FastBow",description = "Fast use bow." , type = ModuleType.Combat)
 public class FastBow
 extends Module {
     private TimerUtil timer = new TimerUtil();

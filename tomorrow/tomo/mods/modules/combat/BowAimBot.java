@@ -3,24 +3,21 @@
  */
 package tomorrow.tomo.mods.modules.combat;
 
-import tomorrow.tomo.event.EventHandler;
-import tomorrow.tomo.event.events.world.EventPreUpdate;
-import tomorrow.tomo.event.value.Option;
-import tomorrow.tomo.managers.FriendManager;
-import tomorrow.tomo.mods.Mod;
-import tomorrow.tomo.mods.Module;
-import tomorrow.tomo.mods.ModuleType;
-import java.awt.Color;
-import java.util.ArrayList;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBow;
 import net.minecraft.util.MathHelper;
+import tomorrow.tomo.event.EventHandler;
+import tomorrow.tomo.event.events.world.EventPreUpdate;
+import tomorrow.tomo.event.value.Option;
+import tomorrow.tomo.managers.FriendManager;
+import tomorrow.tomo.mods.Module;
+import tomorrow.tomo.mods.ModuleType;
 import tomorrow.tomo.mods.modules.player.Teams;
 
-@Mod(name = "BowAimBot",description = "Bow assists." , type = ModuleType.Combat)
+import java.util.ArrayList;
+
 public class BowAimBot
 extends Module {
     private Option<Boolean> lockView = new Option<Boolean>("Lockview", "lockview", false);

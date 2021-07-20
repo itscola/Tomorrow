@@ -3,9 +3,11 @@
  */
 package tomorrow.tomo.mods.modules.world;
 
+import libraries.optifine.MathUtils;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.client.C00PacketKeepAlive;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventPacketSend;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 import tomorrow.tomo.utils.cheats.world.TimerUtil;
@@ -13,10 +15,6 @@ import tomorrow.tomo.utils.cheats.world.TimerUtil;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import libraries.optifine.MathUtils;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.client.C00PacketKeepAlive;
-@Mod(name = "PingSpoof",description = "." , type = ModuleType.World)
 public class PingSpoof
 extends Module {
     private List<Packet> packetList = new CopyOnWriteArrayList<Packet>();

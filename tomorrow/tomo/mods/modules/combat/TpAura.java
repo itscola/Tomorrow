@@ -8,7 +8,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.network.play.client.C02PacketUseEntity;
 import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Vec3;
@@ -17,17 +16,16 @@ import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.rendering.EventRender3D;
 import tomorrow.tomo.event.events.world.EventPostUpdate;
 import tomorrow.tomo.event.value.Numbers;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
+import tomorrow.tomo.utils.cheats.tpaura.AStarCustomPathFinder;
 import tomorrow.tomo.utils.cheats.world.TimerUtil;
 import tomorrow.tomo.utils.render.RenderUtil;
-import tomorrow.tomo.utils.cheats.tpaura.AStarCustomPathFinder;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
-@Mod(name = "TpAura",description = "." , type = ModuleType.Combat)
+
 public class TpAura extends Module {
     Numbers<Number> range = new Numbers("Range","Range", 50, 1, 100,1);
     Numbers<Number> delay = new Numbers("Delay","Delay", 100, 10, 1000,10);

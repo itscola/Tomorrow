@@ -3,20 +3,18 @@
  */
 package tomorrow.tomo.mods.modules.world;
 
+import net.minecraft.inventory.ContainerChest;
+import net.minecraft.item.ItemStack;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventTick;
 import tomorrow.tomo.event.value.Numbers;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 import tomorrow.tomo.utils.cheats.world.TimerUtil;
 
-import net.minecraft.inventory.ContainerChest;
-import net.minecraft.item.ItemStack;
-@Mod(name = "ChestStealer",description = "." , type = ModuleType.World)
 public class ChestStealer
 extends Module {
-    private Numbers<Double> delay = new Numbers<Double>("Delay", "delay", 50.0, 0.0, 1000.0, 10.0);
+    private Numbers<Number> delay = new Numbers<Number>("Delay", "delay", 50.0, 0.0, 1000.0, 10.0);
     private TimerUtil timer = new TimerUtil();
 
     public ChestStealer() {
@@ -31,7 +29,7 @@ extends Module {
             ContainerChest container = (ContainerChest)this.mc.thePlayer.openContainer;
             int i = 0;
             while (i < container.getLowerChestInventory().getSizeInventory()) {
-                if (container.getLowerChestInventory().getStackInSlot(i) != null && this.timer.hasReached(this.delay.getValue())) {
+                if (container.getLowerChestInventory().getStackInSlot(i) != null && this.timer.hasReached(this.delay.getValue().intValue())) {
                     this.mc.playerController.windowClick(container.windowId, i, 0, 1, this.mc.thePlayer);
                     this.timer.reset();
                 }

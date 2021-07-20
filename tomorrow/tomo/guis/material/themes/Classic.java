@@ -1,33 +1,23 @@
 package tomorrow.tomo.guis.material.themes;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.GL11;
 import tomorrow.tomo.Client;
 import tomorrow.tomo.guis.font.FontLoaders;
 import tomorrow.tomo.guis.material.Category;
 import tomorrow.tomo.guis.material.Main;
-import tomorrow.tomo.guis.material.Tabs.ModuleTab;
+import tomorrow.tomo.guis.material.Tab;
+import tomorrow.tomo.guis.material.Tabs.SettingsTab;
 import tomorrow.tomo.guis.material.button.CButton;
-import tomorrow.tomo.managers.ModuleManager;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
-import tomorrow.tomo.utils.math.AnimationUtils;
+import tomorrow.tomo.utils.render.ColorUtils;
 import tomorrow.tomo.utils.render.RenderUtil;
 import tomorrow.tomo.utils.render.renderManager.Rect;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 
-public class MainWhite extends Main {
-
-    private CButton Blist, Btheme, Bsettings;
-    float mouseX, mouseY;
-
-    ArrayList<Category> categories = new ArrayList<>();
+public class Classic extends Main {
 
     @Override
     public void initGui() {
@@ -47,93 +37,66 @@ public class MainWhite extends Main {
         super.updateScreen();
     }
 
-    @Override
-    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-        super.mouseClicked(mouseX, mouseY, mouseButton);
-
-        if (!isHovered(windowX + windowWidth - 5, windowY + windowHeight - 5, windowX + windowWidth + 5, windowY + windowHeight + 5, mouseX, mouseY) && Mouse.isButtonDown(0)) {
-            drag2 = false;
-            mouseDX2 = 0;
-            mouseDY2 = 0;
-        }
-
-
-        Blist.onMouseClicked(mouseX, mouseY);
-        Btheme.onMouseClicked(mouseX, mouseY);
-        Bsettings.onMouseClicked(mouseX, mouseY);
-
-        float modsY = windowY + 35 + listRoll;
-
-        for (Category mt : categories) {
-            if (mt.show) {
-                new Rect(windowX, modsY, animListX, 20, new Color(255, 255, 255), new Runnable() {
-                    @Override
-                    public void run() {
-                        if (Mouse.isButtonDown(0)) {
-                            if (!mt.show) {
-                                mt.show = true;
-                            } else {
-                                mt.needRemove = !mt.needRemove;
-                            }
-                        }
-                    }
-                }).render(mouseX, mouseY);
-                modsY += 25;
-                for (Module m : Client.instance.getModuleManager().getModulesInType(mt.moduleType)) {
-                    new Rect(windowX, modsY, animListX, 15, new Color(255, 255, 255), new Runnable() {
-                        @Override
-                        public void run() {
-                            if (Mouse.isButtonDown(0)) {
-                                m.setEnabled(!m.isEnabled());
-                            } else if (Mouse.isButtonDown(1)) {
-                                ModuleTab modT = new ModuleTab(m);
-                                tabs.add(modT);
-                                currentTab = modT;
-                            }
-                        }
-                    }).render(mouseX, mouseY);
-                    FontLoaders.arial18.drawString(m.getName(), windowX + animListX - 120, modsY + 5, new Color(50, 50, 50).getRGB());
-                    modsY += 20;
-                }
-
-            } else {
-                new Rect(windowX, modsY, animListX, 20, new Color(255, 255, 255), new Runnable() {
-                    @Override
-                    public void run() {
-                        if (Mouse.isButtonDown(0)) {
-                            mt.show = !mt.show;
-                        }
-                    }
-                }).render(mouseX, mouseY);
-
-            }
-
-            modsY += 25;
-        }
-
-    }
 
     @Override
     protected void mouseReleased(int mouseX, int mouseY, int state) {
         super.mouseReleased(mouseX, mouseY, state);
-        this.mouseX = mouseX;
-        this.mouseY = mouseY;
     }
+
+
 
     @Override
-    public void drawBar(float mouseX, float mouseY) {
-        Blist.onRender(windowX + 8, windowY + 8, mouseX, mouseY);
-        Btheme.onRender(windowX + windowWidth - 20, windowY + 8, mouseX, mouseY);
-        Bsettings.onRender(windowX + windowWidth - 40, windowY + 8, mouseX, mouseY);
+    public void drawTasksBar() {
+        super.drawTasksBar();
+
+        if (Bsettings.realized) {
+            this.tabs.add(new SettingsTab());
+            Bsettings.realized = false;
+        }
+
+        RenderUtil.drawRect(windowX + animListX, windowY + 30, windowX + windowWidth, windowY + 50, ColorUtils.reAlpha(clientColor.getRGB(), 0.6f));
+        ArrayList<Tab> tabs2 = new ArrayList<>();
+        float x = 4;
+        for (Tab t : tabs) {
+            if (currentTab == t)
+                t.render(mouseX, mouseY);
+
+            float swidth = FontLoaders.arial16.getStringWidth(t.name) + 14;
+            t.x = t.animationUtils.animate(windowX + x + animListX, t.x, drag ? 2 : 0.1F);
+            new Rect(t.x, windowY + 30, swidth, 20, new Color(0, 0, 0, 0), new Runnable() {
+                @Override
+                public void run() {
+                    if (Mouse.isButtonDown(0))
+                        currentTab = t;
+                }
+            }).render(mouseX, mouseY);
+
+
+            if (isHovered(t.x + swidth - 4, windowY + 30, t.x + swidth + 4, windowY + 50, mouseX, mouseY)) {
+                FontLoaders.arial16.drawString("-", t.x + swidth - 6, windowY + 40, new Color(255, 0, 0).getRGB());
+                if (Mouse.isButtonDown(0)) {
+                    tabs2.add(t);
+                }
+            } else {
+                FontLoaders.arial18.drawString("-", t.x + swidth - 6, windowY + 40, new Color(255, 255, 255).getRGB());
+            }
+
+            if (t == currentTab) {
+                FontLoaders.arial16.drawString(t.name, t.x + 2, windowY + 40, -1);
+                RenderUtil.drawRect(t.x, windowY + 48, t.x + swidth, windowY + 50, clientColor.getRGB());
+            } else {
+                FontLoaders.arial16.drawString(t.name, t.x + 2, windowY + 40, new Color(255, 255, 255, 150).getRGB());
+            }
+
+            x += swidth;
+        }
+
+        for (Tab tab : tabs2) {
+            tabs.remove(tab);
+        }
+
+
     }
-
-    static float animListX;
-    float listRoll2 = 0;
-    float listRoll = 0;
-
-    static AnimationUtils listAnim = new AnimationUtils();
-    static AnimationUtils rollAnim = new AnimationUtils();
-
 
     @Override
     public void drawList(float mouseX, float mouseY) {
@@ -143,12 +106,10 @@ public class MainWhite extends Main {
         } else {
             animListX = listAnim.animate(0, animListX, 0.1f);
         }
-        GL11.glEnable(GL11.GL_SCISSOR_TEST);
-        RenderUtil.doGlScissor(windowX, windowY + 30, windowWidth, (windowHeight - 30));
 //        GL11.glScissor((int)windowX, mc.displayHeight - (int)(windowY + windowHeight), (int)windowWidth, (int)windowHeight);
         if (animListX != 0) {
             RenderUtil.drawRect(windowX, windowY + 30, windowX + animListX, windowY + windowHeight, new Color(255, 255, 255));
-            RenderUtil.drawGradientSideways(windowX + animListX, windowY + 30, windowX + animListX + 3, windowY + windowHeight, new Color(50, 50, 50, 100).getRGB(), new Color(255, 255, 255).getRGB());
+            RenderUtil.drawGradientSideways(windowX + animListX, windowY + 30, windowX + animListX + 3, windowY + windowHeight, new Color(50, 50, 50, 100).getRGB(), new Color(255, 255, 255, 0).getRGB());
             float dWheel = Mouse.getDWheel();
 
 //            modsY = windowY + 35;
@@ -180,7 +141,7 @@ public class MainWhite extends Main {
                             public void run() {
                             }
                         }).render(mouseX, mouseY);
-                        if (modsY + 5 + mt.modsY2 < modsY + mt.modsY3+25)
+                        if (modsY + 5 + mt.modsY2 < modsY + mt.modsY3 + 25)
                             FontLoaders.arial18.drawString(m.getName(), windowX + animListX - 120, modsY + 5 + mt.modsY2, new Color(50, 50, 50).getRGB());
                         mt.modsY2 += 20;
                     }
@@ -208,27 +169,11 @@ public class MainWhite extends Main {
                 modsY += 25;
             }
         }
-        GL11.glDisable(GL11.GL_SCISSOR_TEST);
 
     }
 
     @Override
     public void drawWindow(float mouseX, float mouseY) {
-
-        if ((mouseDX != 0 && drag) && Mouse.isButtonDown(0)) {
-            windowX = mouseX - mouseDX;
-        } else {
-            drag = false;
-            mouseDX = 0;
-            mouseDY = 0;
-        }
-        if ((mouseDY != 0 && drag) && Mouse.isButtonDown(0)) {
-            windowY = mouseY - mouseDY;
-        } else {
-            drag = false;
-            mouseDX = 0;
-            mouseDY = 0;
-        }
         RenderUtil.drawRoundedRect(windowX, windowY, windowX + windowWidth, windowY + windowHeight, 2, new Color(255, 255, 255).getRGB());
 
         new Rect(windowX, windowY, windowWidth, 30, clientColor, new Runnable() {

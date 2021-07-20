@@ -1,22 +1,16 @@
 package tomorrow.tomo.mods.modules.player;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.network.Packet;
+import net.minecraft.network.play.client.C03PacketPlayer;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventPacketSend;
 import tomorrow.tomo.event.events.world.EventPreUpdate;
 import tomorrow.tomo.event.value.Mode;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 
-import java.awt.Color;
 import java.util.ArrayList;
 
-import net.minecraft.network.play.client.C03PacketPlayer;
-import tomorrow.tomo.utils.cheats.player.Helper;
-
-@Mod(name = "NoFall", description = ".", type = ModuleType.Player)
 public class NoFall
         extends Module {
     private Mode mod = new Mode("Mode", "Mode", MOD.values(), MOD.Hypixel);

@@ -1,22 +1,35 @@
-/*
- * Decompiled with CFR 0_132.
- */
 package tomorrow.tomo.event.value;
 
 public class Value<V> {
     public boolean drag;
     public float animX;
     public float animX1;
-    public float optionAnim = 0;//present
-    public float optionAnimNow = 0;//present
+    public float optionAnim = 0;
+    public float optionAnimNow = 0;
 
-    private String displayName;
-    private String name;
-    private V value;
+    public String displayName;
+    public String name;
+    public V value;
+    public boolean visible;
 
     public Value(String displayName, String name) {
         this.displayName = displayName;
         this.name = name;
+        this.visible = true;
+    }
+
+    public Value(String displayName, String name, boolean visible) {
+        this.displayName = displayName;
+        this.name = name;
+        this.visible = visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+    public boolean isVisible() {
+        return visible;
     }
 
     public String getDisplayName() {

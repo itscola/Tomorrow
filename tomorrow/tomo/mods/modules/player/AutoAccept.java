@@ -3,11 +3,10 @@ package tomorrow.tomo.mods.modules.player;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.misc.EventChat;
 import tomorrow.tomo.managers.FriendManager;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 import java.awt.Color;
-@Mod(name = "AutoAccept",description = "." , type = ModuleType.Player)
+
 public class AutoAccept
 extends Module {
     public AutoAccept(){

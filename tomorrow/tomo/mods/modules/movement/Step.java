@@ -3,20 +3,17 @@
  */
 package tomorrow.tomo.mods.modules.movement;
 
+import net.minecraft.network.play.client.C03PacketPlayer;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventPreUpdate;
 import tomorrow.tomo.event.value.Numbers;
 import tomorrow.tomo.event.value.Option;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
-import java.awt.Color;
 
-import net.minecraft.network.play.client.C03PacketPlayer;
-@Mod(name = "Step",description = "." , type = ModuleType.Movement)
 public class Step
 extends Module {
-    private Numbers<Double> height = new Numbers<Double>("Height", "height", 1.0, 1.0, 10.0, 0.5);
+    private Numbers<Number> height = new Numbers<Number>("Height", "height", 1.0, 1.0, 10.0, 0.5);
     private Option<Boolean> ncp = new Option<Boolean>("NCP", "ncp", false);
 
     public Step() {

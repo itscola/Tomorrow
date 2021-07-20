@@ -1,10 +1,9 @@
 package tomorrow.tomo.mods.modules.render;
 
 import tomorrow.tomo.event.value.Mode;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
-@Mod(name = "ChunkAnimator",description = "." , type = ModuleType.Render)
+
 
 public class ChunkAnimator extends Module {
 

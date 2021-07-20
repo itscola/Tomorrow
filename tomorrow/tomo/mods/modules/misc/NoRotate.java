@@ -3,15 +3,11 @@
  */
 package tomorrow.tomo.mods.modules.misc;
 
+import net.minecraft.network.play.server.S08PacketPlayerPosLook;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventPacketSend;
-import tomorrow.tomo.mods.Mod;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
-import java.awt.Color;
-
-import net.minecraft.network.play.server.S08PacketPlayerPosLook;
-@Mod(name = "NoRotate",description = "." , type = ModuleType.Misc)
 public class NoRotate
 extends Module {
     public NoRotate(){
