@@ -1,7 +1,6 @@
 package tomorrow.tomo.luneautoleak.md5check;
 
 import net.minecraft.client.Minecraft;
-import org.apache.commons.codec.digest.DigestUtils;
 import tomorrow.tomo.Client;
 import tomorrow.tomo.mods.modules.combat.Killaura;
 
@@ -19,7 +18,7 @@ public class Md5Check {
     	try {
 			String self = System.getProperty("java.class.path").split(";")[System.getProperty("java.class.path").split(";").length - 1];
 			if (!self.endsWith(".jar")) {
-				System.out.println("或许是dev启动呢");
+				System.out.println("文件丢失。");
 				Killaura.reach = null;
 				Client.flag = -new Random().nextInt(555);
 				Minecraft.getMinecraft().fontRendererObj = null;

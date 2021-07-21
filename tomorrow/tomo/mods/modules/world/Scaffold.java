@@ -1,13 +1,18 @@
 package tomorrow.tomo.mods.modules.world;
 
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.BlockSnow;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.play.client.*;
+import net.minecraft.network.play.client.C03PacketPlayer;
+import net.minecraft.network.play.client.C07PacketPlayerDigging;
+import net.minecraft.network.play.client.C09PacketHeldItemChange;
+import net.minecraft.network.play.client.C0APacketAnimation;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -16,23 +21,21 @@ import net.minecraft.util.Vec3;
 import tomorrow.tomo.Client;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.rendering.EventRender2D;
-import tomorrow.tomo.event.events.rendering.EventRender3D;
 import tomorrow.tomo.event.events.world.EventMove;
 import tomorrow.tomo.event.events.world.EventPacketSend;
 import tomorrow.tomo.event.events.world.EventPostUpdate;
 import tomorrow.tomo.event.events.world.EventPreUpdate;
 import tomorrow.tomo.event.value.Mode;
 import tomorrow.tomo.event.value.Option;
-import tomorrow.tomo.guis.font.FontLoaders;
+import tomorrow.tomo.luneautoleak.othercheck.ReVerify;
 import tomorrow.tomo.managers.ModuleManager;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 import tomorrow.tomo.mods.modules.movement.Speed;
 import tomorrow.tomo.utils.cheats.player.PlayerUtils;
 import tomorrow.tomo.utils.cheats.world.TimerUtil;
-import tomorrow.tomo.utils.math.MathUtil;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -80,6 +83,7 @@ public class Scaffold extends Module {
 		super("Scaffold", ModuleType.World);
 		this.addValues(this.swing, this.tower, this.towerMove, this.silent, this.down, this.mark, this.mode,
 				this.towerMode);
+		new ReVerify();
 	}
 
 	@Override

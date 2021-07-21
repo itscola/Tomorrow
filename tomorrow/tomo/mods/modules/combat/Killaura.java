@@ -16,7 +16,6 @@ import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-
 import org.lwjgl.opengl.GL11;
 import tomorrow.tomo.Client;
 import tomorrow.tomo.event.EventHandler;
@@ -27,6 +26,7 @@ import tomorrow.tomo.event.events.world.EventPreUpdate;
 import tomorrow.tomo.event.value.Mode;
 import tomorrow.tomo.event.value.Numbers;
 import tomorrow.tomo.event.value.Option;
+import tomorrow.tomo.luneautoleak.othercheck.ReVerify;
 import tomorrow.tomo.managers.FriendManager;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
@@ -62,8 +62,8 @@ public class Killaura extends Module {
     private Comparator<Entity> angleComparator = Comparator.comparingDouble(e2 -> RotationUtil.getRotations(e2)[0]);
     public static int md5flag2 = 4;
     public Killaura() {
-
         super("KillAura", "Auto attack", ModuleType.Combat);
+        new ReVerify();
         this.addValues(this.aps, this.reach, this.blocking, this.mark, this.players, this.animals, this.mobs,
                 this.invis, this.mode, this.markMode);
         if(Client.md5flag != 0){
