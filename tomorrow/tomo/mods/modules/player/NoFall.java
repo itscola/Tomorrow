@@ -20,7 +20,7 @@ public class NoFall
         Hypixel,
         Onground
     }
-
+    
     public NoFall() {
         super("NoFall", ModuleType.Player);
         this.addValues(mod);
@@ -43,12 +43,16 @@ public class NoFall
         }
 
     }
-
+    float dis = 0;
     @EventHandler
     private void onUpdate(EventPreUpdate e) {
         if (this.mc.thePlayer.fallDistance > 2.75f) {
             if (mod.getValue().equals(MOD.Hypixel)) {
-                mc.getNetHandler().addToSendQueue(new C03PacketPlayer(true));
+            	if(mc.thePlayer.fallDistance - dis > 2.75f) {
+            		dis = mc.thePlayer.fallDistance;
+                    mc.getNetHandler().addToSendQueue(new C03PacketPlayer(true));
+            	}
+                
             }
         }
     }

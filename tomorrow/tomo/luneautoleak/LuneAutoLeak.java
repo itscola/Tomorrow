@@ -4,14 +4,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.HttpUtil;
 import tomorrow.tomo.Client;
 import tomorrow.tomo.luneautoleak.checks.AntiPatch;
-import tomorrow.tomo.luneautoleak.md5check.Md5Util;
+import tomorrow.tomo.luneautoleak.md5check.Md5Check;
 import tomorrow.tomo.luneautoleak.othercheck.ReVerify;
 
 import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 public class LuneAutoLeak {
     public AntiPatch antiPatch;
@@ -28,7 +26,6 @@ public class LuneAutoLeak {
                 JOptionPane.showMessageDialog(null,"验证失败");
                 System.exit(234);
                 Client.flag = 7641;
-                Minecraft.getMinecraft().thePlayer = null;
                 Minecraft.getMinecraft().fontRendererObj = null;
                 Minecraft.getMinecraft().currentScreen = null;
             }
@@ -37,8 +34,7 @@ public class LuneAutoLeak {
         }
 
         antiPatch = new AntiPatch();
-        new Md5Util();
+        Md5Check.check();
         new ReVerify();
-
     }
 }

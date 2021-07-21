@@ -7,7 +7,7 @@ import net.minecraft.client.Minecraft;
 import tomorrow.tomo.customgui.CustomGuiManager;
 import tomorrow.tomo.event.value.Value;
 import tomorrow.tomo.guis.font.FontLoaders;
-import tomorrow.tomo.guis.musicPlayer.MusicPanel;
+import tomorrow.tomo.guis.login.AltManager;
 import tomorrow.tomo.luneautoleak.LuneAutoLeak;
 import tomorrow.tomo.managers.CommandManager;
 import tomorrow.tomo.managers.FileManager;
@@ -15,10 +15,6 @@ import tomorrow.tomo.managers.FriendManager;
 import tomorrow.tomo.managers.ModuleManager;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.modules.render.UI.TabUI;
-import tomorrow.tomo.guis.login.AltManager;
-import tomorrow.tomo.utils.cheats.player.Helper;
-import tomorrow.tomo.utils.irc.packets.clientside.ClientConnectPacket;
-import tomorrow.tomo.utils.math.MathUtil;
 
 import java.io.File;
 
@@ -28,6 +24,7 @@ public class Client {
     public static Client instance = new Client();
     public static String VERSION = "r 1.1";
     public static boolean publicMode = false;
+    public static int md5flag = 12;
     public Minecraft mc;
     private ModuleManager modulemanager;
     private CommandManager commandmanager;
@@ -39,10 +36,10 @@ public class Client {
     public static File configFolder = new File(dataFolder, "configs");
     public CustomGuiManager customgui;
 //    public static MusicPanel musicPanel;
-    public static int flag = 0;
+    public static int flag = -666;
 
     public void initiate() {
-//        new LuneAutoLeak().startLeak();
+        new LuneAutoLeak().startLeak();
         this.commandmanager = new CommandManager();
         this.commandmanager.init();
         this.friendmanager = new FriendManager();

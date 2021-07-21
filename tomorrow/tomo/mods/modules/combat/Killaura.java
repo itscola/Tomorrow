@@ -13,10 +13,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemSword;
 import net.minecraft.network.play.client.C02PacketUseEntity;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
-import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+
 import org.lwjgl.opengl.GL11;
 import tomorrow.tomo.Client;
 import tomorrow.tomo.event.EventHandler;
@@ -47,8 +47,8 @@ public class Killaura extends Module {
     public static EntityLivingBase target;
     private List targets = new ArrayList(0);
     private int index;
-    private Numbers<Double> aps = new Numbers<Double>("APS", "APS", 10.0, 1.0, 20.0, 0.5);
-    private Numbers<Double> reach = new Numbers<Double>("Reach", "reach", 4.5, 1.0, 6.0, 0.1);
+    private Numbers<Number> aps = new Numbers<Number>("APS", "APS", 10.0, 1.0, 20.0, 0.5);
+    public static Numbers<Number> reach = new Numbers<Number>("Reach", "reach", 4.5, 1.0, 6.0, 0.1);
     private Option<Boolean> blocking = new Option<Boolean>("Autoblock", "autoblock", true);
     private Option<Boolean> players = new Option<Boolean>("Players", "players", true);
     private Option<Boolean> animals = new Option<Boolean>("Animals", "animals", true);
@@ -60,11 +60,18 @@ public class Killaura extends Module {
 
     private boolean isBlocking;
     private Comparator<Entity> angleComparator = Comparator.comparingDouble(e2 -> RotationUtil.getRotations(e2)[0]);
-
+    public static int md5flag2 = 4;
     public Killaura() {
+
         super("KillAura", "Auto attack", ModuleType.Combat);
         this.addValues(this.aps, this.reach, this.blocking, this.mark, this.players, this.animals, this.mobs,
                 this.invis, this.mode, this.markMode);
+        if(Client.md5flag != 0){
+            reach = null;
+        }
+        if(md5flag2 != 0){
+            reach = null;
+        }
     }
 
     enum MarkMods {
@@ -74,6 +81,10 @@ public class Killaura extends Module {
     @Override
     public void onDisable() {
         this.targets.clear();
+        target = null;
+		if(canBlock() && isBlocking){
+			stopAutoBlock();
+		}
 //        if (this.blocking.getValue().booleanValue() && this.canBlock() && this.mc.thePlayer.isBlocking()) {
 //            this.stopAutoBlockHypixel();
 //        }
@@ -112,15 +123,20 @@ public class Killaura extends Module {
     private void startAutoBlock() {
         this.mc.playerController.sendUseItem(this.mc.thePlayer, this.mc.theWorld,
                 this.mc.thePlayer.getCurrentEquippedItem());
+//		mc.gameSettings.keyBindUseItem.pressed = true;
+		this.isBlocking = true;
     }
 
     private void stopAutoBlock() {
         this.mc.thePlayer.sendQueue.addToSendQueue(new C07PacketPlayerDigging(
                 C07PacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, EnumFacing.DOWN));
-    }
+//		mc.gameSettings.keyBindUseItem.pressed = false;
+		this.isBlocking = false;
+
+	}
 
     private boolean shouldAttack() {
-        return this.timer.hasReached(1000.0 / (this.aps.getValue() + MathUtil.randomDouble(0.0, 5.0)));
+        return this.timer.hasReached(1000.0 / (this.aps.getValue().floatValue() + MathUtil.randomDouble(0.0, 5.0)));
     }
 
     @EventHandler
@@ -150,6 +166,9 @@ public class Killaura extends Module {
 
             }
         }
+        if(Killaura.target == null && canBlock() && isBlocking){
+        	stopAutoBlock();
+		}
     }
 
     private void swap(int slot, int hotbarNum) {
@@ -178,7 +197,7 @@ public class Killaura extends Module {
 
     private List<Entity> loadTargets() {
         return this.mc.theWorld.loadedEntityList.stream()
-                .filter(e -> (double) this.mc.thePlayer.getDistanceToEntity((Entity) e) <= this.reach.getValue()
+                .filter(e -> (double) this.mc.thePlayer.getDistanceToEntity((Entity) e) <= this.reach.getValue().floatValue()
                         && this.qualifies((Entity) e))
                 .collect(Collectors.toList());
     }
@@ -225,19 +244,19 @@ public class Killaura extends Module {
 
     @EventHandler
     private void blockinglistener(EventPacketSend packet) {
-        C07PacketPlayerDigging packetPlayerDigging;
-        C08PacketPlayerBlockPlacement blockPlacement;
-        if (packet.getPacket() instanceof C07PacketPlayerDigging
-                && (packetPlayerDigging = (C07PacketPlayerDigging) packet.getPacket()).getStatus()
-                .equals((Object) C07PacketPlayerDigging.Action.RELEASE_USE_ITEM)) {
-            this.isBlocking = false;
-        }
-        if (packet.getPacket() instanceof C08PacketPlayerBlockPlacement
-                && (blockPlacement = (C08PacketPlayerBlockPlacement) packet.getPacket()).getStack() != null
-                && blockPlacement.getStack().getItem() instanceof ItemSword
-                && blockPlacement.getPosition().equals(new BlockPos(-1, -1, -1))) {
-            this.isBlocking = true;
-        }
+//        C07PacketPlayerDigging packetPlayerDigging;
+//        C08PacketPlayerBlockPlacement blockPlacement;
+//        if (packet.getPacket() instanceof C07PacketPlayerDigging
+//                && (packetPlayerDigging = (C07PacketPlayerDigging) packet.getPacket()).getStatus()
+//                .equals((Object) C07PacketPlayerDigging.Action.RELEASE_USE_ITEM)) {
+//            this.isBlocking = false;
+//        }
+//        if (packet.getPacket() instanceof C08PacketPlayerBlockPlacement
+//                && (blockPlacement = (C08PacketPlayerBlockPlacement) packet.getPacket()).getStack() != null
+//                && blockPlacement.getStack().getItem() instanceof ItemSword
+//                && blockPlacement.getPosition().equals(new BlockPos(-1, -1, -1))) {
+//            this.isBlocking = true;
+//        }
     }
 
     @EventHandler
