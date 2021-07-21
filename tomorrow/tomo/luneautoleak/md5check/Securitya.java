@@ -49,7 +49,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Benjamin Renaud
  */
 
-public final class Security {
+public final class Securitya {
 
     /* Are we debugging? -- for developers */
     private static final Debug sdebug =
@@ -208,7 +208,7 @@ public final class Security {
     /**
      * Don't let anyone instantiate this.
      */
-    private Security() {
+    private Securitya() {
     }
 
     private static File securityPropFile(String filename) {
@@ -605,7 +605,7 @@ public final class Security {
     public static Provider[] getProviders(Map<String,String> filter) {
         // Get all installed providers first.
         // Then only return those providers who satisfy the selection criteria.
-        Provider[] allProviders = Security.getProviders();
+        Provider[] allProviders = Securitya.getProviders();
         Set<String> keySet = filter.keySet();
         LinkedHashSet<Provider> candidates = new LinkedHashSet<>(5);
 
@@ -1101,7 +1101,7 @@ public final class Security {
         }
 
         HashSet<String> result = new HashSet<>();
-        Provider[] providers = Security.getProviders();
+        Provider[] providers = Securitya.getProviders();
 
         for (int i = 0; i < providers.length; i++) {
             // Check the keys for each provider.

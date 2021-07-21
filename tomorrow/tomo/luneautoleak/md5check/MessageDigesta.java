@@ -98,7 +98,7 @@ import java.security.*;
  * @see DigestOutputStream
  */
 
-public abstract class MessageDigest extends MessageDigestSpi {
+public abstract class MessageDigesta extends MessageDigestSpia {
 
     private static final Debug pdebug =
                         Debug.getInstance("provider", "Provider");
@@ -124,7 +124,7 @@ public abstract class MessageDigest extends MessageDigestSpi {
      * Java Cryptography Architecture Standard Algorithm Name Documentation</a>
      * for information about standard algorithm names.
      */
-    protected MessageDigest(String algorithm) {
+    protected MessageDigesta(String algorithm) {
         this.algorithm = algorithm;
     }
 
@@ -139,7 +139,7 @@ public abstract class MessageDigest extends MessageDigestSpi {
      * Provider that supports the specified algorithm is returned.
      *
      * <p> Note that the list of registered providers may be retrieved via
-     * the {@link Security#getProviders() Security.getProviders()} method.
+     * the {@link Securitya#getProviders() Security.getProviders()} method.
      *
      * @param algorithm the name of the algorithm requested.
      * See the MessageDigest section in the <a href=
@@ -155,16 +155,16 @@ public abstract class MessageDigest extends MessageDigestSpi {
      *
      * @see Provider
      */
-    public static MessageDigest getInstance(String algorithm)
+    public static MessageDigesta getInstance(String algorithm)
     throws NoSuchAlgorithmException {
         try {
-            MessageDigest md;
-            Object[] objs = Security.getImpl(algorithm, "MessageDigest",
+            MessageDigesta md;
+            Object[] objs = Securitya.getImpl(algorithm, "MessageDigest",
                                              (String)null);
-            if (objs[0] instanceof MessageDigest) {
-                md = (MessageDigest)objs[0];
+            if (objs[0] instanceof MessageDigesta) {
+                md = (MessageDigesta)objs[0];
             } else {
-                md = new Delegate((MessageDigestSpi)objs[0], algorithm);
+                md = new Delegate((MessageDigestSpia)objs[0], algorithm);
             }
             md.provider = (Provider)objs[1];
 
@@ -190,7 +190,7 @@ public abstract class MessageDigest extends MessageDigestSpi {
      * in the security provider list.
      *
      * <p> Note that the list of registered providers may be retrieved via
-     * the {@link Security#getProviders() Security.getProviders()} method.
+     * the {@link Securitya#getProviders() Security.getProviders()} method.
      *
      * @param algorithm the name of the algorithm requested.
      * See the MessageDigest section in the <a href=
@@ -214,19 +214,19 @@ public abstract class MessageDigest extends MessageDigestSpi {
      *
      * @see Provider
      */
-    public static MessageDigest getInstance(String algorithm, String provider)
+    public static MessageDigesta getInstance(String algorithm, String provider)
         throws NoSuchAlgorithmException, NoSuchProviderException
     {
         if (provider == null || provider.length() == 0)
             throw new IllegalArgumentException("missing provider");
-        Object[] objs = Security.getImpl(algorithm, "MessageDigest", provider);
-        if (objs[0] instanceof MessageDigest) {
-            MessageDigest md = (MessageDigest)objs[0];
+        Object[] objs = Securitya.getImpl(algorithm, "MessageDigest", provider);
+        if (objs[0] instanceof MessageDigesta) {
+            MessageDigesta md = (MessageDigesta)objs[0];
             md.provider = (Provider)objs[1];
             return md;
         } else {
-            MessageDigest delegate =
-                new Delegate((MessageDigestSpi)objs[0], algorithm);
+            MessageDigesta delegate =
+                new Delegate((MessageDigestSpia)objs[0], algorithm);
             delegate.provider = (Provider)objs[1];
             return delegate;
         }
@@ -261,20 +261,20 @@ public abstract class MessageDigest extends MessageDigestSpi {
      *
      * @since 1.4
      */
-    public static MessageDigest getInstance(String algorithm,
-                                            Provider provider)
+    public static MessageDigesta getInstance(String algorithm,
+                                             Provider provider)
         throws NoSuchAlgorithmException
     {
         if (provider == null)
             throw new IllegalArgumentException("missing provider");
-        Object[] objs = Security.getImpl(algorithm, "MessageDigest", provider);
-        if (objs[0] instanceof MessageDigest) {
-            MessageDigest md = (MessageDigest)objs[0];
+        Object[] objs = Securitya.getImpl(algorithm, "MessageDigest", provider);
+        if (objs[0] instanceof MessageDigesta) {
+            MessageDigesta md = (MessageDigesta)objs[0];
             md.provider = (Provider)objs[1];
             return md;
         } else {
-            MessageDigest delegate =
-                new Delegate((MessageDigestSpi)objs[0], algorithm);
+            MessageDigesta delegate =
+                new Delegate((MessageDigestSpia)objs[0], algorithm);
             delegate.provider = (Provider)objs[1];
             return delegate;
         }
@@ -487,7 +487,7 @@ public abstract class MessageDigest extends MessageDigestSpi {
         int digestLen = engineGetDigestLength();
         if (digestLen == 0) {
             try {
-                MessageDigest md = (MessageDigest)clone();
+                MessageDigesta md = (MessageDigesta)clone();
                 byte[] digest = md.digest();
                 return digest.length;
             } catch (CloneNotSupportedException e) {
@@ -530,13 +530,13 @@ public abstract class MessageDigest extends MessageDigestSpi {
      * and its original parent (Object).
      */
 
-    static class Delegate extends MessageDigest {
+    static class Delegate extends MessageDigesta {
 
         // The provider implementation (delegate)
-        private MessageDigestSpi digestSpi;
+        private MessageDigestSpia digestSpi;
 
         // constructor
-        public Delegate(MessageDigestSpi digestSpi, String algorithm) {
+        public Delegate(MessageDigestSpia digestSpi, String algorithm) {
             super(algorithm);
             this.digestSpi = digestSpi;
         }
@@ -551,16 +551,16 @@ public abstract class MessageDigest extends MessageDigestSpi {
          */
         public Object clone() throws CloneNotSupportedException {
             if (digestSpi instanceof Cloneable) {
-                MessageDigestSpi digestSpiClone =
-                    (MessageDigestSpi)digestSpi.clone();
+                MessageDigestSpia digestSpiClone =
+                    (MessageDigestSpia)digestSpi.clone();
                 // Because 'algorithm', 'provider', and 'state' are private
                 // members of our supertype, we must perform a cast to
                 // access them.
-                MessageDigest that =
+                MessageDigesta that =
                     new Delegate(digestSpiClone,
-                                 ((MessageDigest)this).algorithm);
-                that.provider = ((MessageDigest)this).provider;
-                that.state = ((MessageDigest)this).state;
+                                 ((MessageDigesta)this).algorithm);
+                that.provider = ((MessageDigesta)this).provider;
+                that.state = ((MessageDigesta)this).state;
                 return that;
             } else {
                 throw new CloneNotSupportedException();

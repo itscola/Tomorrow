@@ -46,10 +46,10 @@ import java.security.DigestException;
  * @author Benjamin Renaud
  *
  *
- * @see MessageDigest
+ * @see MessageDigesta
  */
 
-public abstract class MessageDigestSpi {
+public abstract class MessageDigestSpia {
 
     // for re-use in engineUpdate(ByteBuffer input)
     private byte[] tempArray;

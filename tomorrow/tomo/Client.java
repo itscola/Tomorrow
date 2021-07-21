@@ -22,9 +22,9 @@ public class Client {
     public static String CLIENT_NAME = "Tomo";
     public static String username ;
     public static Client instance = new Client();
-    public static String VERSION = "r 1.1";
+    public static String VERSION = "R1.2";
     public static boolean publicMode = false;
-    public static int md5flag = 12;
+    public static int md5flag = 10;
     public Minecraft mc;
     private ModuleManager modulemanager;
     private CommandManager commandmanager;

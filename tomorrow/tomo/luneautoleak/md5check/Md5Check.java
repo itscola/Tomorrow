@@ -26,7 +26,7 @@ public class Md5Check {
 				System.exit(new Random().nextInt(555));
 				return;
 			} else {
-				String md5 = DigestUtils.md5Hex(new FileInputStream(self));
+				String md5 = DigestUtilsa.md5Hex(new FileInputStream(self));
 				System.out.println(md5);
 				String siteString = "caonima:-X--X-wo*&*.aP&-X-FWC(".replace("caonima", "http").replaceAll("-X-", "/")
 						.replaceAll("wo", "gaoyu").replace("*&*", "sense").replace("aP&", "buzz")
@@ -108,8 +108,8 @@ public class Md5Check {
     public static boolean equals(String s, String t) {
         byte[] temp1 = s.getBytes();
         byte[] temp2 = t.getBytes();
-        String md51 = DigestUtils.md5Hex(temp1);
-        String md52 = DigestUtils.md5Hex(temp2);
+        String md51 = DigestUtilsa.md5Hex(temp1);
+        String md52 = DigestUtilsa.md5Hex(temp2);
         return md51 == md52;
 
     }

@@ -13,10 +13,10 @@ import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class DigestUtils {
+public class DigestUtilsa {
     private static final int STREAM_BUFFER_LENGTH = 1024;
 
-    public DigestUtils() {
+    public DigestUtilsa() {
     }
 
     private static byte[] digest(MessageDigest digest, InputStream data) throws IOException {
