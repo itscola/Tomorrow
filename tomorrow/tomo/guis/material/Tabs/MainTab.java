@@ -15,12 +15,9 @@ public class MainTab extends Tab {
     @Override
     public void render(float mouseX, float mouseY) {
         super.render(mouseX, mouseY);
-        FontLoaders.arial24.drawString("Welcome!", Main.windowX + Main.animListX + 10, Main.windowY + 60, new Color(150, 150, 150).getRGB());
+        FontLoaders.arial24.drawString("Welcome!", Main.windowX + Main.animListX + 50, Main.windowY + 100, new Color(50, 50, 50).getRGB());
         float width = FontLoaders.arial24.getStringWidth("Welcome!");
-
-        FontLoaders.arial16B.drawString(Client.username, Main.windowX + Main.animListX + 12 + width, Main.windowY + 60, new Color(200, 200, 200).getRGB());
-
-
+        Client.fontLoaders.msFont18.drawString("用户:" + Client.username, Main.windowX + Main.animListX + 60 + width, Main.windowY + 110, new Color(100, 200, 50).getRGB());
     }
 
     @Override

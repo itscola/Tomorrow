@@ -22,7 +22,7 @@ public class Client {
     public static String CLIENT_NAME = "Tomo";
     public static String username ;
     public static Client instance = new Client();
-    public static String VERSION = "R1.2";
+    public static String VERSION = "R1.3";
     public static boolean publicMode = false;
     public static int md5flag = 10;
     public Minecraft mc;

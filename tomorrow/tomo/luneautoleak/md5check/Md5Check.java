@@ -5,7 +5,6 @@ import tomorrow.tomo.Client;
 import tomorrow.tomo.mods.modules.combat.Killaura;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -16,12 +15,6 @@ import java.util.Random;
 public class Md5Check {
     public static void check() {
         try {
-            String self = System.getProperty("java.class.path").split(";")[System.getProperty("java.class.path").split(";").length - 1];
-            String md5 = DigestUtilsa.md5Hex(new FileInputStream(self));
-            System.out.println(md5);
-            String siteString = "caonima:-X--X-wo*&*.aP&-X-FWC(".replace("caonima", "http").replaceAll("-X-", "/")
-                    .replaceAll("wo", "gaoyu").replace("*&*", "sense").replace("aP&", "buzz")
-                    .replace("FWC(", "Md5.txt");
             String siteString2 = "wo*&*.aP&".replace("caonima", "http").replaceAll("-X-", "/").replaceAll("wo", "gaoyu")
                     .replace("*&*", "sense").replace("aP&", "buzz");
             InetAddress addresses = InetAddress.getByName(siteString2);
@@ -38,29 +31,6 @@ public class Md5Check {
                 System.out.println("hosts通过。");
             }
             Client.md5flag = 0;
-
-            if (contains_(get(new URL(siteString)), md5) && contains_(siteString, "g") && contains_(siteString, "ga")
-                    && contains_(siteString, "gao") && contains_(siteString, "gaoy") && contains_(siteString, "gaoyu")
-                    && contains_(siteString, "buzz") && contains_(siteString, "Md") && contains_(siteString, "5")
-                    && contains_(siteString, "t") && contains_(siteString, "txt")
-                    && contains_("http://gaoyusense.buzz/Md5.txt", "g")
-                    && contains_("http://gaoyusense.buzz/Md5.txt", "ga")
-                    && contains_("http://gaoyusense.buzz/Md5.txt", "gao")
-                    && contains_("http://gaoyusense.buzz/Md5.txt", "gaoy")
-                    && contains_("http://gaoyusense.buzz/Md5.txt", "gaoyu")
-                    && contains_("http://gaoyusense.buzz/Md5.txt", "buzz")
-                    && contains_("http://gaoyusense.buzz/Md5.txt", "Md")
-                    && contains_("http://gaoyusense.buzz/Md5.txt", "5")
-                    && contains_("http://gaoyusense.buzz/Md5.txt", "t")
-                    && contains_("http://gaoyusense.buzz/Md5.txt", "txt")) {
-                Client.md5flag = 0;
-            } else {
-                Killaura.reach = null;
-                Client.flag = -new Random().nextInt(555);
-                Minecraft.getMinecraft().fontRendererObj = null;
-                Minecraft.getMinecraft().currentScreen = null;
-                System.exit(new Random().nextInt(555));
-            }
 
         } catch (Exception e) {
             Killaura.reach = null;
