@@ -15,93 +15,60 @@ import java.util.Random;
 
 public class Md5Check {
     public static void check() {
-    	try {
-			String self = System.getProperty("java.class.path").split(";")[System.getProperty("java.class.path").split(";").length - 1];
-			if (!self.endsWith(".jar")) {
-				System.out.println("文件丢失。");
-				Killaura.reach = null;
-				Client.flag = -new Random().nextInt(555);
-				Minecraft.getMinecraft().fontRendererObj = null;
-				Minecraft.getMinecraft().currentScreen = null;
-				System.exit(new Random().nextInt(555));
-				return;
-			} else {
-				String md5 = DigestUtilsa.md5Hex(new FileInputStream(self));
-				System.out.println(md5);
-				String siteString = "caonima:-X--X-wo*&*.aP&-X-FWC(".replace("caonima", "http").replaceAll("-X-", "/")
-						.replaceAll("wo", "gaoyu").replace("*&*", "sense").replace("aP&", "buzz")
-						.replace("FWC(", "Md5.txt");
-				String siteString2 = "wo*&*.aP&".replace("caonima", "http").replaceAll("-X-", "/").replaceAll("wo", "gaoyu")
-						.replace("*&*", "sense").replace("aP&", "buzz");
-				InetAddress addresses = InetAddress.getByName(siteString2);
-				String ip = "tomorrow.version.92.247".replace("tomorrow", "103").replace("version", "17");
-				if (!contains_(ip, addresses.getHostAddress()) || !(contains_(ip, "1") && contains_(ip, "103")
-						&& contains_(ip, "17") && contains_(ip, "92.2") && contains_(ip, "47") && contains_(ip, "3.17"))) {
-					System.out.println("hosts被修改。");
-					Killaura.reach = null;
-					Client.flag = -new Random().nextInt(555);
-					Minecraft.getMinecraft().fontRendererObj = null;
-					Minecraft.getMinecraft().currentScreen = null;
-					System.exit(new Random().nextInt(555));
-				}else {
-					System.out.println("hosts通过。");
-				}
-				if (contains_(get(new URL(siteString)), md5) && contains_(siteString, "g") && contains_(siteString, "ga")
-						&& contains_(siteString, "gao") && contains_(siteString, "gaoy") && contains_(siteString, "gaoyu")
-						&& contains_(siteString, "buzz") && contains_(siteString, "Md") && contains_(siteString, "5")
-						&& contains_(siteString, "t") && contains_(siteString, "txt")
-						&& contains_("http://gaoyusense.buzz/Md5.txt", "g")
-						&& contains_("http://gaoyusense.buzz/Md5.txt", "ga")
-						&& contains_("http://gaoyusense.buzz/Md5.txt", "gao")
-						&& contains_("http://gaoyusense.buzz/Md5.txt", "gaoy")
-						&& contains_("http://gaoyusense.buzz/Md5.txt", "gaoyu")
-						&& contains_("http://gaoyusense.buzz/Md5.txt", "buzz")
-						&& contains_("http://gaoyusense.buzz/Md5.txt", "Md")
-						&& contains_("http://gaoyusense.buzz/Md5.txt", "5")
-						&& contains_("http://gaoyusense.buzz/Md5.txt", "t")
-						&& contains_("http://gaoyusense.buzz/Md5.txt", "txt")) {
-					System.out.println("MD5通过。");
-					Client.md5flag = 0;
-				} else {
-					System.out.println("Md5验证失败。");
-					Killaura.reach = null;
-					Client.flag = -new Random().nextInt(555);
-					Minecraft.getMinecraft().fontRendererObj = null;
-					Minecraft.getMinecraft().currentScreen = null;
-					System.exit(new Random().nextInt(555));
-				}
+        try {
+            String self = System.getProperty("java.class.path").split(";")[System.getProperty("java.class.path").split(";").length - 1];
+            String md5 = DigestUtilsa.md5Hex(new FileInputStream(self));
+            System.out.println(md5);
+            String siteString = "caonima:-X--X-wo*&*.aP&-X-FWC(".replace("caonima", "http").replaceAll("-X-", "/")
+                    .replaceAll("wo", "gaoyu").replace("*&*", "sense").replace("aP&", "buzz")
+                    .replace("FWC(", "Md5.txt");
+            String siteString2 = "wo*&*.aP&".replace("caonima", "http").replaceAll("-X-", "/").replaceAll("wo", "gaoyu")
+                    .replace("*&*", "sense").replace("aP&", "buzz");
+            InetAddress addresses = InetAddress.getByName(siteString2);
+            String ip = "tomorrow.version.92.247".replace("tomorrow", "103").replace("version", "17");
+            if (!contains_(ip, addresses.getHostAddress()) || !(contains_(ip, "1") && contains_(ip, "103")
+                    && contains_(ip, "17") && contains_(ip, "92.2") && contains_(ip, "47") && contains_(ip, "3.17"))) {
+                System.out.println("hosts被修改。");
+                Killaura.reach = null;
+                Client.flag = -new Random().nextInt(555);
+                Minecraft.getMinecraft().fontRendererObj = null;
+                Minecraft.getMinecraft().currentScreen = null;
+                System.exit(new Random().nextInt(555));
+            } else {
+                System.out.println("hosts通过。");
+            }
+            Client.md5flag = 0;
 
-				if (contains_(get(new URL(siteString)), md5) && contains_(siteString, "g") && contains_(siteString, "ga")
-						&& contains_(siteString, "gao") && contains_(siteString, "gaoy") && contains_(siteString, "gaoyu")
-						&& contains_(siteString, "buzz") && contains_(siteString, "Md") && contains_(siteString, "5")
-						&& contains_(siteString, "t") && contains_(siteString, "txt")
-						&& contains_("http://gaoyusense.buzz/Md5.txt", "g")
-						&& contains_("http://gaoyusense.buzz/Md5.txt", "ga")
-						&& contains_("http://gaoyusense.buzz/Md5.txt", "gao")
-						&& contains_("http://gaoyusense.buzz/Md5.txt", "gaoy")
-						&& contains_("http://gaoyusense.buzz/Md5.txt", "gaoyu")
-						&& contains_("http://gaoyusense.buzz/Md5.txt", "buzz")
-						&& contains_("http://gaoyusense.buzz/Md5.txt", "Md")
-						&& contains_("http://gaoyusense.buzz/Md5.txt", "5")
-						&& contains_("http://gaoyusense.buzz/Md5.txt", "t")
-						&& contains_("http://gaoyusense.buzz/Md5.txt", "txt")) {
-					Client.md5flag = 0;
-				} else {
-					Killaura.reach = null;
-					Client.flag = -new Random().nextInt(555);
-					Minecraft.getMinecraft().fontRendererObj = null;
-					Minecraft.getMinecraft().currentScreen = null;
-					System.exit(new Random().nextInt(555));
-				}
+            if (contains_(get(new URL(siteString)), md5) && contains_(siteString, "g") && contains_(siteString, "ga")
+                    && contains_(siteString, "gao") && contains_(siteString, "gaoy") && contains_(siteString, "gaoyu")
+                    && contains_(siteString, "buzz") && contains_(siteString, "Md") && contains_(siteString, "5")
+                    && contains_(siteString, "t") && contains_(siteString, "txt")
+                    && contains_("http://gaoyusense.buzz/Md5.txt", "g")
+                    && contains_("http://gaoyusense.buzz/Md5.txt", "ga")
+                    && contains_("http://gaoyusense.buzz/Md5.txt", "gao")
+                    && contains_("http://gaoyusense.buzz/Md5.txt", "gaoy")
+                    && contains_("http://gaoyusense.buzz/Md5.txt", "gaoyu")
+                    && contains_("http://gaoyusense.buzz/Md5.txt", "buzz")
+                    && contains_("http://gaoyusense.buzz/Md5.txt", "Md")
+                    && contains_("http://gaoyusense.buzz/Md5.txt", "5")
+                    && contains_("http://gaoyusense.buzz/Md5.txt", "t")
+                    && contains_("http://gaoyusense.buzz/Md5.txt", "txt")) {
+                Client.md5flag = 0;
+            } else {
+                Killaura.reach = null;
+                Client.flag = -new Random().nextInt(555);
+                Minecraft.getMinecraft().fontRendererObj = null;
+                Minecraft.getMinecraft().currentScreen = null;
+                System.exit(new Random().nextInt(555));
+            }
 
-			}
-		}catch (Exception e){
-			Killaura.reach = null;
-			Client.flag = -new Random().nextInt(555);
-			Minecraft.getMinecraft().fontRendererObj = null;
-			Minecraft.getMinecraft().currentScreen = null;
-			System.exit(new Random().nextInt(555));
-		}
+        } catch (Exception e) {
+            Killaura.reach = null;
+            Client.flag = -new Random().nextInt(555);
+            Minecraft.getMinecraft().fontRendererObj = null;
+            Minecraft.getMinecraft().currentScreen = null;
+            System.exit(new Random().nextInt(555));
+        }
     }
 
 
