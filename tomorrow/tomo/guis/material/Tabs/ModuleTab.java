@@ -24,15 +24,15 @@ public class ModuleTab extends Tab {
         name = m.getName();
         for (Value v : module.values) {
             if (v instanceof Option) {
-                Button value = new BOption(startX, startY, v);
+                Button value = new BOption(startX, startY, v,this);
                 btns.add(value);
 
             } else if (v instanceof Numbers) {
-                Button value = new BNumbers(startX, startY, v);
+                Button value = new BNumbers(startX, startY, v,this);
                 btns.add(value);
 
             } else if (v instanceof Mode) {
-                Button value = new BMode(startX, startY, v);
+                Button value = new BMode(startX, startY, v,this);
                 btns.add(value);
 
             }
@@ -73,7 +73,7 @@ public class ModuleTab extends Tab {
         for (Button v : btns) {
             if(!v.v.visible)
                 continue;
-            v.mouseClicked(mouseX, mouseY);
+            v.mouseClick(mouseX, mouseY);
         }
     }
 }

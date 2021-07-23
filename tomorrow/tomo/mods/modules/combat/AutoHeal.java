@@ -26,7 +26,7 @@ public class AutoHeal
     private Numbers<Number> health = new Numbers<Number>("Health", "health", 3.0, 0.0, 10.0, 0.5);
     private Numbers<Number> delay = new Numbers<Number>("Delay", "delay", 400.0, 0.0, 1000.0, 10.0);
     private Option<Boolean> jump = new Option<Boolean>("Jump", "jump", true);
-    private Mode<Enum> mode = new Mode("Mode", "mode", (Enum[]) HealMode.values(), (Enum) HealMode.Potion);
+    private Mode mode = new Mode("Mode", "mode", new String[]{"Potion", "Head"}, "Potion");
     static boolean currentlyPotting = false;
     private boolean isUsing;
     private int slot;
@@ -40,11 +40,11 @@ public class AutoHeal
     @EventHandler
     private void onUpdate(EventPreUpdate e) {
         if (this.timer.hasReached(this.delay.getValue().intValue()) && (double) this.mc.thePlayer.getHealth() <= this.health.getValue().intValue() * 2.0) {
-            this.slot = this.mode.getValue() == HealMode.Potion ? this.getPotionSlot() : (this.mode.getValue() == HealMode.Head ? this.getSoupSlot() : this.getPotionSlot());
+            this.slot = this.mode.getValue() == "Potion" ? this.getPotionSlot() : this.getSoupSlot();
             boolean bl = this.isUsing = this.slot != -1 && (this.jump.getValue() == false || this.mc.thePlayer.onGround);
             if (this.isUsing) {
                 this.timer.reset();
-                if (this.mode.getValue() == HealMode.Potion) {
+                if (this.mode.getValue() == "Potion") {
                     currentlyPotting = true;
                     e.setPitch(this.jump.getValue() != false ? -90 : 90);
                     if (this.timer.hasReached(1.0)) {
@@ -68,7 +68,7 @@ public class AutoHeal
             this.mc.thePlayer.inventory.currentItem = current;
             this.mc.thePlayer.sendQueue.addToSendQueue(new C09PacketHeldItemChange(this.mc.thePlayer.inventory.currentItem));
             this.isUsing = false;
-            if (this.mc.thePlayer.onGround && this.jump.getValue().booleanValue() && this.mode.getValue() == HealMode.Potion) {
+            if (this.mc.thePlayer.onGround && this.jump.getValue().booleanValue() && this.mode.getValue() == "Potion") {
                 this.mc.thePlayer.setSpeed(0.0);
                 this.mc.thePlayer.motionY = 0.42;
             }
@@ -135,10 +135,6 @@ public class AutoHeal
         return count;
     }
 
-    enum HealMode {
-        Potion,
-        Head;
-    }
 
 }
 

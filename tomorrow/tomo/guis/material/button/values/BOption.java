@@ -3,6 +3,7 @@ package tomorrow.tomo.guis.material.button.values;
 import tomorrow.tomo.event.value.Value;
 import tomorrow.tomo.guis.font.FontLoaders;
 import tomorrow.tomo.guis.material.Main;
+import tomorrow.tomo.guis.material.Tab;
 import tomorrow.tomo.guis.material.button.Button;
 import tomorrow.tomo.utils.math.AnimationUtils;
 import tomorrow.tomo.utils.render.ColorUtils;
@@ -13,8 +14,8 @@ import java.awt.*;
 public class BOption extends Button {
     AnimationUtils au = new AnimationUtils();
 
-    public BOption(float x, float y, Value v) {
-        super(x, y, v);
+    public BOption(float x, float y, Value v, Tab moduleTab) {
+        super(x, y, v,moduleTab);
     }
 
     @Override

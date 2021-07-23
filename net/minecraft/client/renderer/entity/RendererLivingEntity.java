@@ -1,29 +1,13 @@
 package net.minecraft.client.renderer.entity;
 
-import tomorrow.tomo.Client;
-import tomorrow.tomo.mods.modules.render.Chams;
-import tomorrow.tomo.mods.modules.render.ESP;
-import tomorrow.tomo.mods.modules.render.Nametags;
-import tomorrow.tomo.utils.cheats.player.Helper;
-import tomorrow.tomo.utils.render.OutlineUtils;
-import tomorrow.tomo.utils.render.RenderUtil;
 import com.google.common.collect.Lists;
-
 import libraries.optifine.Config;
 import libraries.optifine.Reflector;
-import shadersmod.client.Shaders;
-
-import java.nio.FloatBuffer;
-import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.renderer.GLAllocation;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -34,10 +18,19 @@ import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL11;
+import shadersmod.client.Shaders;
+import tomorrow.tomo.Client;
+import tomorrow.tomo.mods.modules.render.Chams;
+import tomorrow.tomo.mods.modules.render.ESP;
+import tomorrow.tomo.mods.modules.render.Nametags;
+import tomorrow.tomo.utils.cheats.player.Helper;
+import tomorrow.tomo.utils.render.RenderUtil;
+
+import java.nio.FloatBuffer;
+import java.util.List;
 
 public abstract class RendererLivingEntity<T extends EntityLivingBase> extends Render<T>
 {
@@ -181,29 +174,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                 this.mainModel.setLivingAnimations(entity, f6, f5, partialTicks);
                 this.mainModel.setRotationAngles(f6, f5, f7, f2, f8, 0.0625F, entity);
                 ESP esp = (ESP) Client.instance.getModuleManager().getModuleByClass(ESP.class);
-                if (esp.mode.getValue() == ESP.ESPMode.Outline && esp.isEnabled()) {
-                    GlStateManager.depthMask(true);
-                    if (!(entity instanceof EntityPlayer) || !((EntityPlayer)entity).isSpectator()) {
-                        this.renderLayers(entity, f6, f5, partialTicks, f7, f2, f8, 0.0625F);
-                    }
-                    if (entity instanceof EntityPlayer) {
-                        if (Minecraft.getMinecraft().theWorld != null) {
-                            this.renderModel(entity, f6, f5, f7, f2, f8, 0.0625F);
-                            OutlineUtils.renderOne();
-                            this.renderModel(entity, f6, f5, f7, f2, f8, 0.0625F);
-                            OutlineUtils.renderTwo();
-                            this.renderModel(entity, f6, f5, f7, f2, f8, 0.0625F);
-                            OutlineUtils.renderThree();
-                            OutlineUtils.renderFour();
-                            this.renderModel(entity, f6, f5, f7, f2, f8, 0.0625F);
-                            OutlineUtils.renderFive();
-                        }
-                    } else {
-                        this.renderModel(entity, f6, f5, f7, f2, f8, 0.0625F);
-                    }
-                } else {
-                    this.renderModel(entity, f6, f5, f7, f2, f8, 0.0625F);
-                }
+                this.renderModel(entity, f6, f5, f7, f2, f8, 0.0625F);
                 if (this.renderOutlines)
                 {
                     boolean flag1 = this.setScoreTeamColor(entity);
@@ -324,7 +295,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                 GlStateManager.blendFunc(770, 771);
                 GlStateManager.alphaFunc(516, 0.003921569F);
             }
-            if ((chams = (Chams) Client.instance.getModuleManager().getModuleByClass(Chams.class)).isEnabled() && chams.mode.getValue() == Chams.ChamsMode.Textured && entitylivingbaseIn instanceof EntityPlayer) {
+            if ((chams = (Chams) Client.instance.getModuleManager().getModuleByClass(Chams.class)).isEnabled() && chams.mode.getValue().equals("Textured") && entitylivingbaseIn instanceof EntityPlayer) {
                 GL11.glPushMatrix();
                 GL11.glPushAttrib((int)1048575);
                 RenderUtil.pre();
@@ -337,7 +308,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                 GL11.glPopAttrib();
                 GL11.glPopMatrix();
             }
-            if (!chams.isEnabled() || chams.mode.getValue() != Chams.ChamsMode.Textured || !(entitylivingbaseIn instanceof EntityPlayer)) {
+            if (!chams.isEnabled() || chams.mode.getValue().equals("Textured") || !(entitylivingbaseIn instanceof EntityPlayer)) {
                 this.mainModel.render(entitylivingbaseIn, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, p_77036_7_);
             }
 

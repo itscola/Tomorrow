@@ -1,21 +1,10 @@
 package net.minecraft.client.gui;
 
-import org.lwjgl.input.Mouse;
-import tomorrow.tomo.Client;
-import tomorrow.tomo.event.EventBus;
-import tomorrow.tomo.event.events.rendering.EventRender2D;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-
 import libraries.optifine.Config;
 import libraries.optifine.CustomColors;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Random;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -42,16 +31,18 @@ import net.minecraft.scoreboard.Score;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Scoreboard;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.FoodStats;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StringUtils;
+import net.minecraft.util.*;
 import net.minecraft.world.border.WorldBorder;
+import org.lwjgl.input.Mouse;
+import tomorrow.tomo.Client;
+import tomorrow.tomo.event.EventBus;
+import tomorrow.tomo.event.events.rendering.EventRender2D;
 import tomorrow.tomo.mods.modules.render.HUD;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Random;
 
 public class GuiIngame extends Gui {
     private static final ResourceLocation vignetteTexPath = new ResourceLocation("textures/misc/vignette.png");
@@ -153,7 +144,7 @@ public class GuiIngame extends Gui {
             GlStateManager.enableAlpha();
             this.drawTexturedModalRect(i / 2 - 7, j / 2 - 7, 0, 0, 16, 16);
         }
-        if (Client.instance.getModuleManager().getModuleByClass(HUD.class).isEnabled() && ((HUD) Client.instance.getModuleManager().getModuleByClass(HUD.class)).mod.getValue().equals(HUD.mods.OverWatch)) {
+        if (Client.instance.getModuleManager().getModuleByClass(HUD.class).isEnabled() && ((HUD) Client.instance.getModuleManager().getModuleByClass(HUD.class)).mod.getValue().equals("OverWatch")) {
             float ff = mc.thePlayer.distanceWalkedModified - mc.thePlayer.prevDistanceWalkedModified;
             float ff1 = -(mc.thePlayer.distanceWalkedModified + ff * partialTicks);
             float ff2 = mc.thePlayer.prevCameraYaw + (mc.thePlayer.cameraYaw - mc.thePlayer.prevCameraYaw) * partialTicks;
@@ -178,7 +169,7 @@ public class GuiIngame extends Gui {
 //        }
 
         }
-        if (Client.instance.getModuleManager().getModuleByClass(HUD.class).isEnabled() && ((HUD) Client.instance.getModuleManager().getModuleByClass(HUD.class)).mod.getValue().equals(HUD.mods.OverWatch)) {
+        if (Client.instance.getModuleManager().getModuleByClass(HUD.class).isEnabled() && ((HUD) Client.instance.getModuleManager().getModuleByClass(HUD.class)).mod.getValue().equals("OverWatch")) {
         } else {
             GlStateManager.enableBlend();
 

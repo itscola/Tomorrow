@@ -23,15 +23,15 @@ public class SettingsTab extends Tab {
         name = "Settings";
         for (Value v : ModuleManager.getModuleByClass(ClientSettings.class).getValues()) {
             if (v instanceof Option) {
-                Button value = new BOption(startX, startY, v);
+                Button value = new BOption(startX, startY, v, this);
                 btns.add(value);
 
             } else if (v instanceof Numbers) {
-                Button value = new BNumbers(startX, startY, v);
+                Button value = new BNumbers(startX, startY, v, this);
                 btns.add(value);
 
             } else if (v instanceof Mode) {
-                Button value = new BMode(startX, startY, v);
+                Button value = new BMode(startX, startY, v, this);
                 btns.add(value);
             }
         }

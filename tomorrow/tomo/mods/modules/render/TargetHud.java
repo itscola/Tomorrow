@@ -26,7 +26,7 @@ import tomorrow.tomo.utils.render.RenderUtil;
 import java.awt.*;
 
 public class TargetHud extends Module {
-    public Mode mod = new Mode("Mode", "Mode", Mod.values(), Mod.Classic);
+    public Mode mod = new Mode("Mode", "Mode", new String[]{"Classic", "Lune", "Autumn"}, "Classic");
     public Numbers<Number> x = new Numbers<Number>("X(persent)", "X(persent)", 80.0, 0.0, 100.0, 5);
     public Numbers<Number> y = new Numbers<Number>("Y(persent)", "Y(persent)", 80.0, 0.0, 100.0, 5);
     public AnimationUtils animationUtils = new AnimationUtils();
@@ -35,13 +35,6 @@ public class TargetHud extends Module {
     private EntityOtherPlayerMP target;
     private float healthBarWidth;
     private float hudHeight;
-
-
-    enum Mod {
-        Classic,
-        New,
-        Autumn
-    }
 
     public TargetHud() {
         super("TargetHUD", ModuleType.Render);
@@ -55,7 +48,7 @@ public class TargetHud extends Module {
     public void EventRender(EventRender2D e) {
         this.setSuffix(mod.getModeAsString());
         ScaledResolution sr = new ScaledResolution(mc);
-        if (mod.getValue().equals(Mod.New)) {
+        if (mod.getValue().equals("Lune")) {
             float targetx = (float) (x.getValue().floatValue() / 100 * sr.getScaledWidth_double());
             float targety = (float) (y.getValue().floatValue() / 100 * sr.getScaledHeight_double());
 
@@ -75,7 +68,7 @@ public class TargetHud extends Module {
                 RenderUtil.drawRect(targetx + 40 + 150 * (Killaura.target.getHealth() / Killaura.target.getMaxHealth()), targety + 60, targetx + 40 + anim, targety + 65, new Color(255, 100, 100).getRGB());
                 RenderUtil.drawGradientSideways(targetx + 40, targety + 60, targetx + 40 + 150 * (Killaura.target.getHealth() / Killaura.target.getMaxHealth()), targety + 65, new Color(198, 198, 198).getRGB(), new Color(255, 255, 255).getRGB());
             }
-        } else if ((mod.getValue().equals(Mod.Classic))) {
+        } else if ((mod.getValue().equals("Classic"))) {
             if (Killaura.target != null) {
                 GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
                 mc.fontRendererObj.drawStringWithShadow(Killaura.target.getName(), sr.getScaledWidth() / 2.0f - mc.fontRendererObj.getStringWidth(Killaura.target.getName()) / 2.0f, sr.getScaledHeight() / 2.0f - 33.0f, 16777215);
@@ -99,7 +92,7 @@ public class TargetHud extends Module {
                 RenderHelper.disableStandardItemLighting();
 
             }
-        } else if ((mod.getValue().equals(Mod.Autumn))) {
+        } else if ((mod.getValue().equals("Autumn"))) {
             Killaura aura = (Killaura) Client.instance.getModuleManager().getModuleByClass(Killaura.class);
             float scaledWidth = sr.getScaledWidth();
             float scaledHeight = sr.getScaledHeight();

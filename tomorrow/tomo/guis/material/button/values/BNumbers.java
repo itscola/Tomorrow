@@ -5,6 +5,7 @@ import tomorrow.tomo.event.value.Numbers;
 import tomorrow.tomo.event.value.Value;
 import tomorrow.tomo.guis.font.FontLoaders;
 import tomorrow.tomo.guis.material.Main;
+import tomorrow.tomo.guis.material.Tab;
 import tomorrow.tomo.guis.material.button.Button;
 import tomorrow.tomo.utils.render.ColorUtils;
 import tomorrow.tomo.utils.render.RenderUtil;
@@ -13,8 +14,8 @@ import java.awt.*;
 
 public class BNumbers extends Button {
 
-    public BNumbers(float x, float y, Value v) {
-        super(x, y, v);
+    public BNumbers(float x, float y, Value v, Tab moduleTab) {
+        super(x, y, v, moduleTab);
     }
 
     @Override

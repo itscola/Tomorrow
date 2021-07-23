@@ -20,7 +20,6 @@ import net.minecraft.item.*;
 import org.lwjgl.opengl.GL11;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.rendering.EventRender3D;
-import tomorrow.tomo.event.value.Mode;
 import tomorrow.tomo.event.value.Numbers;
 import tomorrow.tomo.event.value.Option;
 import tomorrow.tomo.managers.FriendManager;
@@ -36,7 +35,6 @@ import java.util.ArrayList;
 
 public class Nametags
         extends Module {
-    private Mode<Enum> health = new Mode("Health Mode", "healthmode", (Enum[]) HealthMode.values(), (Enum) HealthMode.Hearts);
     private Option<Boolean> dura = new Option<Boolean>("Durability", "durability", true);
     private Numbers<Number> scale = new Numbers<Number>("Scale", "scale", 3.0, 1.0, 5.0, 0.1);
     private ArrayList<Entity> entities = new ArrayList();
@@ -49,7 +47,7 @@ public class Nametags
     public Nametags() {
         super("NameTags", ModuleType.Render);
 
-        this.addValues(this.health, this.players, this.animals, this.invis, mobs, this.dura, this.invis, this.scale);
+        this.addValues(this.players, this.animals, this.invis, mobs, this.dura, this.invis, this.scale);
     }
 
     @EventHandler
@@ -88,7 +86,7 @@ public class Nametags
 
     private String getHealth(EntityPlayer player) {
         DecimalFormat numberFormat = new DecimalFormat("0.#");
-        return this.health.getValue() == HealthMode.Percentage ? numberFormat.format(player.getHealth() * 5.0f + player.getAbsorptionAmount() * 5.0f) : numberFormat.format(player.getHealth() / 2.0f + player.getAbsorptionAmount() / 2.0f);
+        return numberFormat.format(player.getHealth() * 5.0f + player.getAbsorptionAmount() * 5.0f);
     }
 
     private void drawNames(EntityPlayer player) {
@@ -97,22 +95,15 @@ public class Nametags
         float w = width = (float) ((double) width + ((double) (this.getWidth(" " + this.getHealth(player)) / 2) + 2.5));
         float nw = -width - xP;
         float offset = this.getWidth(this.getPlayerName(player)) + 4;
-        if (this.health.getValue() == HealthMode.Percentage) {
-            RenderUtil.drawRect(nw, -3.0f, width, 10.0f, new Color(10, 10, 10, 170).getRGB());
-        } else {
-            RenderUtil.drawRect(nw + 5.0f, -3.0f, width, 10.0f, new Color(10, 10, 10, 170).getRGB());
-        }
-        offset = this.health.getValue() == HealthMode.Percentage ? (offset += (float) (this.getWidth(this.getHealth(player)) + this.getWidth(" %") - 1)) : (offset += (float) (this.getWidth(this.getHealth(player)) + this.getWidth(" ") - 1));
+        RenderUtil.drawRect(nw, -3.0f, width, 10.0f, new Color(10, 10, 10, 170).getRGB());
+        offset =  (offset += (float) (this.getWidth(this.getHealth(player)) + this.getWidth(" %") - 1));
         this.drawString(this.getPlayerName(player), w - offset, 0.0f, 16777215);
         if (player.getHealth() == 10.0f) {
             int n = 16776960;
         }
         int color = player.getHealth() > 10.0f ? RenderUtil.blend(new Color(-16711936), new Color(-256), 1.0f / player.getHealth() / 2.0f * (player.getHealth() - 10.0f)).getRGB() : RenderUtil.blend(new Color(-256), new Color(-65536), 0.1f * player.getHealth()).getRGB();
-        if (this.health.getValue() == HealthMode.Percentage) {
-            this.drawString(String.valueOf(this.getHealth(player)) + "%", w - (float) this.getWidth(String.valueOf(this.getHealth(player)) + " %"), 0.0f, color);
-        } else {
-            this.drawString(this.getHealth(player), w - (float) this.getWidth(String.valueOf(this.getHealth(player)) + " "), 0.0f, color);
-        }
+        this.drawString(String.valueOf(this.getHealth(player)) + "%", w - (float) this.getWidth(String.valueOf(this.getHealth(player)) + " %"), 0.0f, color);
+
     }
 
     private void drawString(String text, float x, float y, int color) {

@@ -12,9 +12,11 @@ public class PlayerUtils {
         }
         return false;
     }
+
     public static boolean isMoving2() {
         return ((mc.thePlayer.moveForward != 0.0F || mc.thePlayer.moveStrafing != 0.0F));
     }
+
     public static int getJumpEffect() {
         if (mc.thePlayer.isPotionActive(Potion.jump))
             return mc.thePlayer.getActivePotionEffect(Potion.jump).getAmplifier() + 1;
@@ -24,11 +26,18 @@ public class PlayerUtils {
 
 
     public static boolean isOnGround(double height) {
-        if (!mc.theWorld.getCollidingBoundingBoxes(mc.thePlayer,mc.thePlayer.getEntityBoundingBox().offset(0.0D, -height, 0.0D)).isEmpty()) {
+        if (!mc.theWorld.getCollidingBoundingBoxes(mc.thePlayer, mc.thePlayer.getEntityBoundingBox().offset(0.0D, -height, 0.0D)).isEmpty()) {
             return true;
         } else {
             return false;
         }
     }
 
+    public static void rotate(float yaw, float pitch) {
+//        mc.thePlayer.rotationYaw = yaw;
+        mc.thePlayer.rotationYawHead = yaw;
+        mc.thePlayer.renderYawOffset = yaw;
+//        mc.thePlayer.rotationPitch = pitch;
+        mc.thePlayer.rotationPitchHead = pitch;
+    }
 }

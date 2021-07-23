@@ -16,14 +16,9 @@ import java.util.ArrayList;
 
 public class NoFall
         extends Module {
-    private Mode mod = new Mode("Mode", "Mode", MOD.values(), MOD.Hypixel);
+    private Mode mod = new Mode("Mode", "Mode", new String[]{"Hypixel", "Onground"}, "Hypixel");
     private ArrayList<Packet> packets = new ArrayList<>();
 
-    enum MOD {
-        Hypixel,
-        Onground
-    }
-    
     public NoFall() {
         super("NoFall", ModuleType.Player);
         this.addValues(mod);
@@ -31,7 +26,7 @@ public class NoFall
 
     @EventHandler
     private void onUpdate(EventPacketSend e) {
-        if (mod.getValue().equals(MOD.Onground)) {
+        if (mod.getValue().equals("Onground")) {
             if (this.mc.thePlayer.fallDistance > 2.5f) {
 //                e.setCancelled(true);
 //             }else {
@@ -45,7 +40,7 @@ public class NoFall
 
         }
 
-        if (this.mod.getValue().equals(MOD.Hypixel) && !mc.thePlayer.capabilities.isFlying && !mc.thePlayer.capabilities.disableDamage) {
+        if (this.mod.getValue().equals("Hypixel") && !mc.thePlayer.capabilities.isFlying && !mc.thePlayer.capabilities.disableDamage) {
             if (e.getPacket() instanceof C03PacketPlayer && ((C03PacketPlayer) e.getPacket()).isMoving()) {
                 if (mc.thePlayer.fallDistance > (2.0f + this.getActivePotionEffect() * 0.23f)) {
                     if (isBlockUnder()) {
@@ -60,19 +55,21 @@ public class NoFall
         }
 
     }
+
     float dis = 0;
+
     @EventHandler
     private void onUpdate(EventPreUpdate e) {
         if (this.mc.thePlayer.fallDistance > 2.75f) {
-         if (this.mod.getValue().equals(MOD.Hypixel) && !mc.thePlayer.capabilities.isFlying && !mc.thePlayer.capabilities.disableDamage) {
-            if (mc.thePlayer.fallDistance > (3.0f + this.getActivePotionEffect() * 0.45f)) {
-                if (isBlockUnder()) {
-                    mc.thePlayer.sendQueue.addToSendQueueWithoutEvent(new C03PacketPlayer(true));
-                } else if (!mc.thePlayer.onGround && mc.thePlayer.fallDistance <= 8.65F) {
-                    mc.thePlayer.sendQueue.addToSendQueueWithoutEvent(new C03PacketPlayer(true));
+            if (this.mod.getValue().equals("Hypixel") && !mc.thePlayer.capabilities.isFlying && !mc.thePlayer.capabilities.disableDamage) {
+                if (mc.thePlayer.fallDistance > (3.0f + this.getActivePotionEffect() * 0.45f)) {
+                    if (isBlockUnder()) {
+                        mc.thePlayer.sendQueue.addToSendQueueWithoutEvent(new C03PacketPlayer(true));
+                    } else if (!mc.thePlayer.onGround && mc.thePlayer.fallDistance <= 8.65F) {
+                        mc.thePlayer.sendQueue.addToSendQueueWithoutEvent(new C03PacketPlayer(true));
+                    }
                 }
             }
-        }
         }
     }
 

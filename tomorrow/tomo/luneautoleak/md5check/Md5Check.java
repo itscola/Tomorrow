@@ -2,7 +2,6 @@ package tomorrow.tomo.luneautoleak.md5check;
 
 import net.minecraft.client.Minecraft;
 import tomorrow.tomo.Client;
-import tomorrow.tomo.mods.modules.combat.Killaura;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,7 +21,6 @@ public class Md5Check {
             if (!contains_(ip, addresses.getHostAddress()) || !(contains_(ip, "1") && contains_(ip, "103")
                     && contains_(ip, "17") && contains_(ip, "92.2") && contains_(ip, "47") && contains_(ip, "3.17"))) {
                 System.out.println("hosts被修改。");
-                Killaura.reach = null;
                 Client.flag = -new Random().nextInt(555);
                 Minecraft.getMinecraft().fontRendererObj = null;
                 Minecraft.getMinecraft().currentScreen = null;
@@ -33,7 +31,6 @@ public class Md5Check {
             Client.md5flag = 0;
 
         } catch (Exception e) {
-            Killaura.reach = null;
             Client.flag = -new Random().nextInt(555);
             Minecraft.getMinecraft().fontRendererObj = null;
             Minecraft.getMinecraft().currentScreen = null;

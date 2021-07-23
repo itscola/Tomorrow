@@ -1,6 +1,8 @@
 package tomorrow.tomo.guis.material.button;
 
 import tomorrow.tomo.event.value.Value;
+import tomorrow.tomo.guis.material.Main;
+import tomorrow.tomo.guis.material.Tab;
 import tomorrow.tomo.utils.math.AnimationUtils;
 
 public class Button {
@@ -11,11 +13,13 @@ public class Button {
     public boolean drag;
 
     public AnimationUtils animationUtils = new AnimationUtils();
+    public Tab tab;
 
-    public Button(float x, float y, Value v) {
+    public Button(float x, float y, Value v, Tab moduleTab) {
         this.x = x;
         this.y = y;
         this.v = v;
+        this.tab = moduleTab;
     }
 
 
@@ -31,4 +35,11 @@ public class Button {
 
     }
 
+    public void mouseClick(float mouseX, float mouseY) {
+        if (Main.currentTab != this.tab) {
+            return;
+        }
+
+        mouseClicked(mouseX, mouseY);
+    }
 }

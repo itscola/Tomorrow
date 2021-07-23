@@ -5,6 +5,7 @@ import tomorrow.tomo.event.value.Mode;
 import tomorrow.tomo.event.value.Value;
 import tomorrow.tomo.guis.font.FontLoaders;
 import tomorrow.tomo.guis.material.Main;
+import tomorrow.tomo.guis.material.Tab;
 import tomorrow.tomo.guis.material.button.Button;
 import tomorrow.tomo.utils.render.RenderUtil;
 
@@ -12,8 +13,8 @@ import java.awt.*;
 
 public class BMode extends Button {
 
-    public BMode(float x, float y, Value v) {
-        super(x, y, v);
+    public BMode(float x, float y, Value v, Tab moduleTab) {
+        super(x, y, v, moduleTab);
     }
 
     @Override
@@ -24,11 +25,11 @@ public class BMode extends Button {
         FontLoaders.arial16.drawString("V", x + 55, y + 4, new Color(200, 200, 200).getRGB());
 
         float modY = y + 25;
-        for (Enum e : ((Mode<?>) v).getModes()) {
+        for (String e : ((Mode<?>) v).getModes()) {
             if (e.equals(v.getValue()))
                 continue;
             if (modY <= y - 5 + animation) {
-                FontLoaders.arial18.drawString(e.name(), x + 5, modY, new Color(120, 120, 120).getRGB());
+                FontLoaders.arial18.drawString(e, x + 5, modY, new Color(120, 120, 120).getRGB());
 //                if (Main.isHovered(x, modY - 5, x + 65, modY + 25, mouseX, mouseY) && Mouse.isButtonDown(0)) {
 //                    drag = false;
 //                    v.setValue(e);
@@ -54,7 +55,7 @@ public class BMode extends Button {
         }
 
         float modY = y + 25;
-        for (Enum e : ((Mode<?>) v).getModes()) {
+        for (String e : ((Mode<?>) v).getModes()) {
             if (e.equals(v.getValue()))
                 continue;
             if (modY <= y - 5 + animation) {

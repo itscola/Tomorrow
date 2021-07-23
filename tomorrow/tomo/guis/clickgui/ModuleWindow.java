@@ -100,7 +100,7 @@ public class ModuleWindow {
                 ModeRender render = (ModeRender) v;
                 render.onRender(x, valueY);
                 render.onMouseMove(mouseX, mouseY, Mouse.getButtonCount());
-                for (Enum m : ((Mode<?>) render.value).getModes()) {
+                for (String m : ((Mode<?>) render.value).getModes()) {
                     valueY += 20;
                 }
             }

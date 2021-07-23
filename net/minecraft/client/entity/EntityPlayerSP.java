@@ -1,33 +1,10 @@
 package net.minecraft.client.entity;
 
-import tomorrow.tomo.Client;
-import tomorrow.tomo.event.EventBus;
-import tomorrow.tomo.event.events.misc.EventChat;
-import tomorrow.tomo.event.events.world.EventMove;
-import tomorrow.tomo.event.events.world.EventPostUpdate;
-import tomorrow.tomo.event.events.world.EventPreUpdate;
-import tomorrow.tomo.mods.modules.movement.NoSlow;
-import tomorrow.tomo.mods.modules.player.Freecam;
-import tomorrow.tomo.mods.modules.world.Phase;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecartRiding;
 import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.client.gui.GuiCommandBlock;
-import net.minecraft.client.gui.GuiEnchantment;
-import net.minecraft.client.gui.GuiHopper;
-import net.minecraft.client.gui.GuiMerchant;
-import net.minecraft.client.gui.GuiRepair;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiScreenBook;
-import net.minecraft.client.gui.inventory.GuiBeacon;
-import net.minecraft.client.gui.inventory.GuiBrewingStand;
-import net.minecraft.client.gui.inventory.GuiChest;
-import net.minecraft.client.gui.inventory.GuiCrafting;
-import net.minecraft.client.gui.inventory.GuiDispenser;
-import net.minecraft.client.gui.inventory.GuiEditSign;
-import net.minecraft.client.gui.inventory.GuiFurnace;
-import net.minecraft.client.gui.inventory.GuiScreenHorseInventory;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.inventory.*;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.command.server.CommandBlockLogic;
 import net.minecraft.entity.Entity;
@@ -39,29 +16,21 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.play.client.C01PacketChatMessage;
-import net.minecraft.network.play.client.C03PacketPlayer;
-import net.minecraft.network.play.client.C07PacketPlayerDigging;
-import net.minecraft.network.play.client.C0APacketAnimation;
-import net.minecraft.network.play.client.C0BPacketEntityAction;
-import net.minecraft.network.play.client.C0CPacketInput;
-import net.minecraft.network.play.client.C0DPacketCloseWindow;
-import net.minecraft.network.play.client.C13PacketPlayerAbilities;
-import net.minecraft.network.play.client.C16PacketClientStatus;
+import net.minecraft.network.play.client.*;
 import net.minecraft.potion.Potion;
 import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatFileWriter;
 import net.minecraft.tileentity.TileEntitySign;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovementInput;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
+import tomorrow.tomo.Client;
+import tomorrow.tomo.event.EventBus;
+import tomorrow.tomo.event.events.misc.EventChat;
+import tomorrow.tomo.event.events.world.EventMove;
+import tomorrow.tomo.event.events.world.EventPostUpdate;
+import tomorrow.tomo.event.events.world.EventPreUpdate;
+import tomorrow.tomo.mods.modules.movement.NoSlow;
 
 public class EntityPlayerSP extends AbstractClientPlayer
 {
@@ -478,9 +447,6 @@ public class EntityPlayerSP extends AbstractClientPlayer
 
     protected boolean pushOutOfBlocks(double x, double y, double z)
     {
-        if (Client.instance.getModuleManager().getModuleByClass(Freecam.class).isEnabled() || Client.instance.getModuleManager().getModuleByClass(Phase.class).isEnabled()) {
-            return false;
-        }
         if (this.noClip)
         {
             return false;

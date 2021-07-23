@@ -36,34 +36,15 @@ public class HUD
     public static Option<Boolean> tabGui = new Option<Boolean>("TabGUI", "TabGUI", true);
     public static Option<Boolean> notification = new Option<Boolean>("Notification", "Notification", true);
     public static Option<Boolean> arraylist = new Option<Boolean>("Arraylist", "Arraylist", true);
-    public static Mode arrayMode = new Mode("ArrayListMode", "ArrayListMode", arrayMods.values(), arrayMods.Simple);
-    public static Mode colorMode = new Mode("ArrayListColor", "ArrayListColor", colorMods.values(), colorMods.ColoredRainbow);
-    public Mode mod = new Mode("Mode", "Mode", mods.values(), mods.Flux);
+    public static Mode colorMode = new Mode("ArrayListColor", "ArrayListColor", new String[]{"ColoredRainbow", "Color", "Rainbow"}, "ColoredRainbow");
+    public Mode mod = new Mode("Mode", "Mode", new String[]{"Flux", "OverWatch"}, "Flux");
 
     private AnimationUtils animationUtils = new AnimationUtils();
-
-    public enum mods {
-        Flux,
-        OverWatch
-    }
-
-    public enum colorMods {
-        Rainbow,
-        ColoredRainbow,
-        Color
-    }
-
-    public enum arrayMods {
-        Simple,
-        Flux,
-        Hanabi,
-        Low
-    }
 
     public HUD() {
         super("HUD", ModuleType.Render);
         this.setEnabled(true);
-        this.addValues(this.tabGui, this.notification, this.arraylist, this.mod, colorMode, arrayMode);
+        this.addValues(this.tabGui, this.notification, this.arraylist, this.mod, colorMode);
     }
 
     int rainbowTick = 0;
@@ -94,7 +75,7 @@ public class HUD
         }
 //        Color rainbow = new Color(Color.HSBtoRGB((float) ((double) Client.instance.mc.thePlayer.ticksExisted / 50.0 + Math.sin((double) (rainbowTick / 12) / 50.0 * 1.6)) % 1.0f, ClientSettings.saturation.getValue().floatValue(), ClientSettings.brightness.getValue().floatValue()));
 //        Color rainbow = new Color(Color.HSBtoRGB((float) ((double) rainbowTick / 50.0 + Math.sin((double) (rainbowTick + (0 - 4) / 12) / 50.0 * 1.6)) % 1.0f, 0.5f, 1));
-        Color rainbow = new Color(Color.HSBtoRGB((float) ((double) this.mc.thePlayer.ticksExisted / 50.0 + Math.sin((double) rainbowTick / 50.0 )) % 1.0f, 0.5f, 1.0f));
+        Color rainbow = new Color(Color.HSBtoRGB((float) ((double) this.mc.thePlayer.ticksExisted / 50.0 + Math.sin((double) rainbowTick / 50.0)) % 1.0f, 0.5f, 1.0f));
 
         if (!mc.gameSettings.showDebugInfo) {
 //            FontLoaders.arial24.drawStringWithShadow(Client.CLIENT_NAME + " " + ChatFormatting.GRAY + Client.VERSION, 4, 4, rainbow.getRGB());
@@ -104,14 +85,14 @@ public class HUD
             TabUI.height = 42;
         }
 
-        if (mod.getValue().equals(mods.Flux)) {
+        if (mod.getValue().equals("Flux")) {
             double xDist = mc.thePlayer.posX - mc.thePlayer.prevPosX;
             double zDist = mc.thePlayer.posZ - mc.thePlayer.prevPosZ;
             double moveSpeed = Math.sqrt(xDist * xDist + zDist * zDist) * 20;
             String text = (Object) ((Object) EnumChatFormatting.GRAY) + "X" + (Object) ((Object) EnumChatFormatting.WHITE) + ": " + MathHelper.floor_double(mc.thePlayer.posX) + " " + (Object) ((Object) EnumChatFormatting.GRAY) + "Y" + (Object) ((Object) EnumChatFormatting.WHITE) + ": " + MathHelper.floor_double(mc.thePlayer.posY) + " " + (Object) ((Object) EnumChatFormatting.GRAY) + "Z" + (Object) ((Object) EnumChatFormatting.WHITE) + ": " + MathHelper.floor_double(mc.thePlayer.posZ) + "  " + Math.round(moveSpeed) + " \2477b/s\247r";
             Client.fontLoaders.msFont18.drawStringWithShadow(text, 4.0F, new ScaledResolution(mc).getScaledHeight() - 10, new Color(11, 12, 17).getRGB());
             drawPotionStatus(sr);
-        } else if (mod.getValue().equals(mods.OverWatch)) {
+        } else if (mod.getValue().equals("OverWatch")) {
             GlStateManager.rotate(-15, 1, 1, 1);
             FontLoaders.arial24.drawString((int) mc.thePlayer.getHealth() + "/" + (int) mc.thePlayer.getMaxHealth(), 10, sr.getScaledHeight() - 75, -1);
             for (int i = 0; i < 20; i++) {

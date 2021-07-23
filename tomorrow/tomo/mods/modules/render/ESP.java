@@ -6,17 +6,12 @@
  */
 package tomorrow.tomo.mods.modules.render;
 
-import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import org.lwjgl.opengl.GL11;
-import tomorrow.tomo.event.EventHandler;
-import tomorrow.tomo.event.events.rendering.EventRender2D;
-import tomorrow.tomo.event.value.Mode;
 import tomorrow.tomo.managers.FriendManager;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
@@ -30,31 +25,12 @@ import java.util.ArrayList;
 public class ESP
 extends Module {
     private ArrayList<Vec3f> points = new ArrayList();
-    public Mode<Enum> mode = new Mode("Mode", "mode", (Enum[])ESPMode.values(), (Enum)ESPMode.TwoDimensional);
-
     public ESP() {
         super("ESP", ModuleType.Render);
-        this.addValues(this.mode);
         int i = 0;
         while (i < 8) {
             this.points.add(new Vec3f());
             ++i;
-        }
-    }
-
-    @EventHandler
-    public void onScreen(EventRender2D eventRender) {
-        if (this.mode.getValue() == ESPMode.TwoDimensional) {
-            GlStateManager.pushMatrix();
-            ScaledResolution scaledRes = new ScaledResolution(this.mc);
-            double twoDscale = (double)scaledRes.getScaleFactor() / Math.pow(scaledRes.getScaleFactor(), 2.0);
-            GlStateManager.scale(twoDscale, twoDscale, twoDscale);
-            for (Object o : this.mc.theWorld.getLoadedEntityList()) {
-                if (!(o instanceof EntityLivingBase) || o == this.mc.thePlayer || !(o instanceof EntityPlayer)) continue;
-                EntityLivingBase ent = (EntityLivingBase)o;
-                this.render(ent);
-            }
-            GlStateManager.popMatrix();
         }
     }
 
@@ -145,10 +121,6 @@ extends Module {
         return Color.HSBtoRGB(f2 / 3.0f, 1.0f, 1.0f) | -16777216;
     }
 
-    public static enum ESPMode {
-        Outline,
-        TwoDimensional;
-    }
 
 }
 

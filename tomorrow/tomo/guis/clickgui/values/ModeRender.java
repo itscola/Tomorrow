@@ -18,18 +18,18 @@ public class ModeRender extends ValueRender {
     @Override
     public void onRender(float valueX, float valueY) {
         float valueY1 = valueY;
-        for (Enum m : ((Mode<?>) this.value).getModes()) {
+        for (String m : ((Mode<?>) this.value).getModes()) {
             RenderUtil.smoothCircle(x + 8, valueY1 + 2, 4, mainColor);
 
 
-            if (((Mode<?>) this.value).getValue().toString() == (m.name())) {
+            if (((Mode<?>) this.value).getValue().toString() == (m)) {
                 RenderUtil.smoothCircle(x + 8f, valueY1 + 2f, 2.8f, new Color(255, 255, 255));
 
             }
 //                    RenderUtil.drawRect(x + 6, valueY + 2, x + 11, valueY + 7, new Color(255, 255, 255));
-            FontLoaders.arial18.drawString(m.name(), x + 16, valueY1, new Color(115, 115, 115).getRGB());
+            FontLoaders.arial18.drawString(m, x + 16, valueY1, new Color(115, 115, 115).getRGB());
             if (isHovered(x + 5, valueY1, x + 95, valueY1 + FontLoaders.arial18.getHeight(), mouseX, mouseY) && Mouse.isButtonDown(0)) {
-                ((Mode<?>) this.value).setMode(m.name());
+                ((Mode<?>) this.value).setMode(m);
             }
             valueY1 += 20;
         }

@@ -3,7 +3,7 @@
  */
 package tomorrow.tomo.event.value;
 
-public class Mode<V extends Enum>
+public class Mode<V extends String>
         extends Value<V> {
     private V[] modes;
 
@@ -24,7 +24,7 @@ public class Mode<V extends Enum>
     }
 
     public String getModeAsString() {
-        return ((Enum) this.getValue()).name();
+        return this.getValue();
     }
 
     public void setMode(String mode) {
@@ -33,7 +33,7 @@ public class Mode<V extends Enum>
         int n2 = 0;
         while (n2 < n) {
             V e = arrV[n2];
-            if (e.name().equalsIgnoreCase(mode)) {
+            if (e.equalsIgnoreCase(mode)) {
                 this.setValue(e);
             }
             ++n2;
@@ -46,7 +46,7 @@ public class Mode<V extends Enum>
         int n2 = 0;
         while (n2 < n) {
             V e = arrV[n2];
-            if (e.name().equalsIgnoreCase(name)) {
+            if (e.equalsIgnoreCase(name)) {
                 return true;
             }
             ++n2;

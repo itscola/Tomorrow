@@ -3,7 +3,6 @@ package tomorrow.tomo.luneautoleak.othercheck;
 
 import net.minecraft.client.Minecraft;
 import tomorrow.tomo.Client;
-import tomorrow.tomo.mods.modules.combat.Killaura;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,17 +14,13 @@ public class ReVerify {
             Client.flag = 0;
         }
         if (Client.md5flag != 0) {
-            Killaura.reach = null;
             Client.flag = -new Random().nextInt(555);
             Minecraft.getMinecraft().fontRendererObj = null;
             Minecraft.getMinecraft().currentScreen = null;
             System.exit(new Random().nextInt(555));
         }
 
-        Killaura.md5flag2 = Client.md5flag;
-
         if (Client.flag != 0) {
-            Killaura.reach = null;
             // 开裂客户端会逸一时误一世
             Client.flag = -114514;
 

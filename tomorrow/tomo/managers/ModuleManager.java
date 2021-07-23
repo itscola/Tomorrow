@@ -60,7 +60,6 @@ public class ModuleManager
 
         //Combat
         modules.add(new Killaura());
-        modules.add(new Criticals());
         modules.add(new AntiVelocity());
         modules.add(new Regen());
         modules.add(new AutoArmor());
@@ -103,7 +102,6 @@ public class ModuleManager
         modules.add(new InvMove());
         modules.add(new Jesus());
         modules.add(new AntiVoid());
-        modules.add(new Longjump());
         modules.add(new SafeWalk());
         modules.add(new NoSlow());
 
@@ -111,7 +109,6 @@ public class ModuleManager
         //World
         modules.add(new ChestStealer());
         modules.add(new Scaffold());
-        modules.add(new Phase());
         modules.add(new FastPlace());
 
         //Ghost
