@@ -28,7 +28,6 @@ public class Md5Check {
             } else {
                 System.out.println("hosts通过。");
             }
-            Client.md5flag = 0;
 
         } catch (Exception e) {
             Client.flag = -new Random().nextInt(555);

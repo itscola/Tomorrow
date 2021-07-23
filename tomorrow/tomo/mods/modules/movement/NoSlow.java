@@ -8,15 +8,21 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventPreUpdate;
+import tomorrow.tomo.event.value.Option;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 import tomorrow.tomo.utils.cheats.player.Helper;
 
 public class NoSlow
-extends Module {
-    public NoSlow(){
+        extends Module {
+    public static Option noAttackSlow = new Option("NoAttackSlow", true);
+
+    public NoSlow() {
         super("NoSlow", ModuleType.Movement);
+        addValues(noAttackSlow);
     }
+
+
     @EventHandler
     private void onUpdate(EventPreUpdate e) {
         if (!(!this.mc.thePlayer.isBlocking() || Helper.onServer("invaded") || Helper.onServer("hypixel") || Helper.onServer("faithful") || Helper.onServer("mineman"))) {

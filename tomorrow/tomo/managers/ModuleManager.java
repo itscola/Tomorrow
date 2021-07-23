@@ -22,7 +22,10 @@ import tomorrow.tomo.mods.modules.misc.NoRotate;
 import tomorrow.tomo.mods.modules.movement.*;
 import tomorrow.tomo.mods.modules.player.*;
 import tomorrow.tomo.mods.modules.render.*;
-import tomorrow.tomo.mods.modules.world.*;
+import tomorrow.tomo.mods.modules.world.ChestStealer;
+import tomorrow.tomo.mods.modules.world.FastPlace;
+import tomorrow.tomo.mods.modules.world.PingSpoof;
+import tomorrow.tomo.mods.modules.world.Scaffold;
 import tomorrow.tomo.utils.cheats.world.TimerUtil;
 import tomorrow.tomo.utils.render.gl.GLUtils;
 
@@ -71,6 +74,7 @@ public class ModuleManager
 
         //Render
         modules.add(new HUD());
+        modules.add(new Animations());
         modules.add(new ESP());
         modules.add(new ClickGui());
         modules.add(new FullBright());
@@ -93,6 +97,7 @@ public class ModuleManager
 
 
         //Movement
+        modules.add(new TargetStrafe());
         modules.add(new Fly());
         modules.add(new Speed());
         modules.add(new Blink());
@@ -134,11 +139,11 @@ public class ModuleManager
     }
 
     public synchronized static Module getModuleByClass(Class<? extends Module> cls) {
-            for (Module m : modules) {
-                if (m.getClass() != cls)
-                    continue;
-                return m;
-            }
+        for (Module m : modules) {
+            if (m.getClass() != cls)
+                continue;
+            return m;
+        }
 
         System.out.println("一个功能没有获取到:" + cls.getName());
         return modules.get(0);
@@ -198,7 +203,7 @@ public class ModuleManager
             String bind = v.split(":")[1];
             Module m = ModuleManager.getModuleByName(name);
             if (m == null) continue;
-            m.setKey(Keyboard.getKeyIndex((String) bind.toUpperCase()));
+            m.setKey(Keyboard.getKeyIndex(bind.toUpperCase()));
         }
         List<String> enabled = FileManager.read("Enabled.txt");
         for (String v : enabled) {
@@ -228,6 +233,15 @@ public class ModuleManager
     }
 
     public void saveSettings() {
+        StringBuilder content = new StringBuilder();
+
+        for (Module m : modules){
+            content.append(String.format("%s:%s%s",m.getName(),Keyboard.getKeyName(m.getKey()),System.lineSeparator()));
+        }
+
+        FileManager.save("Binds.txt", content.toString(), false);
+
+
         String values = "";
         for (Module m : ModuleManager.getModules()) {
             for (Value v : m.getValues()) {

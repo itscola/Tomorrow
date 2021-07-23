@@ -2,8 +2,6 @@ package tomorrow.tomo.mods;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import org.lwjgl.input.Keyboard;
-import tomorrow.tomo.Client;
 import tomorrow.tomo.event.EventBus;
 import tomorrow.tomo.event.value.Mode;
 import tomorrow.tomo.event.value.Numbers;
@@ -11,12 +9,10 @@ import tomorrow.tomo.event.value.Option;
 import tomorrow.tomo.event.value.Value;
 import tomorrow.tomo.guis.notification.Notification;
 import tomorrow.tomo.guis.notification.NotificationsManager;
-import tomorrow.tomo.managers.FileManager;
 import tomorrow.tomo.managers.ModuleManager;
 import tomorrow.tomo.utils.math.AnimationUtils;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -152,16 +148,6 @@ public class Module {
 
     public void setKey(int key) {
         this.key = key;
-        String content = "";
-        Client.instance.getModuleManager();
-
-        Module m;
-        for (Iterator var4 = ModuleManager.getModules().iterator(); var4.hasNext(); content = content + String.format(
-                "%s:%s%s", new Object[]{m.getName(), Keyboard.getKeyName(m.getKey()), System.lineSeparator()})) {
-            m = (Module) var4.next();
-        }
-
-        FileManager.save("Binds.txt", content, false);
     }
 
     public void onEnable() {

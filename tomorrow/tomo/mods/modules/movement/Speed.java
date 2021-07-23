@@ -7,6 +7,7 @@ import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventMove;
 import tomorrow.tomo.event.events.world.EventPreUpdate;
 import tomorrow.tomo.event.value.Mode;
+import tomorrow.tomo.managers.ModuleManager;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 import tomorrow.tomo.utils.cheats.world.TimerUtil;
@@ -90,6 +91,7 @@ public class Speed
                 ++this.stage;
             }
         }
+        ((TargetStrafe) ModuleManager.getModuleByClass(TargetStrafe.class)).strafe(e, movementSpeed);
     }
 }
 

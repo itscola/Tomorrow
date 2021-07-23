@@ -30,6 +30,8 @@ public class TargetHud extends Module {
     public Numbers<Number> x = new Numbers<Number>("X(persent)", "X(persent)", 80.0, 0.0, 100.0, 5);
     public Numbers<Number> y = new Numbers<Number>("Y(persent)", "Y(persent)", 80.0, 0.0, 100.0, 5);
     public AnimationUtils animationUtils = new AnimationUtils();
+    public AnimationUtils animationUtils2 = new AnimationUtils();
+
     private static final Color COLOR = new Color(0, 0, 0, 180);
     private final TimerUtil animationStopwatch = new TimerUtil();
     private EntityOtherPlayerMP target;
@@ -110,13 +112,10 @@ public class TargetHud extends Module {
                 float hpWidth = 92.0f * hpPercentage;
                 int healthColor = ColorUtils.getHealthColor(Killaura.target.getHealth(), Killaura.target.getMaxHealth()).getRGB();
                 String healthStr = String.valueOf((float) ((int) Killaura.target.getHealth()) / 2.0f);
-                if (this.animationStopwatch.delay(15L)) {
 //                    this.healthBarWidth = hpWidth;
 //                    this.hudHeight = 40.0f;
-                    this.healthBarWidth = (float) animationUtils.animate(hpWidth, this.healthBarWidth, 0.353f);
-                    this.hudHeight = (float) animationUtils.animate(40.0, this.hudHeight, 0.1);
-                    this.animationStopwatch.reset();
-                }
+                this.healthBarWidth = (float) animationUtils.animate(hpWidth, this.healthBarWidth, 0.353f);
+                this.hudHeight = (float) animationUtils2.animate(40.0, this.hudHeight, 0.1);
                 GL11.glEnable((int) 3089);
                 RenderUtil.prepareScissorBox(x, y, x + 140.0f, y + this.hudHeight);
                 Gui.drawRect(x, y, x + 140.0f, y + 40.0f, COLOR.getRGB());

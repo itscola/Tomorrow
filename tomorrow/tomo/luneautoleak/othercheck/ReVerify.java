@@ -6,18 +6,11 @@ import tomorrow.tomo.Client;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Random;
 
 public class ReVerify {
     public ReVerify() {
         if (Client.flag == -666) {
             Client.flag = 0;
-        }
-        if (Client.md5flag != 0) {
-            Client.flag = -new Random().nextInt(555);
-            Minecraft.getMinecraft().fontRendererObj = null;
-            Minecraft.getMinecraft().currentScreen = null;
-            System.exit(new Random().nextInt(555));
         }
 
         if (Client.flag != 0) {

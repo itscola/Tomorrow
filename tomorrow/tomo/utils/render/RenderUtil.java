@@ -1,30 +1,26 @@
 package tomorrow.tomo.utils.render;
 
-import java.awt.Color;
-
+import libraries.pw.knx.feather.tessellate.Tessellation;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.Tessellator;
-
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
-
-import libraries.pw.knx.feather.tessellate.Tessellation;
-
-import java.util.ArrayList;
-import java.util.function.Consumer;
-import java.util.List;
-
 import tomorrow.tomo.utils.cheats.player.Helper;
 import tomorrow.tomo.utils.math.Vec2f;
 import tomorrow.tomo.utils.math.Vec3f;
 import tomorrow.tomo.utils.render.gl.GLClientState;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -41,8 +37,21 @@ public class RenderUtil {
         DISABLE_CLIENT_STATE = GL11::glEnableClientState;
     }
 
-    public RenderUtil() {
-        super();
+    public static void startSmooth() {
+        GL11.glEnable((int)2848);
+        GL11.glEnable((int)2881);
+        GL11.glEnable((int)2832);
+        GL11.glEnable((int)3042);
+        GL11.glBlendFunc((int)770, (int)771);
+        GL11.glHint((int)3154, (int)4354);
+        GL11.glHint((int)3155, (int)4354);
+        GL11.glHint((int)3153, (int)4354);
+    }
+
+    public static void endSmooth() {
+        GL11.glDisable((int)2848);
+        GL11.glDisable((int)2881);
+        GL11.glEnable((int)2832);
     }
 
     public static int width() {
