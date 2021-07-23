@@ -27,9 +27,8 @@ public class InvCleaner extends Module {
 	private boolean allowSwitch = true;
 	private boolean hasNoItems;
 	public final TimerUtil timer = new TimerUtil();
-	private Option<Boolean> openInv = new Option<Boolean>("Require Inventory Open?", "open inv", false);
+	private Option<Boolean> openInv = new Option<Boolean>("InvOnly", "InvOnly", false);
 	private Numbers<Number> delay = new Numbers<Number>("Delay", "delay", 50, 0, 2000, 1);
-	private TimerUtil timerUtil = new TimerUtil();
 	public InvCleaner() {
 		super("InvCleaner", ModuleType.Player);
 		this.addValues(this.openInv,delay);
@@ -48,10 +47,9 @@ public class InvCleaner extends Module {
 		}
 		bestSword();
 //        setSwordSlot();
-		if (timerUtil.delay(delay.getValue().intValue()) && RANDOM.nextInt(2) == 0
-				&& (!this.openInv.getValue().booleanValue()
-						|| this.mc.currentScreen instanceof GuiInventory && this.openInv.getValue().booleanValue())
-				&& this.timer.hasReached(59.0)) {
+		if ((!this.openInv.getValue().booleanValue()
+						|| (this.mc.currentScreen instanceof GuiInventory && this.openInv.getValue().booleanValue()))
+				&& this.timer.delay(delay.getValue().intValue())) {
 			CopyOnWriteArrayList<Integer> uselessItems = new CopyOnWriteArrayList<Integer>();
 			int o = 0;
 			while (o < 45) {
@@ -76,7 +74,6 @@ public class InvCleaner extends Module {
 				uselessItems.remove(0);
 				this.timer.reset();
 			}
-			timerUtil.reset();
 		}
 	}
 

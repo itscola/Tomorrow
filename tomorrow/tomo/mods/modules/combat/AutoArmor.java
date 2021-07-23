@@ -1,5 +1,6 @@
 package tomorrow.tomo.mods.modules.combat;
 
+import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.Item;
@@ -8,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventPreUpdate;
 import tomorrow.tomo.event.value.Numbers;
+import tomorrow.tomo.event.value.Option;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 import tomorrow.tomo.utils.cheats.world.TimerUtil;
@@ -15,8 +17,9 @@ import tomorrow.tomo.utils.cheats.world.TimerUtil;
 import java.util.Random;
 
 public class AutoArmor
-extends Module {
+        extends Module {
     private Numbers<Number> delay = new Numbers<Number>("Delay", "delay", 50.0, 0.0, 1000.0, 10.0);
+    private Option invOnly = new Option("InvOnly", true);
     private TimerUtil timer = new TimerUtil();
     private int[] boots = new int[]{313, 309, 317, 305, 301};
     private int[] chestplate = new int[]{311, 307, 315, 303, 299};
@@ -29,16 +32,18 @@ extends Module {
 
     public AutoArmor() {
         super("AutoArmor", "Auto armor", ModuleType.Combat);
-        this.addValues(this.delay);
+        this.addValues(this.delay, invOnly);
     }
 
     @EventHandler
     private void onPre(EventPreUpdate e) {
+        if (((boolean) invOnly.getValue()) && !(mc.currentScreen instanceof GuiInventory))
+            return;
         if (e.getType() == 0) {
             if (this.mc.thePlayer.capabilities.isCreativeMode || this.mc.thePlayer.openContainer != null && this.mc.thePlayer.openContainer.windowId != 0) {
                 return;
             }
-            if (this.timer.hasReached(this.delay.getValue().floatValue() + (double)new Random().nextInt(4))) {
+            if (this.timer.delay(this.delay.getValue().intValue() + new Random().nextInt(4))) {
                 this.enchantmentValue = -1.0;
                 this.item = -1;
                 int i = 9;
@@ -129,7 +134,7 @@ extends Module {
 
     private double getProtValue(ItemStack stack) {
         if (stack != null) {
-            return (double)((ItemArmor)stack.getItem()).damageReduceAmount + (double)((100 - ((ItemArmor)stack.getItem()).damageReduceAmount * 4) * EnchantmentHelper.getEnchantmentLevel(Enchantment.protection.effectId, stack) * 4) * 0.0075;
+            return (double) ((ItemArmor) stack.getItem()).damageReduceAmount + (double) ((100 - ((ItemArmor) stack.getItem()).damageReduceAmount * 4) * EnchantmentHelper.getEnchantmentLevel(Enchantment.protection.effectId, stack) * 4) * 0.0075;
         }
         return 0.0;
     }
