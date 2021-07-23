@@ -71,6 +71,7 @@ public class ModuleManager
         modules.add(new BowAimBot());
         modules.add(new AntiBots());
         modules.add(new TpAura());
+        modules.add(new Criticals());
 
         //Render
         modules.add(new HUD());

@@ -53,10 +53,17 @@ public class Killaura extends Module {
 
 
     private int cur = 0;
+    private Criticals crit;
 
     public Killaura() {
         super("KillAura", ModuleType.Combat);
         addValues(priority, esp, cps, range, targets, mob, animals, player, wither, invisible, rot, switchDelay, rotSpeed, block, mode, smart);
+    }
+
+    @Override
+    public void onEnable() {
+        super.onEnable();
+        crit = (Criticals) ModuleManager.getModuleByClass(Criticals.class);
     }
 
     @Override
@@ -121,6 +128,7 @@ public class Killaura extends Module {
             if (((boolean) block.getValue()))
                 mc.gameSettings.keyBindUseItem.pressed = false;
             if (Math.abs(mc.thePlayer.rotationPitchHead - PlayerUtils.getRotations(entityLivingBase)[1]) < 5 && Math.abs(mc.thePlayer.rotationYawHead - PlayerUtils.getRotations(entityLivingBase)[0]) < 5) {
+                crit.doCrit(target);
                 mc.playerController.attackEntity(mc.thePlayer, entityLivingBase);
             }
             mc.thePlayer.swingItem();
