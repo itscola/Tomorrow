@@ -129,6 +129,7 @@ public class Scaffold extends Module {
         if (mode.getValue().toString().equals("AAC")) {
             mc.thePlayer.setSprinting(false);
         }
+
         this.moveBlock();
         this.shouldDown = mc.gameSettings.keyBindAttack.isKeyDown() && PlayerUtils.isMoving() && this.down.getValue();
         double x = mc.thePlayer.posX;
@@ -185,10 +186,6 @@ public class Scaffold extends Module {
 //				if (mode.getValue().toString().equals("Normal") || (!PlayerUtils.isMoving() && mc.thePlayer.motionY < 0)) {
 //					this.doRotate(event, blockData);
 //				}
-                if (!mc.gameSettings.keyBindJump.isKeyDown() && mc.thePlayer.onGround && PlayerUtils.isOnGround(0.001)
-                        && mc.thePlayer.isCollidedVertically) {
-                    event.setOnground(false);
-                }
             }
         }
     }
@@ -208,6 +205,13 @@ public class Scaffold extends Module {
     }
 
     private void doRotate(EventPreUpdate e) {
+//        float[] rotation = getRotations(blockData.position);
+//		if (mode.getValue().toString().equals("Hypixel")) {
+//			this.blockYaw = rotation[0];
+//			this.blockPitch = rotation[1];
+//		}
+//		e.setYaw(rotation[0]);
+//		e.setPitch(rotation[1]);
         if (mode.getValue().toString().equals("AAC")) {
             this.lastYaw = this.getRotation()[0];
             this.lastPitch = this.getRotation()[1];

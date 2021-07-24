@@ -17,14 +17,10 @@ public class IRC extends Module {
     @Override
     public void onEnable() {
         super.onEnable();
-        Client.user = new User("","","","");
-        System.out.println("Connecting irc server");
-        tomorrow.tomo.utils.irc.Client.connect("SuperSkidder", "IDK");
     }
 
     @EventHandler
     public void onUpdate(EventPostUpdate e) {
         Client.user.GameID = mc.thePlayer.getName();
-//        Client.user.head = "http:://baidu.com/B.png";
     }
 }

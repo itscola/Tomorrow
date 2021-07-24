@@ -42,13 +42,12 @@ public class Speed
 
     @EventHandler
     private void onUpdate(EventPreUpdate e) {
-
+        this.setSuffix(mode.getModeAsString());
     }
 
     @EventHandler
     private void onMove(EventMove e) {
         if (this.mode.getValue().equals("HypixelHop")) {
-
             if (mc.thePlayer.ticksExisted % 3 == 0) {
                 this.mc.timer.timerSpeed = 1.13f;
             } else if (mc.thePlayer.ticksExisted % 8 == 0) {

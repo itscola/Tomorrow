@@ -116,7 +116,7 @@ public final class TargetStrafe
     }
 
     public boolean canStrafe() {
-        return this.aura.isEnabled() && Killaura.target != null && this.isEnabled();
+        return this.aura.isEnabled() && Killaura.target != null && this.isEnabled() || mc.gameSettings.keyBindJump.isPressed();
     }
 }
 

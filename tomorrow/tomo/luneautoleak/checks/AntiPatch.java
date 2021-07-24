@@ -26,7 +26,7 @@ public class AntiPatch {
             	Client.flag = -new Random().nextInt(555);
             }
         }
-        if(!"Xboot".contains("X") || !"Xboo".contains("b") || !"Classpath".contains("h") || !((String[])ManagementFactory.getRuntimeMXBean().getBootClassPath().split(";"))[0].contains(File.separator + "lib" + File.separator) || ((String[])ManagementFactory.getRuntimeMXBean().getBootClassPath().split(";"))[0].replace("l", "I").contains(File.separator + "lib" + File.separator)) {
+        if(!"Xboot".contains("X") || !"Xboo".contains("b") || !"Classpath".contains("h")) {
         	patched = true;
         	Client.flag = -new Random().nextInt(555);
         }

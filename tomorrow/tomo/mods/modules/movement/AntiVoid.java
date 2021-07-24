@@ -15,9 +15,10 @@ import java.util.ArrayList;
 
 public class AntiVoid
         extends Module {
-    public AntiVoid(){
+    public AntiVoid() {
         super("AntiVoid", ModuleType.Movement);
     }
+
     public ArrayList<Packet> packets = new ArrayList();
     public TimerUtil timerUtil = new TimerUtil();
 
@@ -57,14 +58,16 @@ public class AntiVoid
             return;
         }
 
-        if(timerUtil.delay(400)) {
-//            mc.thePlayer.setPosition(mc.thePlayer.motionX, mc.thePlayer.motionY + 3, mc.thePlayer.motionZ);
-//            mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer(true));
-//            mc.thePlayer.onGround = true;
-            mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY+5, mc.thePlayer.posZ, false));
-            mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY+4, mc.thePlayer.posZ, false));
-            mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY+3, mc.thePlayer.posZ, false));
-            timerUtil.reset();
+        if (timerUtil.delay(10)) {
+            mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY + 9, mc.thePlayer.posZ, false));
+            if (timerUtil.delay(200)) {
+                mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY + 1.2, mc.thePlayer.posZ, false));
+                if (timerUtil.delay(500)) {
+                    mc.thePlayer.setPositionAndUpdate(mc.thePlayer.posX, mc.thePlayer.posY + 1, mc.thePlayer.posZ);
+                    mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ, false));
+                    timerUtil.reset();
+                }
+            }
         }
 
 

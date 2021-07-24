@@ -44,10 +44,10 @@ public class NoFall
             if (e.getPacket() instanceof C03PacketPlayer && ((C03PacketPlayer) e.getPacket()).isMoving()) {
                 if (mc.thePlayer.fallDistance > (2.0f + this.getActivePotionEffect() * 0.23f)) {
                     if (isBlockUnder()) {
-                        e.setCancelled(true);
+//                        e.setCancelled(true);
                         mc.thePlayer.sendQueue.addToSendQueueWithoutEvent(new C03PacketPlayer.C04PacketPlayerPosition(((C03PacketPlayer) e.getPacket()).getPositionX(), ((C03PacketPlayer) e.getPacket()).getPositionY(), ((C03PacketPlayer) e.getPacket()).getPositionZ(), ((C03PacketPlayer) e.getPacket()).isOnGround()));
                     } else if (!mc.thePlayer.onGround && mc.thePlayer.fallDistance <= 8.65F) {
-                        e.setCancelled(true);
+//                        e.setCancelled(true);
                         mc.thePlayer.sendQueue.addToSendQueueWithoutEvent(new C03PacketPlayer.C04PacketPlayerPosition(((C03PacketPlayer) e.getPacket()).getPositionX(), ((C03PacketPlayer) e.getPacket()).getPositionY(), ((C03PacketPlayer) e.getPacket()).getPositionZ(), ((C03PacketPlayer) e.getPacket()).isOnGround()));
                     }
                 }

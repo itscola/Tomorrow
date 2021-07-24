@@ -69,7 +69,7 @@ public class HUD
         Client.instance.customgui.drawGuiPre();
         ScaledResolution sr = new ScaledResolution(mc);
 
-        if (notification.getValue()) {
+        if (((boolean) notification.getValue())) {
             NotificationsManager.renderNotifications();
             NotificationsManager.update();
         }

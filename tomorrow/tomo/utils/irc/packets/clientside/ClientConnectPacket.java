@@ -6,11 +6,13 @@ import tomorrow.tomo.utils.irc.packets.IRCType;
 public class ClientConnectPacket extends IRCPacket {
 
     public String username = "";
-    public String gameID = "";
+    public String password = "";
+    public String hwid = "";
 
-    public ClientConnectPacket(long time, String content,String username,String gameID) {
+    public ClientConnectPacket(long time, String content,String username,String password,String hwid) {
         super(time, content, IRCType.CONNECT);
         this.username = username;
-        this.gameID = gameID;
+        this.password = password;
+        this.hwid = hwid;
     }
 }

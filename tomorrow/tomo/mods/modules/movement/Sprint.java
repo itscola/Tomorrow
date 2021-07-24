@@ -20,7 +20,7 @@ extends Module {
 
     @EventHandler
     private void onUpdate(EventPreUpdate event) {
-        if (this.mc.thePlayer.getFoodStats().getFoodLevel() > 6 && this.omni.getValue() != false ? this.mc.thePlayer.moving() : this.mc.thePlayer.moveForward > 0.0f) {
+        if (this.mc.thePlayer.getFoodStats().getFoodLevel() > 6 && this.omni.getValue() != false ? this.mc.thePlayer.moving() : this.mc.thePlayer.moveForward > 0.1f) {
             mc.gameSettings.keyBindSprint.pressed = true;
 //            this.mc.thePlayer.setSprinting(true);
         }

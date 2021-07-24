@@ -12,30 +12,6 @@ import java.net.URL;
 import java.util.Random;
 
 public class Md5Check {
-    public static void check() {
-        try {
-            String siteString2 = "wo*&*.aP&".replace("caonima", "http").replaceAll("-X-", "/").replaceAll("wo", "gaoyu")
-                    .replace("*&*", "sense").replace("aP&", "buzz");
-            InetAddress addresses = InetAddress.getByName(siteString2);
-            String ip = "tomorrow.version.92.247".replace("tomorrow", "103").replace("version", "17");
-            if (!contains_(ip, addresses.getHostAddress()) || !(contains_(ip, "1") && contains_(ip, "103")
-                    && contains_(ip, "17") && contains_(ip, "92.2") && contains_(ip, "47") && contains_(ip, "3.17"))) {
-                System.out.println("hosts被修改。");
-                Client.flag = -new Random().nextInt(555);
-                Minecraft.getMinecraft().fontRendererObj = null;
-                Minecraft.getMinecraft().currentScreen = null;
-                System.exit(new Random().nextInt(555));
-            } else {
-                System.out.println("hosts通过。");
-            }
-
-        } catch (Exception e) {
-            Client.flag = -new Random().nextInt(555);
-            Minecraft.getMinecraft().fontRendererObj = null;
-            Minecraft.getMinecraft().currentScreen = null;
-            System.exit(new Random().nextInt(555));
-        }
-    }
 
 
     public static boolean equals(String s, String t) {
