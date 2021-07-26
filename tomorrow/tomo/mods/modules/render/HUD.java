@@ -12,7 +12,6 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import tomorrow.tomo.Client;
-import tomorrow.tomo.customgui.objects.ArrayListObject;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.rendering.EventRender2D;
 import tomorrow.tomo.event.events.world.EventPostUpdate;
@@ -24,6 +23,7 @@ import tomorrow.tomo.guis.notification.NotificationsManager;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 import tomorrow.tomo.mods.modules.render.UI.TabUI;
+import tomorrow.tomo.mods.modules.render.hud.ArrayList;
 import tomorrow.tomo.utils.math.AnimationUtils;
 import tomorrow.tomo.utils.render.RenderUtil;
 
@@ -38,7 +38,7 @@ public class HUD
     public static Option<Boolean> arraylist = new Option<Boolean>("Arraylist", "Arraylist", true);
     public static Mode colorMode = new Mode("ArrayListColor", "ArrayListColor", new String[]{"ColoredRainbow", "Color", "Rainbow"}, "ColoredRainbow");
     public Mode mod = new Mode("Mode", "Mode", new String[]{"Flux", "OverWatch"}, "Flux");
-
+    private static ArrayList arrayList = new ArrayList();
     private AnimationUtils animationUtils = new AnimationUtils();
 
     public HUD() {
@@ -48,13 +48,10 @@ public class HUD
     }
 
     int rainbowTick = 0;
-    int rainbowTick2 = 0;
 
     @Override
     public void onEnable() {
-        if (Client.instance.customgui.objects.size() == 0) {
-            Client.instance.customgui.addObject(new ArrayListObject("ArrayList", 100, 0));
-        }
+
     }
 
     @Override
@@ -65,7 +62,6 @@ public class HUD
 
     @EventHandler
     public void renderHud(EventRender2D event) {
-        Client.instance.customgui.drawGuiPre();
         ScaledResolution sr = new ScaledResolution(mc);
 
         if (((boolean) notification.getValue())) {
@@ -75,6 +71,7 @@ public class HUD
         Color rainbow = new Color(Color.HSBtoRGB((float) ((double) this.mc.thePlayer.ticksExisted / 50.0 + Math.sin((double) rainbowTick / 50.0)) % 1.0f, 0.5f, 1.0f));
 
         if (!mc.gameSettings.showDebugInfo) {
+            arrayList.drawObject();
 //            FontLoaders.arial24.drawStringWithShadow(Client.CLIENT_NAME + " " +ChatFormatting.GRAY + Client.VERSION, 4, 4, rainbow.getRGB());
 //            RenderUtil.drawCustomImage(10, 2, 41, 41, new ResourceLocation("client/hudlogo.png"), new Color(255, 255, 255).getRGB());
 
@@ -111,8 +108,6 @@ public class HUD
             GlStateManager.rotate(15, 1, 1, 1);
 
         }
-
-        Client.instance.customgui.drawGuiPost();
     }
 
     @EventHandler

@@ -40,7 +40,6 @@ implements Manager {
         this.commands.add(new Reload());
         this.commands.add(new IRC());
         this.commands.add(new Save());
-        this.commands.add(new CommandHuji());
         EventBus.getInstance().register(this);
     }
 

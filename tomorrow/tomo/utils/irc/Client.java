@@ -1,8 +1,11 @@
 package tomorrow.tomo.utils.irc;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
+
+import net.minecraft.client.Minecraft;
 import tomorrow.tomo.managers.ModuleManager;
 import tomorrow.tomo.mods.modules.misc.IRC;
+import tomorrow.tomo.mods.modules.misc.MCF;
 import tomorrow.tomo.utils.cheats.player.Helper;
 import tomorrow.tomo.utils.cheats.world.TimerUtil;
 import tomorrow.tomo.utils.irc.packets.clientside.ClientChatPacket;
@@ -44,6 +47,7 @@ public class Client {
 	public static void connect(String userName, String password, String hwid) {
 
 		try {
+//			socket = new Socket("127.0.0.1", 6666);
 			socket = new Socket("218.89.171.137", 22127);
 			reader = new MyBufferedReader(new InputStreamReader(socket.getInputStream()));
 			pw = new MyPrintWriter(socket.getOutputStream());
@@ -94,13 +98,9 @@ public class Client {
 			} else if (packet.type.equals(IRCType.STOP)) {
 				connected = false;
 				ServerStopPacket c = (ServerStopPacket) IRCUtils.toPacket(ircMessage, ServerStopPacket.class);
-				if (Helper.mc.thePlayer != null) {
-					assert ModuleManager.getModuleByClass(IRC.class) != null;
-					if (ModuleManager.getModuleByClass(IRC.class).isEnabled()) {
-						Helper.sendMessageWithoutPrefix(
-								ChatFormatting.BLUE + "[IRC]" + ChatFormatting.RED + " " + c.content);
-					}
-				}
+				System.exit(0);
+				Minecraft.getMinecraft().thePlayer = null;
+				Minecraft.getMinecraft().renderGlobal = null;
 			}
 
 		} catch (IOException e) {

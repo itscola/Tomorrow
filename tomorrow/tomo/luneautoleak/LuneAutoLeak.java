@@ -36,7 +36,7 @@ public class LuneAutoLeak {
         new ReVerify();
     }
 
-	private String getHWID() {
+	public static String getHWID() {
 		try {
 			StringBuilder sb = new StringBuilder();
 			String computerName = System.getenv("COMPUTERNAME");

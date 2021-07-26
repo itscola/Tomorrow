@@ -1,10 +1,6 @@
-/*
- * Decompiled with CFR 0_132.
- */
 package tomorrow.tomo;
 
 import net.minecraft.client.Minecraft;
-import tomorrow.tomo.customgui.CustomGuiManager;
 import tomorrow.tomo.guis.font.FontLoaders;
 import tomorrow.tomo.guis.login.AltManager;
 import tomorrow.tomo.luneautoleak.LuneAutoLeak;
@@ -30,7 +26,6 @@ public class Client {
     public static FontLoaders fontLoaders;
     public static File dataFolder = new File(Minecraft.getMinecraft().mcDataDir.getAbsolutePath(), CLIENT_NAME);
     public static File configFolder = new File(dataFolder, "configs");
-    public CustomGuiManager customgui;
     public static int flag = -666;
 
     public void initiate() {
@@ -44,7 +39,6 @@ public class Client {
         this.tabui = new TabUI();
         this.tabui.init();
         this.altmanager = new AltManager();
-        this.customgui = new CustomGuiManager();
 //        musicPanel = new MusicPanel();
         AltManager.init();
         AltManager.setupAlts();

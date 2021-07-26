@@ -82,12 +82,13 @@ public final class TargetStrafe
 
     @EventHandler
     public void onRender3D(EventRender3D event) {
-        if (this.canStrafe() && ((boolean) this.render.getValue())) {
+        if (this.canStrafe() && ((boolean) this.render.getValue() && Killaura.target != null)) {
             this.drawCircle(Killaura.target, event.getPartialTicks(), this.radius.getValue().floatValue());
         }
     }
 
     private void drawCircle(Entity entity, float partialTicks, double rad) {
+    	
         GL11.glPushMatrix();
         GL11.glDisable((int) 3553);
         RenderUtil.startSmooth();

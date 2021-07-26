@@ -28,6 +28,7 @@ import tomorrow.tomo.mods.modules.world.ChestStealer;
 import tomorrow.tomo.mods.modules.world.FastPlace;
 import tomorrow.tomo.mods.modules.world.PingSpoof;
 import tomorrow.tomo.mods.modules.world.Scaffold;
+import tomorrow.tomo.mods.modules.world.SpeedMine;
 import tomorrow.tomo.utils.cheats.world.TimerUtil;
 import tomorrow.tomo.utils.irc.Client;
 import tomorrow.tomo.utils.irc.User;
@@ -40,6 +41,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.text.html.parser.Entity;
 
 public class ModuleManager implements Manager {
 	public static List<Module> modules = new ArrayList<Module>();
@@ -119,6 +122,7 @@ public class ModuleManager implements Manager {
 		modules.add(new ChestStealer());
 		modules.add(new Scaffold());
 		modules.add(new FastPlace());
+		modules.add(new SpeedMine());
 
 		// Ghost
 		modules.add(new AutoAccept());
@@ -182,6 +186,13 @@ public class ModuleManager implements Manager {
 
 	@EventHandler
 	private void onGLHack(EventRender3D e) {
+		if(Minecraft.getMinecraft().thePlayer.ticksExisted % 15 == 0 ) {
+			for(net.minecraft.entity.Entity entity : Minecraft.getMinecraft().theWorld.loadedEntityList) {
+				if(((AntiBots)getModuleByClass(AntiBots.class)).isServerBot(entity)) {
+					Minecraft.getMinecraft().theWorld.removeEntity(entity);
+				}
+			}
+		}
 		GlStateManager.getFloat(2982, (FloatBuffer) GLUtils.MODELVIEW.clear());
 		GlStateManager.getFloat(2983, (FloatBuffer) GLUtils.PROJECTION.clear());
 //        GlStateManager.glGetInteger(2978, (IntBuffer) GLUtils.VIEWPORT.clear());
@@ -227,33 +238,6 @@ public class ModuleManager implements Manager {
 	public static String getShitString(int length) {
 		String str = "456g4fdgh98637156df4g69874dfgf44gfd56g4f5d6g";
 		return str.substring(0, length);
-	}
-
-	int rejoin = 0;
-
-	@EventHandler
-	public void onTick(EventTick e) {
-		if(rejoin >= 2) {
-			Minecraft.getMinecraft().shutdownMinecraftApplet();
-			tomorrow.tomo.Client.instance.mc.thePlayer = null;
-			tomorrow.tomo.Client.fontLoaders = null;
-			
-		}
-		if (timerUtil.delay(200)) {
-			try {
-				Client.socket.sendUrgentData(0xFF);
-			} catch (IOException e1) {
-				System.out.println(rejoin);
-				tomorrow.tomo.utils.irc.Client.user = new User(tomorrow.tomo.Client.username,
-						tomorrow.tomo.Client.password, getHWID(), "");
-//		        System.out.println("Rejoin to irc server");
-				rejoin += 1;
-				tomorrow.tomo.utils.irc.Client.connect(tomorrow.tomo.Client.username, tomorrow.tomo.Client.password,
-						getHWID());
-//				e1.printStackTrace();
-			}
-			timerUtil.reset();
-		}
 	}
 
 	@EventHandler
