@@ -34,6 +34,8 @@ public class AntiPatch {
         if(patched) {
            	Client.flag = -new Random().nextInt(555);
         }
+        
+    	tomorrow.tomo.Client.instance.getLuneAutoLeak().didVerify.add(2);
     }
 
     public static boolean contains_(String s,String t){

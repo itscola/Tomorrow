@@ -133,10 +133,15 @@ public class ModuleManager implements Manager {
 		modules.add(new ClientSettings());
 		modules.add(new AutoGG());
 
+		
 //		this.readSettings();
 		EventBus.getInstance().register(this);
 	}
 
+	private static void sortModules() {
+		
+	}
+	
 	public static List<Module> getModules() {
 		return modules;
 	}

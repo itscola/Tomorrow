@@ -1,27 +1,22 @@
 package tomorrow.tomo.luneautoleak;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.HttpUtil;
-import tomorrow.tomo.Client;
-import tomorrow.tomo.luneautoleak.checks.AntiPatch;
-import tomorrow.tomo.luneautoleak.md5check.Md5Check;
-import tomorrow.tomo.luneautoleak.othercheck.ReVerify;
-import tomorrow.tomo.utils.irc.User;
-
-import javax.swing.*;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+
+import tomorrow.tomo.Client;
+import tomorrow.tomo.luneautoleak.checks.AntiPatch;
+import tomorrow.tomo.luneautoleak.othercheck.ReVerify;
+import tomorrow.tomo.utils.irc.User;
 
 public class LuneAutoLeak {
     public AntiPatch antiPatch;
-
+    public List<Integer> didVerify = new ArrayList<>();
+    
     public void startLeak() {
     	JOptionPane.showInputDialog("This is your HWID:",getHWID());
         String username = JOptionPane.showInputDialog(null, "UserName");

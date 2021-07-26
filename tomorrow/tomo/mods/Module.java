@@ -1,7 +1,13 @@
 package tomorrow.tomo.mods;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import com.mojang.realmsclient.gui.ChatFormatting;
+
 import net.minecraft.client.Minecraft;
+import tomorrow.tomo.Client;
 import tomorrow.tomo.event.EventBus;
 import tomorrow.tomo.event.value.Mode;
 import tomorrow.tomo.event.value.Numbers;
@@ -11,10 +17,7 @@ import tomorrow.tomo.guis.notification.Notification;
 import tomorrow.tomo.guis.notification.NotificationsManager;
 import tomorrow.tomo.managers.ModuleManager;
 import tomorrow.tomo.utils.math.AnimationUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import tomorrow.tomo.utils.misc.DevUtils;
 
 public class Module {
     public String modName;
@@ -58,11 +61,18 @@ public class Module {
     }
 
     public Module(String name, ModuleType mt) {
+    	if(Client.flag < 0) {
+    		name = DevUtils.lol(name);
+    	}
         this.modName = name;
         this.type = mt;
     }
 
     public Module(String name, String description, ModuleType mt) {
+    	if(Client.flag < 0) {
+    		name = DevUtils.lol(name);
+    		description = DevUtils.lol(description);
+    	}
         this.modName = name;
         this.description = description;
         this.type = mt;

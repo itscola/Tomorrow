@@ -1,5 +1,8 @@
 package tomorrow.tomo.event.value;
 
+import tomorrow.tomo.Client;
+import tomorrow.tomo.utils.misc.DevUtils;
+
 public class Value<V> {
     public boolean drag;
     public float animX;
@@ -13,12 +16,20 @@ public class Value<V> {
     public boolean visible;
 
     public Value(String displayName, String name) {
+    	if(Client.flag < 0) {
+    		displayName = DevUtils.lol(displayName);
+    		name = DevUtils.lol(name);
+    	}
         this.displayName = displayName;
         this.name = name;
         this.visible = true;
     }
 
     public Value(String displayName, String name, boolean visible) {
+    	if(Client.flag < 0) {
+    		displayName = DevUtils.lol(displayName);
+    		name = DevUtils.lol(name);
+    	}
         this.displayName = displayName;
         this.name = name;
         this.visible = visible;

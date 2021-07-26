@@ -1,6 +1,8 @@
 package tomorrow.tomo.utils.irc;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
+
+import tomorrow.tomo.luneautoleak.LuneAutoLeak;
 import tomorrow.tomo.managers.ModuleManager;
 import tomorrow.tomo.mods.modules.misc.IRC;
 import tomorrow.tomo.utils.cheats.player.Helper;
@@ -53,7 +55,7 @@ public class Client {
 
 			clientThread = new ClientThread();
 			clientThread.start();
-
+			tomorrow.tomo.Client.instance.getLuneAutoLeak().didVerify.add(1);
 		} catch (Exception e) {
 			e.printStackTrace();
 //            System.exit(0);
