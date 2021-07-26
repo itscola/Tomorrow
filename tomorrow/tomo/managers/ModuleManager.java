@@ -137,13 +137,22 @@ public class ModuleManager implements Manager {
 		modules.add(new ClientSettings());
 		modules.add(new AutoGG());
 
-		
+		this.sortModules();
+		for(Module mod : modules) {
+			System.out.println(mod.getName());
+		}
 //		this.readSettings();
 		EventBus.getInstance().register(this);
 	}
 
-	private static void sortModules() {
-		
+	private void sortModules() {
+		modules.sort((mod1, mod2) -> {
+			if(mod1.getName().toCharArray()[0] > mod2.getName().toCharArray()[0]) {
+				return 1;
+			}
+			
+			return -1;
+		});
 	}
 	
 	public static List<Module> getModules() {
