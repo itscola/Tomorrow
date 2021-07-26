@@ -1,10 +1,7 @@
 package tomorrow.tomo.commands.commands;
 
-import java.util.Iterator;
-
 import tomorrow.tomo.Client;
 import tomorrow.tomo.commands.Command;
-import tomorrow.tomo.customgui.CustomGuiManager;
 import tomorrow.tomo.event.EventBus;
 import tomorrow.tomo.managers.ModuleManager;
 import tomorrow.tomo.mods.Module;
@@ -23,7 +20,6 @@ public class Reload extends Command {
 		}
     	// clear the modules lists
         ModuleManager.modules.clear();
-        CustomGuiManager.objects.clear();
         ModuleManager.enabledModules.clear();
         // unregister ModuleManager::onKey....
         EventBus.getInstance().unregister(Client.instance.getModuleManager());
