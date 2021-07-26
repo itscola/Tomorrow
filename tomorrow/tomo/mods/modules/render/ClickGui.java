@@ -25,7 +25,7 @@ public class ClickGui extends Module {
 //        mc.displayGuiScreen(new tomorrow.client.guis.clickgui.ClickGui());
 
         if (color.getValue().equals("Dark")) {
-            if (mode.getValue().equals("VapuLite")) {
+            if (mode.getValue().equals("VapeLite")) {
                 TomoClickGui.theme.setDark();
                 mc.displayGuiScreen(new TomoClickGui());
             } else if (mode.getValue().equals("Material")) {

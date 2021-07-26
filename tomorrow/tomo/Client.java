@@ -20,7 +20,7 @@ public class Client {
     public static String CLIENT_NAME = "Tomo";
     public static String username ,password;
     public static Client instance = new Client();
-    public static String VERSION = "R1.4";
+    public static String VERSION = "R1.5";
     public Minecraft mc;
     private ModuleManager modulemanager;
     private CommandManager commandmanager;

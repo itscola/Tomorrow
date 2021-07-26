@@ -65,7 +65,6 @@ public class HUD
 
     @EventHandler
     public void renderHud(EventRender2D event) {
-
         Client.instance.customgui.drawGuiPre();
         ScaledResolution sr = new ScaledResolution(mc);
 
@@ -73,12 +72,10 @@ public class HUD
             NotificationsManager.renderNotifications();
             NotificationsManager.update();
         }
-//        Color rainbow = new Color(Color.HSBtoRGB((float) ((double) Client.instance.mc.thePlayer.ticksExisted / 50.0 + Math.sin((double) (rainbowTick / 12) / 50.0 * 1.6)) % 1.0f, ClientSettings.saturation.getValue().floatValue(), ClientSettings.brightness.getValue().floatValue()));
-//        Color rainbow = new Color(Color.HSBtoRGB((float) ((double) rainbowTick / 50.0 + Math.sin((double) (rainbowTick + (0 - 4) / 12) / 50.0 * 1.6)) % 1.0f, 0.5f, 1));
         Color rainbow = new Color(Color.HSBtoRGB((float) ((double) this.mc.thePlayer.ticksExisted / 50.0 + Math.sin((double) rainbowTick / 50.0)) % 1.0f, 0.5f, 1.0f));
 
         if (!mc.gameSettings.showDebugInfo) {
-//            FontLoaders.arial24.drawStringWithShadow(Client.CLIENT_NAME + " " + ChatFormatting.GRAY + Client.VERSION, 4, 4, rainbow.getRGB());
+//            FontLoaders.arial24.drawStringWithShadow(Client.CLIENT_NAME + " " +ChatFormatting.GRAY + Client.VERSION, 4, 4, rainbow.getRGB());
 //            RenderUtil.drawCustomImage(10, 2, 41, 41, new ResourceLocation("client/hudlogo.png"), new Color(255, 255, 255).getRGB());
 
             RenderUtil.drawCustomImageAlpha(10, 2, 41, 41, new ResourceLocation("client/hudlogo.png"), new Color(255, 255, 255).getRGB(), rainbow.getBlue());

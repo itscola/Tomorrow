@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class NotificationsManager {
-    public static ArrayList<Notification> notifications = new ArrayList();
+    public static ArrayList<Notification> notifications = new ArrayList<Notification>();
 
     public static ArrayList<Notification> getNotifications() {
         return notifications;

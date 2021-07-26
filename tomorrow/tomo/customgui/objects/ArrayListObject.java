@@ -44,10 +44,6 @@ public class ArrayListObject extends GuiObject {
 
         rainbowTick = 0;
         rainbowTick2 = 0;
-//        Color rainbow = new Color(Color.HSBtoRGB((float) ((double) this.mc.thePlayer.ticksExisted / 50.0 + Math.sin((double) rainbowTick / 50.0 * 1.6)) % 1.0f, 0.5f, 1.0f));
-//            Color arrayRainbow = new Color(Color.HSBtoRGB((float) ((double) rainbowTick2 / 50.0 + Math.sin((double) rainbowTick / 50.0 * 1.6)) % 1.0f, 0.5f, 1.0f));
-//            Color rainbow = new Color(255, 255, 255);
-
 
         ArrayList<Module> mods = new ArrayList<>();
         for (Module m : ModuleManager.modules) {

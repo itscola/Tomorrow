@@ -423,7 +423,7 @@ public class EmptyInputBox extends Gui {
             }
 
             String s = this.fontRendererInstance.trimStringToWidth(this.text.substring(this.lineScrollOffset), this.getWidth());
-            this.setCursorPosition(this.fontRendererInstance.trimStringToWidth(s, i).length() + this.lineScrollOffset);
+            this.setCursorPosition(this.fontRendererInstance.trimStringToWidth(s, (int) i).length() + this.lineScrollOffset);
         }
     }
 

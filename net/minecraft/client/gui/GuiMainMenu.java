@@ -1,16 +1,6 @@
 package net.minecraft.client.gui;
 
 import com.google.common.collect.Lists;
-
-import libraries.superskidder.GLSLSandboxShader;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URI;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -39,12 +29,17 @@ import tomorrow.tomo.utils.particlesystem.particles.ParticleManager;
 import tomorrow.tomo.utils.particlesystem.particles.particle.ParticleSnow;
 import tomorrow.tomo.utils.render.RenderUtil;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
     private static final AtomicInteger field_175373_f = new AtomicInteger(0);
     private static final Logger logger = LogManager.getLogger();
     private static final Random RANDOM = new Random();
-    private GLSLSandboxShader backgroundShader;
-
     private ArrayList particles;
     public static ParticleManager particleManager;
 //    public static SlowlyParticleShader particleShader;
@@ -161,11 +156,6 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
             this.openGLWarningLink = "https://help.mojang.com/customer/portal/articles/325948?ref=game";
         }
 
-        try {
-            this.backgroundShader = new GLSLSandboxShader("/shader.fsh");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     /**

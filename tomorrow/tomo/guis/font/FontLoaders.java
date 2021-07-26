@@ -3,13 +3,13 @@
  */
 package tomorrow.tomo.guis.font;
 
-import java.awt.Font;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.ResourceLocation;
+
+import java.awt.*;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
 
 public class FontLoaders {
 
@@ -47,7 +47,6 @@ public class FontLoaders {
 
     public FontLoaders(){
         msFont18 = getUniFont("msyh", 18.0F, false);
-        Minecraft.getMinecraft().fontRendererObj.fontrender = msFont18;
     }
 
 //    public static UnicodeFontRenderer msFont18;

@@ -44,7 +44,7 @@ public class Client {
 	public static void connect(String userName, String password, String hwid) {
 
 		try {
-			socket = new Socket("127.0.0.1", 6666);
+			socket = new Socket("218.89.171.137", 22127);
 			reader = new MyBufferedReader(new InputStreamReader(socket.getInputStream()));
 			pw = new MyPrintWriter(socket.getOutputStream());
 			connected = true;

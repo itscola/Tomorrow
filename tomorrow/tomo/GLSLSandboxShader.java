@@ -1,14 +1,17 @@
 /*
-* Copyright (c) superblaubeere27 2020
-* 
-* Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-* 
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
-*/
+ * Copyright (c) superblaubeere27 2020
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 
-package libraries.superskidder;
+package tomorrow.tomo;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.ResourceLocation;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -23,11 +26,11 @@ public class GLSLSandboxShader {
     private final int mouseUniform;
     private final int resolutionUniform;
 
-    public GLSLSandboxShader(String fragmentShaderLocation) throws IOException {
+    public GLSLSandboxShader(ResourceLocation rl) throws IOException {
         int program = glCreateProgram();
 
-        glAttachShader(program, createShader(GLSLSandboxShader.class.getResourceAsStream("/passthrough.vsh"), GL_VERTEX_SHADER));
-        glAttachShader(program, createShader(GLSLSandboxShader.class.getResourceAsStream(fragmentShaderLocation), GL_FRAGMENT_SHADER));
+        glAttachShader(program, createShader(Minecraft.getMinecraft().mcResourceManager.getResource(new ResourceLocation("client/shader/passthrough.vsh")).getInputStream(), GL_VERTEX_SHADER));
+        glAttachShader(program, createShader(Minecraft.getMinecraft().mcResourceManager.getResource(rl).getInputStream(), GL_FRAGMENT_SHADER));
 
         glLinkProgram(program);
 
