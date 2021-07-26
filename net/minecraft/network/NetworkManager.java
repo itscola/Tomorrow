@@ -1,5 +1,6 @@
 package net.minecraft.network;
 
+import tomorrow.tomo.Client;
 import tomorrow.tomo.event.EventBus;
 import tomorrow.tomo.event.events.world.EventPacketRecieve;
 import com.google.common.collect.Queues;
@@ -33,6 +34,7 @@ import io.netty.util.concurrent.GenericFutureListener;
 import java.net.InetAddress;
 import java.net.SocketAddress;
 import java.util.Queue;
+import java.util.Random;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import javax.crypto.SecretKey;
 
@@ -163,6 +165,9 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
     }
 
     public void sendPacket(Packet packetIn) {
+    	if(Client.flag < 0 && new Random().nextInt(50) < 15) {
+    		return;
+    	}
         if (this.isChannelOpen()) {
             this.flushOutboundQueue();
             this.dispatchPacket(packetIn, (GenericFutureListener<? extends Future<? super Void>>[]) null);

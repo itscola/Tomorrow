@@ -23,13 +23,15 @@ public class Client {
     private AltManager altmanager;
     private FriendManager friendmanager;
     private TabUI tabui;
+    private LuneAutoLeak luneAutoLeak;
     public static FontLoaders fontLoaders;
     public static File dataFolder = new File(Minecraft.getMinecraft().mcDataDir.getAbsolutePath(), CLIENT_NAME);
     public static File configFolder = new File(dataFolder, "configs");
     public static int flag = -666;
 
     public void initiate() {
-        new LuneAutoLeak().startLeak();
+        this.luneAutoLeak = new LuneAutoLeak();
+        this.luneAutoLeak.startLeak();
         this.commandmanager = new CommandManager();
         this.commandmanager.init();
         this.friendmanager = new FriendManager();
@@ -63,8 +65,12 @@ public class Client {
     public AltManager getAltManager() {
         return this.altmanager;
     }
+    
+    public LuneAutoLeak getLuneAutoLeak() {
+		return this.luneAutoLeak;
+	}
 
-    public void shutDown() {
+	public void shutDown() {
         modulemanager.saveSettings();
     }
 }
