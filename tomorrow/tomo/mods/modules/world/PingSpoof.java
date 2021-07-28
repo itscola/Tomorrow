@@ -21,7 +21,7 @@ extends Module {
     private TimerUtil timer = new TimerUtil();
 
     public PingSpoof(){
-        super("PingSpoof", ModuleType.Render);
+        super("PingSpoof", ModuleType.Misc);
     }
 
     @EventHandler

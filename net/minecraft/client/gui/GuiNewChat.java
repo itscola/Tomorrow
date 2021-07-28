@@ -75,17 +75,20 @@ public class GuiNewChat extends Gui {
                                 drawRect(i2, j2 - 9, i2 + l + 4, j2, l1 / 2 << 24);
                                 String s = chatline.getChatComponent().getFormattedText();
                                 GlStateManager.enableBlend();
-                                float illl = mc.fontRendererObj.getStringWidth(chatline.getChatComponent().getFormattedText());
-                                if (chatline.y == 0)
-                                    chatline.y = j2;
-                                if (l1 == 255) {
-                                    chatline.x = chatline.animationUtils.animate(illl, chatline.x, 0.05f);
+                                if (!getChatOpen()) {
+                                    float illl = mc.fontRendererObj.getStringWidth(chatline.getChatComponent().getFormattedText());
+                                    if (chatline.y == 0)
+                                        chatline.y = j2;
+                                    if (l1 == 255) {
+                                        chatline.x = chatline.animationUtils.animate(illl, chatline.x, 0.05f);
+                                    } else {
+                                        chatline.x = chatline.animationUtils.animate(0, chatline.x, 0.05f);
+                                    }
+                                    chatline.y = chatline.animationUtils2.animate(j2 - 8, chatline.y, 0.05f);
+                                    this.mc.fontRendererObj.drawStringWithShadow(s, -illl + chatline.x, chatline.y, new Color(255, 255, 255, chatline.x == 0 ? 0 : (int) (chatline.x / illl * 255f)).getRGB());
                                 } else {
-                                    chatline.x = chatline.animationUtils.animate(0, chatline.x, 0.05f);
+                                    this.mc.fontRendererObj.drawStringWithShadow(s, 0, j2 - 8, new Color(255,255,255,l1).getRGB());
                                 }
-                                chatline.y = chatline.animationUtils2.animate(j2 - 8, chatline.y, 0.05f);
-                                this.mc.fontRendererObj.drawStringWithShadow(s, -illl + chatline.x, chatline.y, new Color(255, 255, 255, chatline.x == 0 ? 0 : (int) (chatline.x / illl * 255f)).getRGB());
-
                                 GlStateManager.disableAlpha();
                                 GlStateManager.disableBlend();
                             }

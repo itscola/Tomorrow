@@ -72,7 +72,7 @@ public class ESP
             }
             if (ent.isInvisible()) {
                 //RenderUtil.drawBoundingBox((AxisAlignedBB)new AxisAlignedBB(ent.motionX, ent.motionY, ent.motionZ, ent.motionX-1, ent.motionY-1, ent.motionZ-1));
-                entityESPBox2(ent, new Color(155, 155, 255, 100), event);
+                //entityESPBox2(ent, new Color(155, 155, 255, 100), event);
                 continue;
             }
 
@@ -155,6 +155,7 @@ public class ESP
     private void doOther2DESP() {
         for (EntityPlayer entity : this.mc.theWorld.playerEntities) {
             if (!this.isValid(entity)) continue;
+            if(entity.isInvisible()) continue;
             GL11.glPushMatrix();
             GL11.glEnable(3042);
             GL11.glDisable(2929);

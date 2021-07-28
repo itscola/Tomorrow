@@ -99,23 +99,23 @@ public class InvCleaner extends Module {
 		}
 	}
 
-	private boolean stackIsUseful(int i) {
+	public boolean stackIsUseful(int i) {
 		int o;
 		ItemStack item;
 		boolean hasAlreadyOrBetter;
 		ItemStack itemStack;
-		itemStack = this.mc.thePlayer.inventoryContainer.getSlot(i).getStack();
+		itemStack = mc.thePlayer.inventoryContainer.getSlot(i).getStack();
 		hasAlreadyOrBetter = false;
 		if (itemStack.getItem() instanceof ItemSword || itemStack.getItem() instanceof ItemPickaxe
 				|| itemStack.getItem() instanceof ItemAxe) {
 			o = 0;
 			while (o < 45) {
-				if (o != i && this.mc.thePlayer.inventoryContainer.getSlot(o).getHasStack()
-						&& ((item = this.mc.thePlayer.inventoryContainer.getSlot(o).getStack()) != null
+				if (o != i && mc.thePlayer.inventoryContainer.getSlot(o).getHasStack()
+						&& ((item = mc.thePlayer.inventoryContainer.getSlot(o).getStack()) != null
 								&& item.getItem() instanceof ItemSword || item.getItem() instanceof ItemAxe
 								|| item.getItem() instanceof ItemPickaxe)) {
-					float damageFound = this.getItemDamage(itemStack);
-					float damageCurrent = this.getItemDamage(item);
+					float damageFound = getItemDamage(itemStack);
+					float damageCurrent = getItemDamage(item);
 					if ((damageCurrent += EnchantmentHelper.func_152377_a(item,
 							EnumCreatureAttribute.UNDEFINED)) > (damageFound += EnchantmentHelper
 									.func_152377_a(itemStack, EnumCreatureAttribute.UNDEFINED))) {
@@ -261,7 +261,7 @@ public class InvCleaner extends Module {
 		return false;
 	}
 
-	private float getItemDamage(ItemStack itemStack) {
+	private static float getItemDamage(ItemStack itemStack) {
 		Iterator iterator;
 		Multimap multimap = itemStack.getAttributeModifiers();
 		if (!multimap.isEmpty() && (iterator = multimap.entries().iterator()).hasNext()) {

@@ -26,7 +26,7 @@ extends Module {
     public TimerUtil timer = new TimerUtil();
 
     public AutoTools(){
-        super("AutoTolls", ModuleType.Player);
+        super("AutoTools", ModuleType.Player);
     }
 
     @EventHandler
