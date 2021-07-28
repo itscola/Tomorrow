@@ -13,7 +13,7 @@ public class AutoGG extends Module {
     public Option autoplay = new Option("Autoplay", "Autoplay", true);
 
     public AutoGG() {
-        super("AutoGG", ModuleType.Render);
+        super("AutoGG", ModuleType.Misc);
         addValues(gg, autoplay);
     }
 

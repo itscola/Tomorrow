@@ -11,6 +11,7 @@ import tomorrow.tomo.event.events.world.EventPreUpdate;
 import tomorrow.tomo.event.value.Mode;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
+import tomorrow.tomo.utils.cheats.world.TimerUtil;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ public class NoFall
         extends Module {
     private Mode mod = new Mode("Mode", "Mode", new String[]{"Hypixel", "Onground"}, "Hypixel");
     private ArrayList<Packet> packets = new ArrayList<>();
+    private TimerUtil timer = new TimerUtil();
 
     public NoFall() {
         super("NoFall", ModuleType.Player);
@@ -28,31 +30,22 @@ public class NoFall
     private void onUpdate(EventPacketSend e) {
         if (mod.getValue().equals("Onground")) {
             if (this.mc.thePlayer.fallDistance > 2.5f) {
-//                e.setCancelled(true);
-//             }else {
                 if (e.getPacket() instanceof C03PacketPlayer) {
                     C03PacketPlayer c = (C03PacketPlayer) e.getPacket();
                     c.onGround = mc.thePlayer.ticksExisted % 2 == 0;
-//                        e.setCancelled(true);
                     e.setPacket(c);
                 }
             }
 
         }
-
-        if (this.mod.getValue().equals("Hypixel") && !mc.thePlayer.capabilities.isFlying && !mc.thePlayer.capabilities.disableDamage) {
-            if (e.getPacket() instanceof C03PacketPlayer && ((C03PacketPlayer) e.getPacket()).isMoving()) {
-                if (mc.thePlayer.fallDistance > (2.0f + this.getActivePotionEffect() * 0.23f)) {
-                    if (isBlockUnder()) {
-//                        e.setCancelled(true);
-                        mc.thePlayer.sendQueue.addToSendQueueWithoutEvent(new C03PacketPlayer.C04PacketPlayerPosition(((C03PacketPlayer) e.getPacket()).getPositionX(), ((C03PacketPlayer) e.getPacket()).getPositionY(), ((C03PacketPlayer) e.getPacket()).getPositionZ(), ((C03PacketPlayer) e.getPacket()).isOnGround()));
-                    } else if (!mc.thePlayer.onGround && mc.thePlayer.fallDistance <= 8.65F) {
-//                        e.setCancelled(true);
-                        mc.thePlayer.sendQueue.addToSendQueueWithoutEvent(new C03PacketPlayer.C04PacketPlayerPosition(((C03PacketPlayer) e.getPacket()).getPositionX(), ((C03PacketPlayer) e.getPacket()).getPositionY(), ((C03PacketPlayer) e.getPacket()).getPositionZ(), ((C03PacketPlayer) e.getPacket()).isOnGround()));
-                    }
-                }
-            }
-        }
+//
+//        if (this.mod.getValue().equals("Hypixel") && !mc.thePlayer.capabilities.isFlying && !mc.thePlayer.capabilities.disableDamage) {
+//            if (e.getPacket() instanceof C03PacketPlayer && ((C03PacketPlayer) e.getPacket()).isMoving()) {
+//                if (mc.thePlayer.fallDistance > 2.6f) {
+//                    e.setCancelled(true);
+//                }
+//            }
+//        }
 
     }
 
@@ -60,15 +53,10 @@ public class NoFall
 
     @EventHandler
     private void onUpdate(EventPreUpdate e) {
-        if (this.mc.thePlayer.fallDistance > 2.75f) {
-            if (this.mod.getValue().equals("Hypixel") && !mc.thePlayer.capabilities.isFlying && !mc.thePlayer.capabilities.disableDamage) {
-                if (mc.thePlayer.fallDistance > (3.0f + this.getActivePotionEffect() * 0.45f)) {
-                    if (isBlockUnder()) {
-                        mc.thePlayer.sendQueue.addToSendQueueWithoutEvent(new C03PacketPlayer(true));
-                    } else if (!mc.thePlayer.onGround && mc.thePlayer.fallDistance <= 8.65F) {
-                        mc.thePlayer.sendQueue.addToSendQueueWithoutEvent(new C03PacketPlayer(true));
-                    }
-                }
+        if (this.mod.getValue().equals("Hypixel") && !mc.thePlayer.capabilities.isFlying && !mc.thePlayer.capabilities.disableDamage) {
+            if (mc.thePlayer.fallDistance > 2.75f + getActivePotionEffect() * 0.2f && timer.delay(100)) {
+                mc.thePlayer.sendQueue.addToSendQueueWithoutEvent(new C03PacketPlayer(true));
+                timer.reset();
             }
         }
     }

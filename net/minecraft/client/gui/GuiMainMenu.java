@@ -478,22 +478,6 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
      * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-//        this.backgroundShader.useShader(this.width, this.height, mouseX, mouseY, (System.currentTimeMillis() - initTime) / 1000f);
-//        GL11.glBegin(GL11.GL_QUADS);
-//
-//        GL11.glVertex2f(-1f, -1f);
-//        GL11.glVertex2f(-1f, 1f);
-//        GL11.glVertex2f(1f, 1f);
-//        GL11.glVertex2f(1f, -1f);
-//
-//        GL11.glEnd();
-//
-//        GL20.glUseProgram(0);
-//
-//        GL11.glEnable(GL11.GL_TEXTURE_2D);
-//        GL11.glEnable(GL11.GL_ALPHA_TEST);
-//
-//
         ScaledResolution resolution = new ScaledResolution(this.mc);
 
         Iterator var6 = this.particles.iterator();

@@ -8,7 +8,6 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemSword;
 import net.minecraft.network.play.client.C02PacketUseEntity;
-import net.minecraft.network.play.client.C0APacketAnimation;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventPostUpdate;
 import tomorrow.tomo.event.events.world.EventPreUpdate;
@@ -39,7 +38,7 @@ public class Killaura extends Module {
     private Option smart = new Option("SmartSwitch", false);
 
 
-    private Mode mode = new Mode("Mode", "Mode", new String[]{"Switch", "Single"}, "Switch");
+    private Mode mode = new Mode("Mode", "Mode", new String[]{"Switch", "Single", "Multi"}, "Switch");
     private Mode rot = new Mode("RotationMode", "RotationMode", new String[]{"Instant", "Animate"}, "Animate");
     private Mode priority = new Mode("Priority", "Priority", new String[]{"Distance", "Health", "Direction"}, "Distance");
     private Mode esp = new Mode("ESP", "ESP", new String[]{"NONE", "Box", "HeadBox", "RainbowBox", "VapeBox"}, "NONE");
@@ -49,11 +48,15 @@ public class Killaura extends Module {
     private Numbers<Number> cps = new Numbers<>("CPS", 11, 1, 18, 0.1);
     private Numbers<Number> range = new Numbers<>("Range", 3.8, 1, 6, 0.1);
     private Numbers<Number> targets = new Numbers<>("Targets", 3, 1, 6, 1);
+    private Numbers<Number> bound = new Numbers<>("Bounds", 15, 0, 100, 1);
+
 
     static ArrayList<EntityLivingBase> curTargets = new ArrayList<>();
 
     private TimerUtil timer = new TimerUtil();
     private TimerUtil cpsTimer = new TimerUtil();
+    private TimerUtil multiTimer = new TimerUtil();
+
     private AnimationUtils animationUtils1 = new AnimationUtils();
     private AnimationUtils animationUtils2 = new AnimationUtils();
 
@@ -63,7 +66,7 @@ public class Killaura extends Module {
 
     public Killaura() {
         super("KillAura", ModuleType.Combat);
-        addValues(priority, esp, cps, range, targets, mob, animals, player, wither, invisible, rot, switchDelay, rotSpeed, block, mode, smart);
+        addValues(priority, esp, cps, range, targets, mob, animals, player, wither, invisible, rot, switchDelay, rotSpeed, block, mode, smart, bound);
     }
 
     @Override
@@ -86,7 +89,7 @@ public class Killaura extends Module {
         for (Entity entity : entities) {
             if (entity == mc.thePlayer) continue;
             if (!entity.isEntityAlive()) continue;
-            if(Teams.isOnSameTeam(entity)) continue;
+            if (Teams.isOnSameTeam(entity)) continue;
             if (((AntiBots) ModuleManager.getModuleByClass(AntiBots.class)).isServerBot(entity)) continue;
             if (curTargets.size() > targets.getValue().intValue()) continue;
             if (mc.thePlayer.getDistanceToEntity(entity) > range.getValue().doubleValue()) continue;
@@ -113,7 +116,7 @@ public class Killaura extends Module {
     @EventHandler
     public void onUpdate(EventPreUpdate e) {
         setSuffix(mode.getModeAsString());
-        if(ModuleManager.getModuleByClass(Scaffold.class).isEnabled())
+        if (ModuleManager.getModuleByClass(Scaffold.class).isEnabled())
             return;
         if (((boolean) block.getValue()) && target != null)
             mc.gameSettings.keyBindUseItem.pressed = true;
@@ -137,7 +140,7 @@ public class Killaura extends Module {
 
     @EventHandler
     public void onPost(EventPostUpdate e) {
-        if(ModuleManager.getModuleByClass(Scaffold.class).isEnabled())
+        if (ModuleManager.getModuleByClass(Scaffold.class).isEnabled())
             return;
         attack(target);
         if (canBlock())
@@ -149,14 +152,11 @@ public class Killaura extends Module {
     }
 
     private void attack(EntityLivingBase entityLivingBase) {
-        if (cpsTimer.delay(1000 / cps.getValue().intValue()) && target != null) {
-            if (Math.abs(mc.thePlayer.rotationPitchHead - PlayerUtils.getRotations(entityLivingBase)[1]) < 5 && Math.abs(mc.thePlayer.rotationYawHead - PlayerUtils.getRotations(entityLivingBase)[0]) < 5) {
-//                stopBlock();
-//                mc.gameSettings.keyBindUseItem.pressed = false;
+        if (cpsTimer.delay(1000f / cps.getValue().intValue()) && target != null) {
+            if (Math.abs(mc.thePlayer.rotationPitchHead - PlayerUtils.getRotations(entityLivingBase)[1]) < bound.getValue().intValue() && Math.abs(mc.thePlayer.rotationYawHead - PlayerUtils.getRotations(entityLivingBase)[0]) < bound.getValue().intValue()) {
                 crit.doCrit(target);
-//                mc.playerController.attackEntity(mc.thePlayer, entityLivingBase);
                 mc.thePlayer.swingItem();
-                mc.thePlayer.sendQueue.addToSendQueue(new C0APacketAnimation());
+//                mc.thePlayer.sendQueue.addToSendQueue(new C0APacketAnimation());
                 mc.thePlayer.sendQueue.addToSendQueue(new C02PacketUseEntity(target, C02PacketUseEntity.Action.ATTACK));
             }
             cpsTimer.reset();
@@ -191,8 +191,8 @@ public class Killaura extends Module {
     }
 
     private void switchTarget() {
-        if (mode.isValid("Switch")) {
-            if (timer.delay(switchDelay.getValue().intValue())) {
+        if (mode.getModeAsString().equals("Switch") || mode.getModeAsString().equals("Multi")) {
+            if (timer.delay(mode.getModeAsString().equals("Switch") ? switchDelay.getValue().intValue() : 50)) {
                 if (cur < curTargets.size() - 1) {
                     if (((boolean) smart.getValue() && target != null && target.getHealth() < 5)) {
                         timer.reset();
@@ -204,7 +204,7 @@ public class Killaura extends Module {
                 }
                 timer.reset();
             }
-        } else {
+        } else if (mode.getModeAsString().equals("Single")) {
             switch (priority.getValue().toString()) {
                 case "Distance":
                     curTargets.sort(((o1, o2) -> (int) (o2.getDistanceToEntity(mc.thePlayer) - o1.getDistanceToEntity(mc.thePlayer))));

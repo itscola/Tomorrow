@@ -48,21 +48,13 @@ public class Speed
     @EventHandler
     private void onMove(EventMove e) {
         if (this.mode.getValue().equals("HypixelHop")) {
-            if (mc.thePlayer.ticksExisted % 3 == 0) {
-                this.mc.timer.timerSpeed = 1.13f;
-            } else if (mc.thePlayer.ticksExisted % 8 == 0) {
-                this.mc.timer.timerSpeed = 1f;
-            } else if (mc.thePlayer.ticksExisted % 6 == 0) {
-                this.mc.timer.timerSpeed = 1.12f;
-            }
-
+            movementSpeed = 1;
             if (this.canZoom()) {
-                this.mc.thePlayer.motionY = 0.4085652;
-                e.setY(0.4085652);
+                this.mc.thePlayer.motionY = 0.412333f;
+                e.setY(0.412333f);
             }
 
-            this.movementSpeed = MathUtil.getBaseMovementSpeed();
-            this.mc.thePlayer.setMoveSpeed(e, this.movementSpeed);
+            this.mc.thePlayer.setMoveSpeed(e,MathUtil.getBaseMovementSpeed()*movementSpeed);
             if (this.mc.thePlayer.moving()) {
                 ++this.stage;
             }
@@ -90,7 +82,6 @@ public class Speed
                 ++this.stage;
             }
         }
-        ((TargetStrafe) ModuleManager.getModuleByClass(TargetStrafe.class)).strafe(e, movementSpeed);
+        ((TargetStrafe) ModuleManager.getModuleByClass(TargetStrafe.class)).strafe(e, MathUtil.getBaseMovementSpeed());
     }
 }
-

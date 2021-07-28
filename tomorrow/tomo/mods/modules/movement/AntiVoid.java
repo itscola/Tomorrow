@@ -7,14 +7,15 @@ import net.minecraft.util.BlockPos;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventPacketSend;
 import tomorrow.tomo.event.events.world.EventPreUpdate;
+import tomorrow.tomo.event.value.Mode;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 import tomorrow.tomo.utils.cheats.world.TimerUtil;
 
 import java.util.ArrayList;
-
 public class AntiVoid
         extends Module {
+	private Mode mode = new Mode("Mode","Mode",new String[] {"Hypixel1","Hypixel2"},"Hypixel1");
     public AntiVoid() {
         super("AntiVoid", ModuleType.Movement);
     }
@@ -27,6 +28,20 @@ public class AntiVoid
         if (this.mc.thePlayer.fallDistance < 3.0f) {
             return;
         }
+        boolean blockUnderneath = false;
+        int i = 0;
+        while ((double) i < this.mc.thePlayer.posY + 2.0) {
+            BlockPos pos = new BlockPos(this.mc.thePlayer.posX, (double) i, this.mc.thePlayer.posZ);
+            if (!(this.mc.theWorld.getBlockState(pos).getBlock() instanceof BlockAir)) {
+                blockUnderneath = true;
+            }
+            ++i;
+        }
+        if (blockUnderneath) {
+            return;
+        }
+        if(mode.getValue().equals("Hypixel2"))
+        	mc.thePlayer.sendQueue.addToSendQueueWithoutEvent(new C03PacketPlayer.C04PacketPlayerPosition(((C03PacketPlayer) e.getPacket()).getPositionX(), ((C03PacketPlayer) e.getPacket()).getPositionY(), ((C03PacketPlayer) e.getPacket()).getPositionZ(), ((C03PacketPlayer) e.getPacket()).isOnGround()));
 //        if (!this.mc.thePlayer.onGround && !this.mc.thePlayer.isCollidedVertically) {
 //            if (packets.size() < 10 && (e.getPacket() instanceof C03PacketPlayer.C06PacketPlayerPosLook || e.getPacket() instanceof C03PacketPlayer.C04PacketPlayerPosition)) {
 //                packets.add(e.getPacket());
@@ -42,6 +57,8 @@ public class AntiVoid
 
     @EventHandler
     private void onUpdate(EventPreUpdate e) {
+        if(!mode.getValue().equals("Hypixel1"))
+        	return;
         boolean blockUnderneath = false;
         int i = 0;
         while ((double) i < this.mc.thePlayer.posY + 2.0) {

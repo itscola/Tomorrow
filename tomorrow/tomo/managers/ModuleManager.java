@@ -8,7 +8,6 @@ import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.misc.EventKey;
 import tomorrow.tomo.event.events.rendering.EventRender2D;
 import tomorrow.tomo.event.events.rendering.EventRender3D;
-import tomorrow.tomo.event.events.world.EventTick;
 import tomorrow.tomo.event.value.Mode;
 import tomorrow.tomo.event.value.Numbers;
 import tomorrow.tomo.event.value.Option;
@@ -24,25 +23,16 @@ import tomorrow.tomo.mods.modules.misc.NoRotate;
 import tomorrow.tomo.mods.modules.movement.*;
 import tomorrow.tomo.mods.modules.player.*;
 import tomorrow.tomo.mods.modules.render.*;
-import tomorrow.tomo.mods.modules.world.ChestStealer;
-import tomorrow.tomo.mods.modules.world.FastPlace;
-import tomorrow.tomo.mods.modules.world.PingSpoof;
-import tomorrow.tomo.mods.modules.world.Scaffold;
-import tomorrow.tomo.mods.modules.world.SpeedMine;
+import tomorrow.tomo.mods.modules.world.*;
 import tomorrow.tomo.utils.cheats.world.TimerUtil;
-import tomorrow.tomo.utils.irc.Client;
-import tomorrow.tomo.utils.irc.User;
 import tomorrow.tomo.utils.render.gl.GLUtils;
 
-import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.text.html.parser.Entity;
 
 public class ModuleManager implements Manager {
 	public static List<Module> modules = new ArrayList<Module>();
@@ -103,6 +93,7 @@ public class ModuleManager implements Manager {
 		modules.add(new InvCleaner());
 		modules.add(new Teams());
 		modules.add(new AutoTools());
+		modules.add(new NoFall());
 
 		// Movement
 		modules.add(new TargetStrafe());
@@ -111,7 +102,6 @@ public class ModuleManager implements Manager {
 		modules.add(new Blink());
 		modules.add(new Sprint());
 		modules.add(new Step());
-		modules.add(new NoFall());
 		modules.add(new InvMove());
 		modules.add(new Jesus());
 		modules.add(new AntiVoid());
@@ -136,6 +126,8 @@ public class ModuleManager implements Manager {
 		modules.add(new NoRotate());
 		modules.add(new ClientSettings());
 		modules.add(new AutoGG());
+		modules.add(new FastLoad());
+		modules.add(new Ninja());
 
 		
 //		this.readSettings();

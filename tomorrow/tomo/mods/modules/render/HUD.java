@@ -3,6 +3,7 @@
  */
 package tomorrow.tomo.mods.modules.render;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
@@ -34,9 +35,13 @@ public class HUD
         extends Module {
     public TabUI tabui;
     public static Option<Boolean> tabGui = new Option<Boolean>("TabGUI", "TabGUI", true);
+    public static Option<Boolean> noRender = new Option<Boolean>("NoRender", "NoRender", true);
+    public static Option<Boolean> Rect = new Option<Boolean>("Rect", "Rect", true);
     public static Option<Boolean> notification = new Option<Boolean>("Notification", "Notification", true);
     public static Option<Boolean> arraylist = new Option<Boolean>("Arraylist", "Arraylist", true);
     public static Mode colorMode = new Mode("ArrayListColor", "ArrayListColor", new String[]{"ColoredRainbow", "Color", "Rainbow"}, "ColoredRainbow");
+    public static Mode logoMode = new Mode("LogoMode", "LogoMode", new String[]{"Logo", "Text"}, "Logo");
+
     public Mode mod = new Mode("Mode", "Mode", new String[]{"Flux", "OverWatch"}, "Flux");
     private static ArrayList arrayList = new ArrayList();
     private AnimationUtils animationUtils = new AnimationUtils();
@@ -44,7 +49,7 @@ public class HUD
     public HUD() {
         super("HUD", ModuleType.Render);
         this.setEnabled(true);
-        this.addValues(this.tabGui, this.notification, this.arraylist, this.mod, colorMode);
+        this.addValues(this.tabGui, this.notification, this.arraylist, this.mod, colorMode, Rect, noRender, logoMode);
     }
 
     int rainbowTick = 0;
@@ -68,17 +73,24 @@ public class HUD
             NotificationsManager.renderNotifications();
             NotificationsManager.update();
         }
-        Color rainbow = new Color(Color.HSBtoRGB((float) ((double) this.mc.thePlayer.ticksExisted / 50.0 + Math.sin((double) rainbowTick / 50.0)) % 1.0f, 0.5f, 1.0f));
-
         if (!mc.gameSettings.showDebugInfo) {
             arrayList.drawObject();
-//            FontLoaders.arial24.drawStringWithShadow(Client.CLIENT_NAME + " " +ChatFormatting.GRAY + Client.VERSION, 4, 4, rainbow.getRGB());
-//            RenderUtil.drawCustomImage(10, 2, 41, 41, new ResourceLocation("client/hudlogo.png"), new Color(255, 255, 255).getRGB());
-
-            RenderUtil.drawCustomImageAlpha(10, 2, 41, 41, new ResourceLocation("client/hudlogo.png"), new Color(255, 255, 255).getRGB(), rainbow.getBlue());
-            TabUI.height = 42;
         }
 
+        if (logoMode.getModeAsString().equals("Logo")) {
+            Color rainbow = new Color(Color.HSBtoRGB((float) ((double) this.mc.thePlayer.ticksExisted / 50.0 + Math.sin((double) rainbowTick / 50.0)) % 1.0f, 0.5f, 1.0f));
+
+            if (!mc.gameSettings.showDebugInfo) {
+                RenderUtil.drawCustomImageAlpha(10, 2, 41, 41, new ResourceLocation("client/hudlogo.png"), new Color(255, 255, 255).getRGB(), rainbow.getBlue());
+                TabUI.height = 42;
+            }
+        } else if (logoMode.getModeAsString().equals("Text")) {
+            if (!mc.gameSettings.showDebugInfo) {
+                Color rainbow = new Color(Color.HSBtoRGB((float) ((double) this.mc.thePlayer.ticksExisted / 50.0 + Math.sin((double) rainbowTick / 25.0)) % 1.0f, 0.5f, 1.0f));
+                FontLoaders.arial18.drawStringWithShadow(Client.CLIENT_NAME.substring(0, 1) + ChatFormatting.WHITE + Client.CLIENT_NAME.substring(1, Client.CLIENT_NAME.length()) + " " + ChatFormatting.GRAY + Client.VERSION, 5, 5, rainbow.getRGB());
+                TabUI.height = 21;
+            }
+        }
         if (mod.getValue().equals("Flux")) {
             double xDist = mc.thePlayer.posX - mc.thePlayer.prevPosX;
             double zDist = mc.thePlayer.posZ - mc.thePlayer.prevPosZ;

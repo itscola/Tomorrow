@@ -5,6 +5,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemSkull;
 import net.minecraft.item.ItemStack;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventPreUpdate;
@@ -134,7 +135,9 @@ public class AutoArmor
 
     private double getProtValue(ItemStack stack) {
         if (stack != null) {
-            return (double) ((ItemArmor) stack.getItem()).damageReduceAmount + (double) ((100 - ((ItemArmor) stack.getItem()).damageReduceAmount * 4) * EnchantmentHelper.getEnchantmentLevel(Enchantment.protection.effectId, stack) * 4) * 0.0075;
+        	if(stack.getItem() instanceof ItemSkull)
+        		return 0;
+            return ((ItemArmor) stack.getItem()).damageReduceAmount + ((100 - ((ItemArmor) stack.getItem()).damageReduceAmount * 4) * EnchantmentHelper.getEnchantmentLevel(Enchantment.protection.effectId, stack) * 4) * 0.0075;
         }
         return 0.0;
     }

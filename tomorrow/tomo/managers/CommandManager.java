@@ -39,6 +39,7 @@ implements Manager {
         this.commands.add(new Fix());
         this.commands.add(new Reload());
         this.commands.add(new IRC());
+        this.commands.add(new gc());
         this.commands.add(new Save());
         EventBus.getInstance().register(this);
     }

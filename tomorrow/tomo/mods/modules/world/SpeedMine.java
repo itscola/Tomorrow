@@ -1,7 +1,6 @@
 package tomorrow.tomo.mods.modules.world;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.network.play.client.C07PacketPlayerDigging;
 import net.minecraft.util.BlockPos;
@@ -18,7 +17,7 @@ public class SpeedMine extends tomorrow.tomo.mods.Module {
 	public EnumFacing facing;
 
 	public SpeedMine() {
-		super("SpeedMine", ModuleType.Player);
+		super("SpeedMine", ModuleType.World);
 	}
 
 	@EventHandler
