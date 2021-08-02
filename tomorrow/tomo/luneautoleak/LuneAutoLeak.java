@@ -1,32 +1,19 @@
 package tomorrow.tomo.luneautoleak;
 
+import tomorrow.tomo.luneautoleak.checks.AntiPatch;
+import tomorrow.tomo.luneautoleak.othercheck.ReVerify;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
-import tomorrow.tomo.Client;
-import tomorrow.tomo.luneautoleak.checks.AntiPatch;
-import tomorrow.tomo.luneautoleak.othercheck.ReVerify;
-import tomorrow.tomo.utils.irc.User;
-
 public class LuneAutoLeak {
     public AntiPatch antiPatch;
     public List<Integer> didVerify = new ArrayList<>();
     
     public void startLeak() {
-    	JOptionPane.showInputDialog("This is your HWID:",getHWID());
-        String username = JOptionPane.showInputDialog(null, "UserName");
-        String password = JOptionPane.showInputDialog(null, "PassWord");
-        
-        tomorrow.tomo.utils.irc.Client.user = new User(username,password,getHWID(),"");
-        System.out.println("Connecting irc server");
-        tomorrow.tomo.utils.irc.Client.connect(username,password, getHWID());
-        Client.username = username;
-        Client.password = password;
         antiPatch = new AntiPatch();
         new ReVerify();
     }

@@ -18,6 +18,7 @@ import tomorrow.tomo.event.events.world.EventPostUpdate;
 import tomorrow.tomo.event.value.Numbers;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
+import tomorrow.tomo.mods.modules.player.Teams;
 import tomorrow.tomo.utils.cheats.tpaura.AStarCustomPathFinder;
 import tomorrow.tomo.utils.cheats.world.TimerUtil;
 import tomorrow.tomo.utils.render.RenderUtil;
@@ -47,6 +48,8 @@ public class TpAura extends Module {
                 vec3s = new ArrayList<>();
             }
             for (Entity entity : mc.theWorld.loadedEntityList) {
+                if(Teams.isOnSameTeam(entity))
+                    return;
                 if (entity instanceof EntityPlayer && !entity.isDead && (mc.thePlayer.getDistanceToEntity(entity) < range.getValue().floatValue()) && (entity != mc.thePlayer)) {
                     EntityLivingBase T = (EntityLivingBase) entity;
                     Vec3 topFrom = new Vec3(mc.thePlayer.posX, mc.thePlayer.posY, mc.thePlayer.posZ);
