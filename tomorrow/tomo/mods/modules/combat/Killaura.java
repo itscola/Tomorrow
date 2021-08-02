@@ -1,5 +1,6 @@
 package tomorrow.tomo.mods.modules.combat;
 
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityWither;
@@ -37,6 +38,7 @@ public class Killaura extends Module {
     private Option invisible = new Option("Invisible", false);
     private Option block = new Option("Block", false);
     private Option smart = new Option("SmartSwitch", false);
+    private Option noSwing = new Option("NoSwing", false);
 
 
     private Mode mode = new Mode("Mode", "Mode", new String[]{"Switch", "Single"}, "Switch");
@@ -63,7 +65,7 @@ public class Killaura extends Module {
 
     public Killaura() {
         super("KillAura", ModuleType.Combat);
-        addValues(priority, esp, cps, range, targets, mob, animals, player, wither, invisible, rot, switchDelay, rotSpeed, block, mode, smart);
+        addValues(priority, esp, cps, range, targets, mob, animals, player, wither, invisible, rot, switchDelay, rotSpeed, block, mode, smart, noSwing);
     }
 
     @Override
@@ -111,12 +113,10 @@ public class Killaura extends Module {
     float cYaw, cPitch;
 
     @EventHandler
-    public void onUpdate(EventPreUpdate e) {
-        setSuffix(mode.getModeAsString());
-        if(ModuleManager.getModuleByClass(Scaffold.class).isEnabled())
+    public void onPre(EventPreUpdate e) {
+        this.setSuffix(this.mode.getModeAsString());
+        if (ModuleManager.getModuleByClass(Scaffold.class).isEnabled())
             return;
-        if (((boolean) block.getValue()) && target != null)
-            mc.gameSettings.keyBindUseItem.pressed = true;
         filter(mc.theWorld.getLoadedEntityList());
         switchTarget();
         if (curTargets.size() != 0) {
@@ -124,7 +124,9 @@ public class Killaura extends Module {
             float[] rotations = PlayerUtils.getRotations(target);
             rotate(rotations, e);
         }
-        stopBlock();
+        if (mc.thePlayer.isBlocking() && target == null) {
+            KeyBinding.setKeyBindState(mc.gameSettings.keyBindUseItem.getKeyCode(), false);
+        }
     }
 
     private void stopBlock() {
@@ -132,35 +134,32 @@ public class Killaura extends Module {
     }
 
     private void startBlock() {
+        KeyBinding.setKeyBindState(mc.gameSettings.keyBindUseItem.getKeyCode(), true);
         mc.playerController.sendUseItem(mc.thePlayer, mc.theWorld, mc.thePlayer.getHeldItem());
     }
 
     @EventHandler
     public void onPost(EventPostUpdate e) {
-        if(ModuleManager.getModuleByClass(Scaffold.class).isEnabled())
+        if (ModuleManager.getModuleByClass(Scaffold.class).isEnabled())
             return;
-        attack(target);
-        if (canBlock())
-            startBlock();
+        if (cpsTimer.delay(1000 / cps.getValue().floatValue()) && target != null) {
+            if (mc.thePlayer.isBlocking())
+                this.stopBlock();
+            crit.doCrit(target);
+            if (!(boolean) noSwing.getValue()) {
+                mc.thePlayer.sendQueue.addToSendQueue(new C0APacketAnimation());
+            } else {
+                mc.thePlayer.swingItem();
+            }
+            mc.thePlayer.sendQueue.addToSendQueue(new C02PacketUseEntity(target, C02PacketUseEntity.Action.ATTACK));
+            if (this.canBlock())
+                this.startBlock();
+            cpsTimer.reset();
+        }
     }
 
     private boolean canBlock() {
         return ((boolean) block.getValue()) && (mc.thePlayer.getHeldItem() != null && mc.thePlayer.getHeldItem().getItem() instanceof ItemSword) && target != null;
-    }
-
-    private void attack(EntityLivingBase entityLivingBase) {
-        if (cpsTimer.delay(1000 / cps.getValue().intValue()) && target != null) {
-            if (Math.abs(mc.thePlayer.rotationPitchHead - PlayerUtils.getRotations(entityLivingBase)[1]) < 5 && Math.abs(mc.thePlayer.rotationYawHead - PlayerUtils.getRotations(entityLivingBase)[0]) < 5) {
-//                stopBlock();
-//                mc.gameSettings.keyBindUseItem.pressed = false;
-                crit.doCrit(target);
-//                mc.playerController.attackEntity(mc.thePlayer, entityLivingBase);
-                mc.thePlayer.swingItem();
-                mc.thePlayer.sendQueue.addToSendQueue(new C0APacketAnimation());
-                mc.thePlayer.sendQueue.addToSendQueue(new C02PacketUseEntity(target, C02PacketUseEntity.Action.ATTACK));
-            }
-            cpsTimer.reset();
-        }
     }
 
     private void rotate(float[] rotations, EventPreUpdate e) {
