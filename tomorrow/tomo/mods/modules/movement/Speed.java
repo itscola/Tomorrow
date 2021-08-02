@@ -48,24 +48,15 @@ public class Speed
     @EventHandler
     private void onMove(EventMove e) {
         if (this.mode.getValue().equals("HypixelHop")) {
-            if (mc.thePlayer.ticksExisted % 3 == 0) {
-                this.mc.timer.timerSpeed = 1.13f;
-            } else if (mc.thePlayer.ticksExisted % 8 == 0) {
-                this.mc.timer.timerSpeed = 1f;
-            } else if (mc.thePlayer.ticksExisted % 6 == 0) {
-                this.mc.timer.timerSpeed = 1.12f;
-            }
-
             if (this.canZoom()) {
-                this.mc.thePlayer.motionY = 0.4085652;
-                e.setY(0.4085652);
+                e.setY(mc.thePlayer.motionY = 0.42F);
+                this.movementSpeed = 0.45f;
+            } else {
+                this.movementSpeed = Math.hypot(mc.thePlayer.motionX, mc.thePlayer.motionZ);
             }
+            this.movementSpeed = Math.max(this.movementSpeed, MathUtil.getBaseMovementSpeed());
 
-            this.movementSpeed = MathUtil.getBaseMovementSpeed();
             this.mc.thePlayer.setMoveSpeed(e, this.movementSpeed);
-            if (this.mc.thePlayer.moving()) {
-                ++this.stage;
-            }
         } else if (this.mode.getValue().equals("Bhop")) {
             this.mc.timer.timerSpeed = 1.07f;
             if (this.canZoom() && this.stage == 1) {
