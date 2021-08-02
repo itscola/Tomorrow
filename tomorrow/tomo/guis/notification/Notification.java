@@ -2,6 +2,7 @@ package tomorrow.tomo.guis.notification;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.util.ResourceLocation;
 import tomorrow.tomo.guis.font.FontLoaders;
 import tomorrow.tomo.utils.cheats.world.TimerUtil;
 import tomorrow.tomo.utils.math.AnimationUtils;
@@ -51,7 +52,7 @@ public class Notification {
         if (timer != null) {
             RenderUtil.drawRect((float) (sr.getScaledWidth_double() - x), cy + height - 1, (float) ((sr.getScaledWidth_double() - x) + (this.timer.getTime() - timer.lastMS) / (lastTime * 1000) * width), cy + height, new Color(0, 110, 255));
         }
-//        RenderUtil.drawCustomImageAlpha(sr.getScaledWidth() - x + 3, cy + 4, 12, 12, new ResourceLocation("client/" + type.name() + ".png"),-1,255);
+        RenderUtil.drawCustomImageAlpha(sr.getScaledWidth() - x + 3, cy + 4, 12, 12, new ResourceLocation("client/notifications/" + type.name() + ".png"), -1, 255);
 
         FontLoaders.arial16.drawString(name, (sr.getScaledWidth() - x) + 18, cy + 7, -1);
     }

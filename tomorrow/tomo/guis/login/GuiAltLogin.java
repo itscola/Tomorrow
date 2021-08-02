@@ -1,21 +1,21 @@
 /*
  * Decompiled with CFR 0_132.
- * 
+ *
  * Could not load the following classes:
  *  org.lwjgl.input.Keyboard
  */
 package tomorrow.tomo.guis.login;
 
-import tomorrow.tomo.utils.cheats.player.Helper;
-import java.io.IOException;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import org.lwjgl.input.Keyboard;
+import tomorrow.tomo.utils.cheats.player.Helper;
+
+import java.io.IOException;
 
 public class GuiAltLogin
-extends GuiScreen {
+        extends GuiScreen {
     private GuiPasswordField password;
     private final GuiScreen previousScreen;
     private AltLoginThread thread;
@@ -35,7 +35,7 @@ extends GuiScreen {
             }
             case 0: {
                 if (this.combined.getText().isEmpty()) {
-                    this.thread = new AltLoginThread(this.username.getText(), this.password.getText());
+                    this.thread = new AltLoginThread(this.username.getText().replaceAll("&", "\247"), this.password.getText());
                 } else if (!this.combined.getText().isEmpty() && this.combined.getText().contains(":")) {
                     String u = this.combined.getText().split(":")[0];
                     String p = this.combined.getText().split(":")[1];
@@ -80,15 +80,14 @@ extends GuiScreen {
         this.username.setMaxStringLength(200);
         this.password.func_146203_f(200);
         this.combined.setMaxStringLength(200);
-        Keyboard.enableRepeatEvents((boolean)true);
+        Keyboard.enableRepeatEvents((boolean) true);
     }
 
     @Override
     protected void keyTyped(char character, int key) {
         try {
             super.keyTyped(character, key);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         if (character == '\t' && (this.username.isFocused() || this.combined.isFocused() || this.password.isFocused())) {
@@ -97,7 +96,7 @@ extends GuiScreen {
             this.combined.setFocused(!this.combined.isFocused());
         }
         if (character == '\r') {
-            this.actionPerformed((GuiButton)this.buttonList.get(0));
+            this.actionPerformed((GuiButton) this.buttonList.get(0));
         }
         this.username.textboxKeyTyped(character, key);
         this.password.textboxKeyTyped(character, key);
@@ -108,8 +107,7 @@ extends GuiScreen {
     protected void mouseClicked(int x, int y, int button) {
         try {
             super.mouseClicked(x, y, button);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         this.username.mouseClicked(x, y, button);
@@ -119,7 +117,7 @@ extends GuiScreen {
 
     @Override
     public void onGuiClosed() {
-        Keyboard.enableRepeatEvents((boolean)false);
+        Keyboard.enableRepeatEvents((boolean) false);
     }
 
     @Override

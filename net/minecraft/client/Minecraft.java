@@ -19,7 +19,6 @@ import net.minecraft.client.gui.achievement.GuiAchievement;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.gui.stream.GuiStreamUnavailable;
 import net.minecraft.client.main.GameConfiguration;
-import net.minecraft.client.multiplayer.GuiConnecting;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -100,8 +99,7 @@ import tomorrow.tomo.event.EventBus;
 import tomorrow.tomo.event.events.misc.EventKey;
 import tomorrow.tomo.event.events.world.EventTick;
 import tomorrow.tomo.guis.font.FontLoaders;
-import tomorrow.tomo.managers.ModuleManager;
-import tomorrow.tomo.mods.modules.world.FastLoad;
+import tomorrow.tomo.login.GuiTomoLogin;
 import tomorrow.tomo.utils.render.RenderUtil;
 
 import javax.imageio.ImageIO;
@@ -133,6 +131,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
      */
     public static byte[] memoryReserve = new byte[10485760];
     private static final List<DisplayMode> macDisplayModes = Lists.newArrayList(new DisplayMode[]{new DisplayMode(2560, 1600), new DisplayMode(2880, 1800)});
+    public static boolean should;
     private final File fileResourcepacks;
     private final PropertyMap twitchDetails;
     private final PropertyMap field_181038_N;
@@ -334,6 +333,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
      */
     private String debugProfilerName = "root";
 
+    /**
+     * Progress of splash gui
+     */
     private float progress = 0;
     private String isLoading = "FontLoaders";
 
@@ -422,6 +424,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
      * Starts the game: initializes the canvas, the title, the settings, etcetera.
      */
     private void startGame() throws LWJGLException, IOException {
+
         this.gameSettings = new GameSettings(this, this.mcDataDir);
         this.defaultResourcePacks.add(this.mcDefaultResourcePack);
         this.startTimerHackThread();
@@ -439,6 +442,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         this.framebufferMc = new Framebuffer(this.displayWidth, this.displayHeight, true);
         this.framebufferMc.setFramebufferColor(0.0F, 0.0F, 0.0F, 0.0F);
         this.registerMetadataSerializers();
+
+
         this.mcResourcePackRepository = new ResourcePackRepository(this.fileResourcepacks, new File(this.mcDataDir, "server-resource-packs"), this.mcDefaultResourcePack, this.metadataSerializer_, this.gameSettings);
         this.mcResourceManager = new SimpleReloadableResourceManager(this.metadataSerializer_);
         this.mcLanguageManager = new LanguageManager(this.metadataSerializer_, this.gameSettings.language);
@@ -446,19 +451,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         this.refreshResources();
         this.renderEngine = new TextureManager(this.mcResourceManager);
         this.mcResourceManager.registerReloadListener(this.renderEngine);
-        this.drawSplashScreen(this.renderEngine);
-        this.initStream();
-        this.skinManager = new SkinManager(this.renderEngine, new File(this.fileAssets, "skins"), this.sessionService);
-        this.saveLoader = new AnvilSaveConverter(new File(this.mcDataDir, "saves"));
-        isLoading = "Saves";
-        progress += 0.15f;
-        this.drawSplashScreen(this.renderEngine);
-        this.mcSoundHandler = new SoundHandler(this.mcResourceManager, this.gameSettings);
-        this.mcResourceManager.registerReloadListener(this.mcSoundHandler);
-        this.mcMusicTicker = new MusicTicker(this);
-        progress += 0.05f;
-        isLoading = "Sounds";
-        this.drawSplashScreen(this.renderEngine);
+
         this.fontRendererObj = new FontRenderer(this.gameSettings, new ResourceLocation("textures/font/ascii.png"), this.renderEngine, false);
 
         if (this.gameSettings.language != null) {
@@ -469,15 +462,123 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         this.drawSplashScreen(this.renderEngine);
         isLoading = "FontLoaders";
         Client.fontLoaders = new FontLoaders();
-        progress += 0.15f;
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int i = 0;
+                while (i < 15) {
+                    progress += 0.01f;
+                    i += 1;
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+//        progress += 0.15f;
+        isLoading = "Resources";
+        this.drawSplashScreen(this.renderEngine);
+        this.initStream();
+        this.skinManager = new SkinManager(this.renderEngine, new File(this.fileAssets, "skins"), this.sessionService);
+        this.saveLoader = new AnvilSaveConverter(new File(this.mcDataDir, "saves"));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int i = 0;
+                while (i < 5) {
+                    progress += 0.01f;
+                    i += 1;
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+        isLoading = "Saves";
+        this.drawSplashScreen(this.renderEngine);
+
+        this.mcSoundHandler = new SoundHandler(this.mcResourceManager, this.gameSettings);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int i = 0;
+                while (i < 5) {
+                    progress += 0.01f;
+                    i += 1;
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+        isLoading = "Sounds";
+        this.drawSplashScreen(this.renderEngine);
+        this.mcResourceManager.registerReloadListener(this.mcSoundHandler);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int i = 0;
+                while (i < 5) {
+                    progress += 0.01f;
+                    i += 1;
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+        isLoading = "Sounds";
+        this.drawSplashScreen(this.renderEngine);
+        this.mcMusicTicker = new MusicTicker(this);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int i = 0;
+                while (i < 5) {
+                    progress += 0.01f;
+                    i += 1;
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+        isLoading = "Minecraft Font";
+        this.drawSplashScreen(this.renderEngine);
         this.standardGalacticFontRenderer = new FontRenderer(this.gameSettings, new ResourceLocation("textures/font/ascii_sga.png"), this.renderEngine, false);
         this.mcResourceManager.registerReloadListener(this.fontRendererObj);
         this.mcResourceManager.registerReloadListener(this.standardGalacticFontRenderer);
         this.mcResourceManager.registerReloadListener(new GrassColorReloadListener());
         this.mcResourceManager.registerReloadListener(new FoliageColorReloadListener());
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int i = 0;
+                while (i < 5) {
+                    progress += 0.01f;
+                    i += 1;
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
         isLoading = "Textures";
         this.drawSplashScreen(this.renderEngine);
-        progress += 0.05;
         AchievementList.openInventory.setStatStringFormatter(new IStatStringFormat() {
             public String formatString(String p_74535_1_) {
                 try {
@@ -487,6 +588,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                 }
             }
         });
+
         this.mouseHelper = new MouseHelper();
         this.checkGLError("Pre startup");
         GlStateManager.enableTexture2D();
@@ -500,6 +602,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         GlStateManager.matrixMode(5889);
         GlStateManager.loadIdentity();
         GlStateManager.matrixMode(5888);
+
+
         this.checkGLError("Startup");
         this.textureMapBlocks = new TextureMap("textures");
         this.textureMapBlocks.setMipmapLevels(this.gameSettings.mipmapLevels);
@@ -507,42 +611,132 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         this.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
         this.textureMapBlocks.setBlurMipmapDirect(false, this.gameSettings.mipmapLevels > 0);
         this.modelManager = new ModelManager(this.textureMapBlocks);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int i = 0;
+                while (i < 5) {
+                    progress += 0.01f;
+                    i += 1;
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
         this.drawSplashScreen(this.renderEngine);
         isLoading = "Models";
-        progress += 0.05;
+
         this.mcResourceManager.registerReloadListener(this.modelManager);
         this.renderItem = new RenderItem(this.renderEngine, this.modelManager);
         this.renderManager = new RenderManager(this.renderEngine, this.renderItem);
         this.itemRenderer = new ItemRenderer(this);
         this.mcResourceManager.registerReloadListener(this.renderItem);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int i = 0;
+                while (i < 5) {
+                    progress += 0.01f;
+                    i += 1;
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
         this.drawSplashScreen(this.renderEngine);
         isLoading = "Entities";
-        progress += 0.05;
+
         this.entityRenderer = new EntityRenderer(this, this.mcResourceManager);
         this.mcResourceManager.registerReloadListener(this.entityRenderer);
-        this.drawSplashScreen(this.renderEngine);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int i = 0;
+                while (i < 5) {
+                    progress += 0.01f;
+                    i += 1;
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
         isLoading = "BlockRender";
-        progress += 0.05;
+        this.drawSplashScreen(this.renderEngine);
         this.blockRenderDispatcher = new BlockRendererDispatcher(this.modelManager.getBlockModelShapes(), this.gameSettings);
         this.mcResourceManager.registerReloadListener(this.blockRenderDispatcher);
-        this.renderGlobal = new RenderGlobal(this);
-        this.mcResourceManager.registerReloadListener(this.renderGlobal);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int i = 0;
+                while (i < 10) {
+                    progress += 0.01f;
+                    i += 1;
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
         this.drawSplashScreen(this.renderEngine);
         isLoading = "Global render";
-        progress += 0.1;
+
+        this.renderGlobal = new RenderGlobal(this);
+        this.mcResourceManager.registerReloadListener(this.renderGlobal);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int i = 0;
+                while (i < 5) {
+                    progress += 0.01f;
+                    i += 1;
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+        this.drawSplashScreen(this.renderEngine);
         this.guiAchievement = new GuiAchievement(this);
         GlStateManager.viewport(0, 0, this.displayWidth, this.displayHeight);
         this.effectRenderer = new EffectRenderer(this.theWorld, this.renderEngine);
         this.checkGLError("Post startup");
         this.ingameGUI = new GuiIngame(this);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int i = 0;
+                while (i < 10) {
+                    progress += 0.01f;
+                    i += 1;
+
+                    try {
+                        Thread.sleep(50);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
         this.drawSplashScreen(this.renderEngine);
-        isLoading = "Finishing...";
-        progress += 0.1;
-        if (this.serverName != null) {
-            this.displayGuiScreen(new GuiConnecting(new GuiMainMenu(), this, this.serverName, this.serverPort));
-        } else {
-            this.displayGuiScreen(new GuiMainMenu());
-        }
+//        if (this.serverName != null) {
+//            this.displayGuiScreen(new GuiConnecting(new GuiMainMenu(), this, this.serverName, this.serverPort));
+//        } else {
+        this.displayGuiScreen(new GuiTomoLogin());
+//        }
 
         this.renderEngine.deleteTexture(this.mojangLogo);
         this.mojangLogo = null;
@@ -796,24 +990,23 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     }
 
     private void drawSplashScreen(TextureManager textureManagerInstance) throws LWJGLException {
-        RenderUtil.enableGL2D();
         ScaledResolution scaledresolution = new ScaledResolution(this);
         int i = scaledresolution.getScaleFactor();
         Framebuffer framebuffer = new Framebuffer(scaledresolution.getScaledWidth() * i, scaledresolution.getScaledHeight() * i, true);
         framebuffer.bindFramebuffer(false);
+        GlStateManager.matrixMode(5889);
+        GlStateManager.loadIdentity();
         GlStateManager.ortho(0.0D, (double) scaledresolution.getScaledWidth(), (double) scaledresolution.getScaledHeight(), 0.0D, 1000.0D, 3000.0D);
+        GlStateManager.matrixMode(5888);
+        GlStateManager.loadIdentity();
+        GlStateManager.translate(0.0F, 0.0F, -2000.0F);
         RenderUtil.drawCustomImage(0, 0, scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight(), new ResourceLocation("client/background.png"));
         RenderUtil.drawCustomImage(scaledresolution.getScaledWidth() / 2f - 239f / 4f, scaledresolution.getScaledHeight() / 2f - 80, 239f / 2f, 142f / 2f, new ResourceLocation("client/LOGO.png"));
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         RenderUtil.drawRect(scaledresolution.getScaledWidth() / 2f - 200f / 2f, scaledresolution.getScaledHeight() / 2f, scaledresolution.getScaledWidth() / 2f + 200f / 2f, scaledresolution.getScaledHeight() / 2f + 1.5f, new Color(255, 255, 255, 90).getRGB());
         RenderUtil.drawRect(scaledresolution.getScaledWidth() / 2f - 200f / 2f, scaledresolution.getScaledHeight() / 2f, scaledresolution.getScaledWidth() / 2f - 200f / 2f + progress * 200f, scaledresolution.getScaledHeight() / 2f + 1.5f, new Color(255, 255, 255).getRGB());
-        if (progress != 0) {
-            FontLoaders.arial16.drawStringWithShadow("Loading:" + isLoading + "...", scaledresolution.getScaledWidth() / 2f - 200f / 2f, scaledresolution.getScaledHeight() / 2f + 5, -1);
-        }
-
+        FontLoaders.arial18.drawStringWithShadow("Loading:" + isLoading, scaledresolution.getScaledWidth() / 2f - 200f / 2f, scaledresolution.getScaledHeight() / 2f + 5, -1);
         framebuffer.unbindFramebuffer();
         framebuffer.framebufferRender(scaledresolution.getScaledWidth() * i, scaledresolution.getScaledHeight() * i);
-        RenderUtil.disableGL2D();
         this.updateDisplay();
     }
 
@@ -894,6 +1087,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         try {
             this.stream.shutdownStream();
             logger.info("Stopping!");
+            Client.instance.shutDown();
 
             try {
                 this.loadWorld((WorldClient) null);
@@ -917,6 +1111,14 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
      * Called repeatedly from run()
      */
     private void runGameLoop() throws IOException {
+        try {
+            if (progress < 0.9) {
+                this.drawSplashScreen(this.renderEngine);
+            }
+        } catch (LWJGLException e) {
+            e.printStackTrace();
+        }
+
         long i = System.nanoTime();
         this.mcProfiler.startSection("root");
 
@@ -1460,6 +1662,11 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         if (this.thePlayer != null) {
             EventBus.getInstance().call(new EventTick());
         }
+        if (should) {
+            displayGuiScreen(new GuiMainMenu());
+            should = false;
+        }
+
         if (this.rightClickDelayTimer > 0) {
             --this.rightClickDelayTimer;
         }
@@ -1610,6 +1817,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                         this.currentScreen.handleKeyboardInput();
                     } else {
                         EventBus.getInstance().call(new EventKey(k));
+
                         if (k == 1) {
                             this.displayInGameMenu();
                         }
@@ -1862,7 +2070,10 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         }
 
         this.mcProfiler.endSection();
-        this.systemTime = getSystemTime();
+        this.systemTime =
+
+                getSystemTime();
+
     }
 
     /**
@@ -1870,9 +2081,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
      */
     public void launchIntegratedServer(String folderName, String worldName, WorldSettings worldSettingsIn) {
         this.loadWorld((WorldClient) null);
-        if (!ModuleManager.getModuleByClass(FastLoad.class).isEnabled()) {
-            System.gc();
-        }
+        System.gc();
         ISaveHandler isavehandler = this.saveLoader.getSaveLoader(folderName, false);
         WorldInfo worldinfo = isavehandler.loadWorldInfo();
 
@@ -1993,9 +2202,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             this.saveLoader.flushCache();
             this.thePlayer = null;
         }
-        if (!ModuleManager.getModuleByClass(FastLoad.class).isEnabled()) {
-            System.gc();
-        }
+
+        System.gc();
         this.systemTime = 0L;
     }
 
@@ -2704,4 +2912,3 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         this.field_181541_X = p_181537_1_;
     }
 }
-
