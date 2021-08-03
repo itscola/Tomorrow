@@ -146,7 +146,7 @@ public class Killaura extends Module {
             if (mc.thePlayer.isBlocking())
                 this.stopBlock();
             crit.doCrit(target);
-            if (!(boolean) noSwing.getValue()) {
+            if ((boolean) noSwing.getValue()) {
                 mc.thePlayer.sendQueue.addToSendQueue(new C0APacketAnimation());
             } else {
                 mc.thePlayer.swingItem();

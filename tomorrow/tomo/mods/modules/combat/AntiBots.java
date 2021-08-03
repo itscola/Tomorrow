@@ -38,10 +38,12 @@ public class AntiBots
 
 
     public boolean isServerBot(Entity entity) {
-        if (this.isEnabled()) {
+        if (this.isEnabled() && entity instanceof EntityPlayer) {
             if (entity == mc.thePlayer) {
                 return false;
             }
+            if(entity.getName().equals("Blink"))
+                return false;
             if (entity.ticksExisted <= 105) {
                 return true;
             }

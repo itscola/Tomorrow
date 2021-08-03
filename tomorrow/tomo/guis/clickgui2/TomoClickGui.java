@@ -15,7 +15,6 @@ import tomorrow.tomo.event.value.Option;
 import tomorrow.tomo.event.value.Value;
 import tomorrow.tomo.guis.clickgui2.theme.Theme;
 import tomorrow.tomo.guis.font.FontLoaders;
-import tomorrow.tomo.guis.musicPlayer.MusicPanel;
 import tomorrow.tomo.managers.ModuleManager;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
@@ -725,21 +724,21 @@ public class TomoClickGui extends GuiScreen {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (configInputBox.isFocused()) {
-            configInputBox.textboxKeyTyped(typedChar, keyCode);
-        }
+//        if (configInputBox.isFocused()) {
+//            configInputBox.textboxKeyTyped(typedChar, keyCode);
+//        }
 
-        if (MusicPanel.inputBox.isFocused()) {
-            MusicPanel.inputBox.textboxKeyTyped(typedChar, keyCode);
-            if(keyCode == Keyboard.KEY_RETURN){
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Client.musicPanel.getMusics();
-//                    }
-//                }).start();
-            }
-        }
+//        if (MusicPanel.inputBox.isFocused()) {
+//            MusicPanel.inputBox.textboxKeyTyped(typedChar, keyCode);
+//            if(keyCode == Keyboard.KEY_RETURN){
+////                new Thread(new Runnable() {
+////                    @Override
+////                    public void run() {
+////                        Client.musicPanel.getMusics();
+////                    }
+////                }).start();
+//            }
+//        }
     }
 
     public static boolean isHovered(float x, float y, float x2, float y2, int mouseX, int mouseY) {
