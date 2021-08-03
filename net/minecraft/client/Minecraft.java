@@ -1659,9 +1659,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
      * Runs the current tick.
      */
     public void runTick() throws IOException {
-        if (this.thePlayer != null) {
+//        if (this.thePlayer != null) {
             EventBus.getInstance().call(new EventTick());
-        }
+//        }
         if (should) {
             displayGuiScreen(new GuiMainMenu());
             should = false;

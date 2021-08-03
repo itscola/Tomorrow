@@ -16,18 +16,14 @@ import tomorrow.tomo.event.value.Value;
 import tomorrow.tomo.guis.clickgui2.theme.Theme;
 import tomorrow.tomo.guis.font.FontLoaders;
 import tomorrow.tomo.guis.musicPlayer.MusicPanel;
-import tomorrow.tomo.guis.notification.Notification;
-import tomorrow.tomo.guis.notification.NotificationsManager;
 import tomorrow.tomo.managers.ModuleManager;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
-import tomorrow.tomo.utils.cheats.player.Helper;
 import tomorrow.tomo.utils.cheats.world.TimerUtil;
 import tomorrow.tomo.utils.render.ColorUtils;
 import tomorrow.tomo.utils.render.RenderUtil;
 
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -121,16 +117,16 @@ public class TomoClickGui extends GuiScreen {
         valuetimer.reset();
         configs.clear();
 
-        String configFiles = Client.configFolder.getAbsolutePath();
-        File configFile = new File(configFiles);
-
-        for (int i = 0; i < configFile.listFiles().length; i++) {
-            if (configFile.listFiles()[i].isDirectory()) {
-                configs.add(new Config(configFile.listFiles()[i].getName(), "Location", true));
-            }
-        }
-
-        configInputBox = new EmptyInputBox(2, mc.fontRendererObj, 0, 0, 85, 10);
+//        String configFiles = Client.configFolder.getAbsolutePath();
+//        File configFile = new File(configFiles);
+//
+//        for (int i = 0; i < configFile.listFiles().length; i++) {
+//            if (configFile.listFiles()[i].isDirectory()) {
+//                configs.add(new Config(configFile.listFiles()[i].getName(), "Location", true));
+//            }
+//        }
+//
+//        configInputBox = new EmptyInputBox(2, mc.fontRendererObj, 0, 0, 85, 10);
     }
 
 
@@ -545,64 +541,64 @@ public class TomoClickGui extends GuiScreen {
         }
         GL11.glDisable(GL11.GL_SCISSOR_TEST);
 
-        if (selectType == ClickType.Config) {
-            FontLoaders.arial18.drawString("Your Profiles", windowX + 20, windowY + 60, new Color(169, 170, 173).getRGB());
-            RenderUtil.drawRoundedRect(windowX + 20, windowY + FontLoaders.arial18.getStringHeight("") + 62, windowX + 30, windowY + FontLoaders.arial18.getStringHeight("") + 64, 0, new Color(51, 112, 203).getRGB());
-
-
-            configInputBox.xPosition = (int) (windowX + 20);
-            configInputBox.yPosition = (int) (windowY + 100);
-            configInputBox.drawTextBox();
-            RenderUtil.drawRoundedRect(windowX + 20, windowY + 110, windowX + 105, windowY + 111, 0, new Color(36, 36, 40).getRGB());
-            if (configInputBox.getText().equals("")) {
-                FontLoaders.arial16.drawString("Add new profile", windowX + 20, windowY + 100, new Color(63, 64, 67).getRGB());
-            }
-            RenderUtil.smoothCircle(windowX + 100, windowY + 100, 5, new Color(42, 115, 222).getRGB());
-            RenderUtil.smoothCircle(windowX + 100, windowY + 100, 5, new Color(42, 115, 222).getRGB());
-            FontLoaders.arial22.drawString("+", windowX + 97f, windowY + 95.5f, -1);
-
-            //遍历显示本地配置(本地配置必须在云配置前面，中间用换行分隔)
-            float cx = windowX + 140, cy = windowY + 60;
-            for (Config c : configs) {
-                RenderUtil.drawRoundedRect(cx, cy, cx + 100, cy + 100, 2, theme.BG_4);
-
-                FontLoaders.arial16.drawString(c.getName(), cx + 5, cy + 10, -1);
-                FontLoaders.arial16.drawString("×", cx + 85, cy + 10, theme.FONT.getRGB());
-//                RenderUtil.drawCustomImage(cx + 10, cy + 80, 10, 8, new ResourceLocation("client/Cloud.png"), new Color(91, 92, 98).getRGB());
-                FontLoaders.arial16.drawString(c.description, cx + 10, cy + 82, theme.FONT.getRGB());
-                if (isHovered(cx + 65, cy + 75, cx + 90, cy + 90, mouseX, mouseY) && Mouse.isButtonDown(0)) {
-                    RenderUtil.drawRoundedRect(cx + 65, cy + 75, cx + 90, cy + 90, 2, theme.BG_2);
-                } else {
-                    RenderUtil.drawRoundedRect(cx + 65, cy + 75, cx + 90, cy + 90, 2, theme.BG_3);
-                }
-                FontLoaders.arial16.drawString("Load", cx + 68, cy + 81, -1);
-
-//                if (c.equals(Lune.configInUsing)) {
-//                    FontLoaders.F14.drawString("Using", cx + 70, cy + 82, new Color(40, 106, 204).getRGB());
+//        if (selectType == ClickType.Config) {
+//            FontLoaders.arial18.drawString("Your Profiles", windowX + 20, windowY + 60, new Color(169, 170, 173).getRGB());
+//            RenderUtil.drawRoundedRect(windowX + 20, windowY + FontLoaders.arial18.getStringHeight("") + 62, windowX + 30, windowY + FontLoaders.arial18.getStringHeight("") + 64, 0, new Color(51, 112, 203).getRGB());
+//
+//
+//            configInputBox.xPosition = (int) (windowX + 20);
+//            configInputBox.yPosition = (int) (windowY + 100);
+//            configInputBox.drawTextBox();
+//            RenderUtil.drawRoundedRect(windowX + 20, windowY + 110, windowX + 105, windowY + 111, 0, new Color(36, 36, 40).getRGB());
+//            if (configInputBox.getText().equals("")) {
+//                FontLoaders.arial16.drawString("Add new profile", windowX + 20, windowY + 100, new Color(63, 64, 67).getRGB());
+//            }
+//            RenderUtil.smoothCircle(windowX + 100, windowY + 100, 5, new Color(42, 115, 222).getRGB());
+//            RenderUtil.smoothCircle(windowX + 100, windowY + 100, 5, new Color(42, 115, 222).getRGB());
+//            FontLoaders.arial22.drawString("+", windowX + 97f, windowY + 95.5f, -1);
+//
+//            //遍历显示本地配置(本地配置必须在云配置前面，中间用换行分隔)
+//            float cx = windowX + 140, cy = windowY + 60;
+//            for (Config c : configs) {
+//                RenderUtil.drawRoundedRect(cx, cy, cx + 100, cy + 100, 2, theme.BG_4);
+//
+//                FontLoaders.arial16.drawString(c.getName(), cx + 5, cy + 10, -1);
+//                FontLoaders.arial16.drawString("×", cx + 85, cy + 10, theme.FONT.getRGB());
+////                RenderUtil.drawCustomImage(cx + 10, cy + 80, 10, 8, new ResourceLocation("client/Cloud.png"), new Color(91, 92, 98).getRGB());
+//                FontLoaders.arial16.drawString(c.description, cx + 10, cy + 82, theme.FONT.getRGB());
+//                if (isHovered(cx + 65, cy + 75, cx + 90, cy + 90, mouseX, mouseY) && Mouse.isButtonDown(0)) {
+//                    RenderUtil.drawRoundedRect(cx + 65, cy + 75, cx + 90, cy + 90, 2, theme.BG_2);
+//                } else {
+//                    RenderUtil.drawRoundedRect(cx + 65, cy + 75, cx + 90, cy + 90, 2, theme.BG_3);
 //                }
-
-
-                if (isHovered(cx + 65, cy + 75, cx + 90, cy + 90, mouseX, mouseY) && Mouse.isButtonDown(0) && valuetimer.delay(500)) {
-
-//                    Lune.configInUsing = c;
-//                    if (c.getDescription().equals("Cloud")) {
-//                        LoadCloudConfig thread = new LoadCloudConfig(c.getName());
-//                        thread.start();
-//                    } else {
-//                    Client.instance.getModuleManager().readSettings(c.name);
-                    mc.thePlayer.playSound("random.click", 1, 0.2f);
-                    NotificationsManager.addNotification(new Notification("You has loaded config:" + c.name, Notification.Type.Info));
-//                    }
-                    valuetimer.reset();
-                }
-
-                cx += 105;
-                if ((cx + 100) >= windowX + width) {
-                    cx = windowX + 140;
-                    cy += 110;
-                }
-            }
-        }
+//                FontLoaders.arial16.drawString("Load", cx + 68, cy + 81, -1);
+//
+////                if (c.equals(Lune.configInUsing)) {
+////                    FontLoaders.F14.drawString("Using", cx + 70, cy + 82, new Color(40, 106, 204).getRGB());
+////                }
+//
+//
+//                if (isHovered(cx + 65, cy + 75, cx + 90, cy + 90, mouseX, mouseY) && Mouse.isButtonDown(0) && valuetimer.delay(500)) {
+//
+////                    Lune.configInUsing = c;
+////                    if (c.getDescription().equals("Cloud")) {
+////                        LoadCloudConfig thread = new LoadCloudConfig(c.getName());
+////                        thread.start();
+////                    } else {
+////                    Client.instance.getModuleManager().readSettings(c.name);
+//                    mc.thePlayer.playSound("random.click", 1, 0.2f);
+//                    NotificationsManager.addNotification(new Notification("You has loaded config:" + c.name, Notification.Type.Info));
+////                    }
+//                    valuetimer.reset();
+//                }
+//
+//                cx += 105;
+//                if ((cx + 100) >= windowX + width) {
+//                    cx = windowX + 140;
+//                    cy += 110;
+//                }
+//            }
+//        }
         int dWheel2 = Mouse.getDWheel();
         if (isHovered(windowX + 100 + valuemodx, windowY + 60, windowX + 425 + valuemodx, windowY + height, mouseX, mouseY)) {
             if (dWheel2 < 0 && Math.abs(modsRole) + 220 < (Client.instance.getModuleManager().getModulesInType(modCategory).size() * 40)) {
@@ -617,36 +613,36 @@ public class TomoClickGui extends GuiScreen {
             modsRoleNow += (modsRole - modsRoleNow) / 20;
             modsRoleNow = (int) modsRoleNow;
         }
-
-        //处理输入框
-        if (selectType == ClickType.Config) {
-            if (isHovered(windowX + 95, windowY + 95, windowX + 105, windowY + 105, mouseX, mouseY) && Mouse.isButtonDown(0) && valuetimer.delay(500) && configs.size() < 6) {
-                boolean has = false;
-                for (Config c : configs) {
-                    if (c.name.equals(configInputBox.getText())) {
-                        Client.instance.getModuleManager().saveSettings(configInputBox.getText());
-
-                        valuetimer.reset();
-                        has = true;
-                    }
-                }
-                if (!has) {
-                    configs.add(new Config(configInputBox.getText(), "Location", false));
-                    Client.instance.getModuleManager().saveSettings(configInputBox.getText());
-                    valuetimer.reset();
-                }
-            } else if (isHovered(windowX + 95, windowY + 95, windowX + 105, windowY + 105, mouseX, mouseY) && Mouse.isButtonDown(0) && valuetimer.delay(500) && configs.size() >= 6) {
-                Helper.sendMessage("You can only save 6 configs!");
-                valuetimer.reset();
-            }
-
-
-            if (isHovered(configInputBox.xPosition, configInputBox.yPosition, configInputBox.xPosition + configInputBox.getWidth(), configInputBox.yPosition + 10, mouseX, mouseY) && Mouse.isButtonDown(0)) {
-                configInputBox.mouseClicked(mouseX, mouseY, Mouse.getButtonCount());
-            } else if (Mouse.isButtonDown(0) && !isHovered(configInputBox.xPosition, configInputBox.yPosition, configInputBox.xPosition + configInputBox.getWidth(), configInputBox.yPosition + 10, mouseX, mouseY)) {
-                configInputBox.setFocused(false);
-            }
-        }
+//
+//        //处理输入框
+//        if (selectType == ClickType.Config) {
+//            if (isHovered(windowX + 95, windowY + 95, windowX + 105, windowY + 105, mouseX, mouseY) && Mouse.isButtonDown(0) && valuetimer.delay(500) && configs.size() < 6) {
+//                boolean has = false;
+//                for (Config c : configs) {
+//                    if (c.name.equals(configInputBox.getText())) {
+//                        Client.instance.getModuleManager().saveSettings(configInputBox.getText());
+//
+//                        valuetimer.reset();
+//                        has = true;
+//                    }
+//                }
+//                if (!has) {
+//                    configs.add(new Config(configInputBox.getText(), "Location", false));
+//                    Client.instance.getModuleManager().saveSettings(configInputBox.getText());
+//                    valuetimer.reset();
+//                }
+//            } else if (isHovered(windowX + 95, windowY + 95, windowX + 105, windowY + 105, mouseX, mouseY) && Mouse.isButtonDown(0) && valuetimer.delay(500) && configs.size() >= 6) {
+//                Helper.sendMessage("You can only save 6 configs!");
+//                valuetimer.reset();
+//            }
+//
+//
+//            if (isHovered(configInputBox.xPosition, configInputBox.yPosition, configInputBox.xPosition + configInputBox.getWidth(), configInputBox.yPosition + 10, mouseX, mouseY) && Mouse.isButtonDown(0)) {
+//                configInputBox.mouseClicked(mouseX, mouseY, Mouse.getButtonCount());
+//            } else if (Mouse.isButtonDown(0) && !isHovered(configInputBox.xPosition, configInputBox.yPosition, configInputBox.xPosition + configInputBox.getWidth(), configInputBox.yPosition + 10, mouseX, mouseY)) {
+//                configInputBox.setFocused(false);
+//            }
+//        }
 
 
     }

@@ -111,18 +111,9 @@ public class IRCClient {
             ServerPacket sp = null;
             try {
                 sp = PacketUtil.parsePacketServer(decode(msg), ServerPacket.class);
-            } catch (InvalidAlgorithmParameterException e) {
-                e.printStackTrace();
-            } catch (NoSuchPaddingException e) {
-                e.printStackTrace();
-            } catch (IllegalBlockSizeException e) {
-                e.printStackTrace();
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            } catch (BadPaddingException e) {
-                e.printStackTrace();
-            } catch (InvalidKeyException e) {
-                e.printStackTrace();
+            }catch (Exception e){
+                System.out.println("Trans message exception " + e.getMessage());
+                return;
             }
 
             if (sp.packetType.equals(PacketType.S03))
