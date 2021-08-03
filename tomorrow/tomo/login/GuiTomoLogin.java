@@ -1,5 +1,6 @@
 package tomorrow.tomo.login;
 
+import me.superskidder.server.data.User;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
@@ -75,6 +76,7 @@ public class GuiTomoLogin extends GuiScreen {
                 IRCClient.Start(username.getText(), password.getText(), hwid,"127.0.0.1",6666);
                 Client.username = username.getText();
                 Client.password = password.getText();
+                IRCClient.user = new User(username.getText(), password.getText(), hwid);
             }
             RenderUtil.drawRoundRect(password.xPosition, password.yPosition + 30, password.xPosition + password.getWidth(), password.yPosition + 50, new Color(107, 141, 205).getRGB());
             FontLoaders.arial16.drawCenteredString("LOGIN", password.xPosition + password.getWidth() / 2, password.yPosition + 38, new Color(255, 255, 255).getRGB());

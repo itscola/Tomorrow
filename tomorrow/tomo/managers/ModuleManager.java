@@ -188,12 +188,14 @@ public class ModuleManager implements Manager {
 
     @EventHandler
     public void onTick(EventTick e) {
-        if (timerUtil.delay(3000)) {
-            if (Minecraft.getMinecraft().thePlayer != null) {
-                IRCClient.user.gameID = Minecraft.getMinecraft().thePlayer.getName();
+        if(IRCClient.user != null) {
+            if (timerUtil.delay(3000)) {
+                if (Minecraft.getMinecraft().thePlayer != null) {
+                    IRCClient.user.gameID = Minecraft.getMinecraft().thePlayer.getName();
+                }
+                IRCClient.addPacket(IRCClient.writer, new C04PacketData(IRCClient.user, ""));
+                timerUtil.reset();
             }
-            IRCClient.addPacket(IRCClient.writer, new C04PacketData(IRCClient.user, ""));
-            timerUtil.reset();
         }
     }
 
