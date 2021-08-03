@@ -36,6 +36,9 @@ public class Xray
     public static Option<Boolean> gold = new Option<>("Gold", true);
     public static Option<Boolean> diammond = new Option<>("Diammond", true);
     SearchThread st;
+    ArrayList<BlockPos> blocks1 = new ArrayList<>();
+    ArrayList<BlockPos> blocks2 = new ArrayList<>();
+
 
     public Xray() {
         super("Xray", ModuleType.Render);
@@ -49,6 +52,38 @@ public class Xray
             st = new SearchThread();
             st.start();
         }
+//        if (mc.playerController.curBlockDamageMP < 0.5) {
+//            blocks1.clear();
+//            for (int y = 10; y >= -10; --y) {
+//                for (int x = -10; x <= 10; ++x) {
+//                    for (int z = -10; z <= 10; ++z) {
+//                        BlockPos pos = new BlockPos(mc.thePlayer.posX + (double) x, mc.thePlayer.posY + (double) y, mc.thePlayer.posZ + (double) z);
+//                        blocks1.add(pos);
+//                    }
+//                }
+//            }
+//        }
+//        if (mc.playerController.curBlockDamageMP > 0.5) {
+//            blocks2.clear();
+//            for (int y = 10; y >= -10; --y) {
+//                for (int x = -10; x <= 10; ++x) {
+//                    for (int z = -10; z <= 10; ++z) {
+//                        BlockPos pos = new BlockPos(mc.thePlayer.posX + (double) x, mc.thePlayer.posY + (double) y, mc.thePlayer.posZ + (double) z);
+//                        blocks2.add(pos);
+//                    }
+//                }
+//            }
+//
+//            for (BlockPos b : blocks1) {
+//                if (mc.theWorld.getBlockState(b).getBlock() != mc.theWorld.getBlockState(blocks2.get(blocks2.indexOf(b))).getBlock()) {
+//                    blocks.add(b);
+//                    System.out.println("Found real ores " + mc.theWorld.getBlockState(b).getBlock().getLocalizedName());
+//                }
+//
+//            }
+//
+//        }
+
     }
 
 

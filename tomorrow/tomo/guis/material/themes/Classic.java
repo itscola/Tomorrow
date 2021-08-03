@@ -102,9 +102,9 @@ public class Classic extends Main {
     public void drawList(float mouseX, float mouseY) {
         super.drawList(mouseX, mouseY);
         if (Blist.realized) {
-            animListX = listAnim.animate(140, animListX, 0.1f);
+            animListX = listAnim.animate(140, animListX, 0.2f);
         } else {
-            animListX = listAnim.animate(0, animListX, 0.1f);
+            animListX = listAnim.animate(0, animListX, 0.2f);
         }
 //        GL11.glScissor((int)windowX, mc.displayHeight - (int)(windowY + windowHeight), (int)windowWidth, (int)windowHeight);
         if (animListX != 0) {
@@ -145,14 +145,15 @@ public class Classic extends Main {
                             FontLoaders.arial18.drawString(m.getName(), windowX + animListX - 120, modsY + 5 + mt.modsY2, new Color(50, 50, 50).getRGB());
                         mt.modsY2 += 20;
                     }
+
                     if (mt.needRemove) {
-                        mt.modsY3 = mt.rollAnim2.animate(-25, mt.modsY3, 0.02f);
+                        mt.modsY3 = mt.rollAnim2.animate(-25, mt.modsY3, 0.1f);
                         if (mt.modsY3 == -25) {
                             mt.needRemove = false;
                             mt.show = false;
                         }
                     } else {
-                        mt.modsY3 = mt.rollAnim2.animate(mt.modsY2, mt.modsY3, 0.02f);
+                        mt.modsY3 = mt.rollAnim2.animate(mt.modsY2, mt.modsY3, 0.1f);
                     }
 
                     modsY += mt.modsY3;

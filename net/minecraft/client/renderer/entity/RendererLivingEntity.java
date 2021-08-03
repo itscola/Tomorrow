@@ -25,7 +25,7 @@ import shadersmod.client.Shaders;
 import tomorrow.tomo.Client;
 import tomorrow.tomo.mods.modules.render.Chams;
 import tomorrow.tomo.mods.modules.render.ESP;
-import tomorrow.tomo.mods.modules.render.Nametags;
+import tomorrow.tomo.mods.modules.render.NameTag;
 import tomorrow.tomo.utils.cheats.player.Helper;
 import tomorrow.tomo.utils.render.RenderUtil;
 
@@ -554,7 +554,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
     public void renderName(T entity, double x, double y, double z)
     {
-        if (Client.instance.getModuleManager().getModuleByClass(Nametags.class).isEnabled() && entity instanceof EntityPlayer) {
+        if (Client.instance.getModuleManager().getModuleByClass(NameTag.class).isEnabled() && entity instanceof EntityPlayer) {
             return;
         }
         if (!Reflector.RenderLivingEvent_Specials_Pre_Constructor.exists() || !Reflector.postForgeBusEvent(Reflector.RenderLivingEvent_Specials_Pre_Constructor, new Object[] {entity, this, Double.valueOf(x), Double.valueOf(y), Double.valueOf(z)}))
