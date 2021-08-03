@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AltManager {
-    static List<Alt> alts;
+    public static List<Alt> alts;
     static Alt lastAlt;
 
     public static void init() {

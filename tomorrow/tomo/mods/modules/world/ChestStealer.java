@@ -18,7 +18,7 @@ extends Module {
     private TimerUtil timer = new TimerUtil();
 
     public ChestStealer() {
-        super("Cheststealer", ModuleType.Render);
+        super("Cheststealer", ModuleType.World);
 
         this.addValues(this.delay);
     }

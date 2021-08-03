@@ -69,9 +69,9 @@ public final class TargetStrafe
     }
 
     public void strafe(EventMove event, double moveSpeed) {
-        if (canStrafe()) {
-        EntityLivingBase target = this.aura.target;
-        float[] rotations = PlayerUtils.getRotations(target);
+        if (canStrafe() && Killaura.target != null) {
+            EntityLivingBase target = Killaura.target;
+            float[] rotations = PlayerUtils.getRotations(target);
             if ((double) mc.thePlayer.getDistanceToEntity(target) <= this.radius.getValue().floatValue()) {
                 PlayerUtils.setSpeed(event, moveSpeed, rotations[0], this.direction, 0.0);
             } else {
@@ -88,13 +88,13 @@ public final class TargetStrafe
     }
 
     private void drawCircle(Entity entity, float partialTicks, double rad) {
-    	
+
         GL11.glPushMatrix();
         GL11.glDisable((int) 3553);
         RenderUtil.startSmooth();
         GL11.glDisable((int) 2929);
         GL11.glDepthMask((boolean) false);
-        GL11.glLineWidth((float) 1.5f);
+        GL11.glLineWidth((float) 2);
         GL11.glBegin((int) 3);
         double x = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * (double) partialTicks - mc.getRenderManager().viewerPosX;
         double y = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double) partialTicks - mc.getRenderManager().viewerPosY;
@@ -102,11 +102,11 @@ public final class TargetStrafe
 
         double pix2 = Math.PI * 2;
         int tick = 0;
-        for (int i = 0; i <= 90; ++i) {
-            Color c = new Color(Color.HSBtoRGB(tick / 45f + mc.thePlayer.ticksExisted / 50f, 0.7f, 1));
+        for (int i = 0; i <= 45; ++i) {
+            Color c = new Color(Color.HSBtoRGB(tick / 45f + mc.thePlayer.ticksExisted / 25f, 0.7f, 1));
             GL11.glColor3f(c.getRed() / 255f, (float) c.getGreen() / 255f, (float) c.getBlue() / 255f);
             GL11.glVertex3d((double) (x + rad * Math.cos((double) i * (Math.PI * 2) / 45.0)), (double) y, (double) (z + rad * Math.sin((double) i * (Math.PI * 2) / 45.0)));
-            tick++;
+            tick += 1;
         }
         GL11.glEnd();
         GL11.glDepthMask((boolean) true);
@@ -117,7 +117,7 @@ public final class TargetStrafe
     }
 
     public boolean canStrafe() {
-        return this.aura.isEnabled() && Killaura.target != null && this.isEnabled() || mc.gameSettings.keyBindJump.isPressed();
+        return Killaura.target != null && this.isEnabled() || mc.gameSettings.keyBindJump.isPressed();
     }
 }
 

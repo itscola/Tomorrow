@@ -1,8 +1,9 @@
 package tomorrow.tomo.commands.commands;
 
+import me.superskidder.server.packets.client.C01PacketChat;
+import me.superskidder.server.packets.client.C02PacketCommand;
 import tomorrow.tomo.commands.Command;
-import tomorrow.tomo.utils.irc.Client;
-import tomorrow.tomo.utils.irc.packets.clientside.ClientChatPacket;
+import tomorrow.tomo.managers.IRC.IRCClient;
 
 public class IRC extends Command {
     public IRC() {
@@ -15,9 +16,11 @@ public class IRC extends Command {
         for (String s : args) {
             t = t + s + " ";
         }
-
-
-        Client.sendChatMessage(new ClientChatPacket(System.currentTimeMillis(), t));
+        if (t.startsWith("/")) {
+            IRCClient.addPacket(IRCClient.writer, new C02PacketCommand(t));
+        } else {
+            IRCClient.addPacket(IRCClient.writer, new C01PacketChat(t));
+        }
         return null;
     }
 }

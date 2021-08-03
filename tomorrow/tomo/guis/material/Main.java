@@ -83,18 +83,20 @@ public class Main extends GuiScreen {
                 modsY += 25;
                 for (Module m : Client.instance.getModuleManager().getModulesInType(mt.moduleType)) {
                     if (modsY > windowY + 30 && modsY < windowY + windowHeight) {
-                        new Rect(windowX, modsY, animListX, 15, new Color(255, 255, 255), new Runnable() {
-                            @Override
-                            public void run() {
-                                if (Mouse.isButtonDown(0)) {
-                                    m.setEnabled(!m.isEnabled());
-                                } else if (Mouse.isButtonDown(1)) {
-                                    ModuleTab modT = new ModuleTab(m);
-                                    tabs.add(modT);
-                                    currentTab = modT;
+                        if(!mt.needRemove) {
+                            new Rect(windowX, modsY, animListX, 15, new Color(255, 255, 255), new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (Mouse.isButtonDown(0)) {
+                                        m.setEnabled(!m.isEnabled());
+                                    } else if (Mouse.isButtonDown(1)) {
+                                        ModuleTab modT = new ModuleTab(m);
+                                        tabs.add(modT);
+                                        currentTab = modT;
+                                    }
                                 }
-                            }
-                        }).render(mouseX, mouseY);
+                            }).render(mouseX, mouseY);
+                        }
                     }
                     FontLoaders.arial18.drawString(m.getName(), windowX + animListX - 120, modsY + 5, new Color(50, 50, 50).getRGB());
                     modsY += 20;

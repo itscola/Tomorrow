@@ -12,7 +12,7 @@ public class FastPlace
 extends Module {
 
     public FastPlace(){
-        super("FastPlace", ModuleType.Render);
+        super("FastPlace", ModuleType.World);
     }
 
     @EventHandler

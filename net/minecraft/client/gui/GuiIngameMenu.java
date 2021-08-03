@@ -1,11 +1,17 @@
 package net.minecraft.client.gui;
 
-import java.io.IOException;
 import net.minecraft.client.gui.achievement.GuiAchievements;
 import net.minecraft.client.gui.achievement.GuiStats;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.realms.RealmsBridge;
+import tomorrow.tomo.Client;
+import tomorrow.tomo.guis.login.Alt;
+import tomorrow.tomo.guis.login.AltLoginThread;
+import tomorrow.tomo.guis.login.AltManager;
+
+import java.io.IOException;
+import java.util.Random;
 
 public class GuiIngameMenu extends GuiScreen
 {
@@ -50,7 +56,14 @@ public class GuiIngameMenu extends GuiScreen
             case 0:
                 this.mc.displayGuiScreen(new GuiOptions(this, this.mc.gameSettings));
                 break;
-
+            case 8:
+                Client.instance.getAltManager();
+                Client.instance.getAltManager();
+                Alt randomAlt = AltManager.alts.get(new Random().nextInt(AltManager.alts.size()));
+                String user1 = randomAlt.getUsername();
+                String pass1 = randomAlt.getPassword();
+                new AltLoginThread(user1, pass1).start();
+                break;
             case 1:
                 boolean flag = this.mc.isIntegratedServerRunning();
                 boolean flag1 = this.mc.func_181540_al();

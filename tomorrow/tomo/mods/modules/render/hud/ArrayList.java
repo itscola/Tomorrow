@@ -8,6 +8,7 @@ import tomorrow.tomo.guis.font.CFontRenderer;
 import tomorrow.tomo.guis.font.FontLoaders;
 import tomorrow.tomo.managers.ModuleManager;
 import tomorrow.tomo.mods.Module;
+import tomorrow.tomo.mods.ModuleType;
 import tomorrow.tomo.mods.modules.ClientSettings;
 import tomorrow.tomo.mods.modules.render.HUD;
 import tomorrow.tomo.utils.cheats.player.Helper;
@@ -38,6 +39,8 @@ public class ArrayList {
         java.util.ArrayList<Module> mods = new java.util.ArrayList<>();
         for (Module m : ModuleManager.modules) {
             if (m.isEnabled()) {
+                if(HUD.noRender.getValue() && m.getType() == ModuleType.Render)
+                    continue;
                 mods.add(m);
             } else {
                 m.animX = x1;
@@ -72,15 +75,17 @@ public class ArrayList {
                 arrayRainbow2 = new Color(ClientSettings.r.getValue().intValue(), ClientSettings.g.getValue().intValue(), ClientSettings.b.getValue().intValue());
             }
 
-            if (i + 1 <= mods.size() - 1) {
-                Module m2 = mods.get(i + 1);
-                RenderUtil.drawRect((int) mod.animX - 10, ((float) mod.animY) + 11, (int) mod.animX - 9 + font.getStringWidth(mod.getName() + (mod.getSuffix().isEmpty() ? "" : " ") + ChatFormatting.WHITE + mod.getSuffix()) - font.getStringWidth(m2.getName() + (m2.getSuffix().isEmpty() ? "" : " ") + ChatFormatting.WHITE + m2.getSuffix()), (int) mod.animY + 12, arrayRainbow2.getRGB());
-            } else if (i == mods.size() - 1) {
-                RenderUtil.drawRect((int) mod.animX - 10, ((float) mod.animY) + 11, x1, (int) mod.animY + 12, arrayRainbow2.getRGB());
-            }
-            RenderUtil.drawRect((int) mod.animX - 10, ((float) mod.animY), ((int) mod.animX - 9), (int) mod.animY + 11, arrayRainbow2.getRGB());
-            RenderUtil.drawRect((int) mod.animX - 10, ((float) mod.animY), (x1), (int) mod.animY + 12, new Color(0, 0, 0, 100).getRGB());
+            if(HUD.Rect.getValue()) {
+                if (i + 1 <= mods.size() - 1) {
+                    Module m2 = mods.get(i + 1);
+                    RenderUtil.drawRect((int) mod.animX - 10, ((float) mod.animY) + 11, (int) mod.animX - 9 + font.getStringWidth(mod.getName() + (mod.getSuffix().isEmpty() ? "" : " ") + ChatFormatting.WHITE + mod.getSuffix()) - font.getStringWidth(m2.getName() + (m2.getSuffix().isEmpty() ? "" : " ") + ChatFormatting.WHITE + m2.getSuffix()), (int) mod.animY + 12, arrayRainbow2.getRGB());
+                } else if (i == mods.size() - 1) {
+                    RenderUtil.drawRect((int) mod.animX - 10, ((float) mod.animY) + 11, x1, (int) mod.animY + 12, arrayRainbow2.getRGB());
+                }
+                RenderUtil.drawRect((int) mod.animX - 10, ((float) mod.animY), ((int) mod.animX - 9), (int) mod.animY + 11, arrayRainbow2.getRGB());
+                RenderUtil.drawRect((int) mod.animX - 10, ((float) mod.animY), (x1), (int) mod.animY + 12, new Color(0, 0, 0, 100).getRGB());
 //            Gui.drawRect((x1) - 1f, mod.animY, (x1), mod.animY + 12, arrayRainbow2.getRGB());
+            }
             font.drawStringWithShadow(mod.getName() + (mod.getSuffix().isEmpty() ? "" : " ") + ChatFormatting.WHITE + mod.getSuffix(), mod.animX - 8, mod.animY + 3, arrayRainbow2.getRGB());
             arrayListY += 12f;
             i++;

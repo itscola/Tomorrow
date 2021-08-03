@@ -32,11 +32,12 @@ public class Criticals extends Module {
                 case "HypixelPacket":
                     if (canCrit(entity))
                         onHypixelCrit();
-                    mc.thePlayer.onCriticalHit(entity);
                     break;
                 case "Packet":
-                    if (canCrit(entity))
+                    if (canCrit(entity)) {
                         mc.getNetHandler().addToSendQueueWithoutEvent(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY + 0.005f, mc.thePlayer.posZ, false));
+                        mc.getNetHandler().addToSendQueueWithoutEvent(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY + 0.0031f, mc.thePlayer.posZ, false));
+                    }
                     break;
                 case "Jump":
                     if (canCrit(entity))
@@ -47,6 +48,7 @@ public class Criticals extends Module {
                         mc.thePlayer.motionY = 0.314;
                     break;
             }
+            mc.thePlayer.onCriticalHit(entity);
             timer.reset();
         }
     }
@@ -55,5 +57,6 @@ public class Criticals extends Module {
         for (double d : new double[]{0.04, 0.00079999923706, 0.04079999923707, 0.00159999847412}) {
             mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(mc.thePlayer.posX, mc.thePlayer.posY + d, mc.thePlayer.posZ, false));
         }
+       
     }
 }

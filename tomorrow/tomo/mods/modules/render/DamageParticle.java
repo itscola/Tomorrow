@@ -12,6 +12,7 @@ import tomorrow.tomo.event.events.world.EventLivingUpdate;
 import tomorrow.tomo.event.events.world.EventPostUpdate;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
+import tomorrow.tomo.utils.math.AnimationUtils;
 
 import java.awt.*;
 import java.math.BigDecimal;
@@ -20,12 +21,14 @@ import java.util.List;
 import java.util.*;
 
 public class DamageParticle extends Module {
-    public DamageParticle(){
+    public DamageParticle() {
         super("DamageParticle", ModuleType.Render);
     }
+
     private HashMap<EntityLivingBase, Float> healthMap = new HashMap<EntityLivingBase, Float>();
     private List<Particles> particles = new ArrayList<Particles>();
     float anim = 1320;
+    public AnimationUtils animationUtils = new AnimationUtils();
 
     @EventHandler
     public void onLivingUpdate(EventLivingUpdate e) {
@@ -87,7 +90,8 @@ public class DamageParticle extends Module {
                     textY = 1.0f;
                 }
                 GlStateManager.rotate(this.mc.getRenderManager().playerViewX, textY, 0.0f, 0.0f);
-                final double size = 0.02;
+                p.location.sizeAnim = p.location.animationUtils.animate(40f, p.location.sizeAnim, 0.04f);
+                final double size = p.location.sizeAnim * 0.001f;
                 GlStateManager.scale(-size, -size, size);
                 enableGL2D();
                 disableGL2D();
@@ -192,6 +196,9 @@ class Location {
     private double z;
     private float yaw;
     private float pitch;
+    public final AnimationUtils animationUtils = new AnimationUtils();
+    public double sizeAnim = 0.2;
+
 
     public Location(double x, double y, double z, float yaw, float pitch) {
         this.x = x;
