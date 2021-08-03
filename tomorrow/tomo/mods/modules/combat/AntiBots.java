@@ -9,6 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventPreUpdate;
+import tomorrow.tomo.managers.ModuleManager;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
 
@@ -73,8 +74,8 @@ public class AntiBots
         }
     }
 
-    public boolean isServerBot(Entity entity) {
-        if (this.isEnabled()) {
+    public static boolean isServerBot(Entity entity) {
+        if (ModuleManager.getModuleByClass(AntiBots.class).isEnabled()) {
             return entity.getDisplayName().getFormattedText().startsWith("\u00a7") && !entity.isInvisible() && !entity.getDisplayName().getFormattedText().toLowerCase().contains("[npc]");
         }
         return false;

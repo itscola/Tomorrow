@@ -81,7 +81,7 @@ public class ModuleManager implements Manager {
         modules.add(new ESP());
         modules.add(new ClickGui());
         modules.add(new FullBright());
-        modules.add(new Nametags());
+//        modules.add(new Nametags());
         modules.add(new Tracers());
         modules.add(new NoRender());
         modules.add(new Chams());
@@ -91,6 +91,9 @@ public class ModuleManager implements Manager {
         modules.add(new DamageParticle());
         modules.add(new ChunkAnimator());
         modules.add(new Xray());
+        modules.add(new ChestESP());
+        modules.add(new NameTag());
+        modules.add(new BlockOverlay());
 
         // Player
         modules.add(new FastUse());
