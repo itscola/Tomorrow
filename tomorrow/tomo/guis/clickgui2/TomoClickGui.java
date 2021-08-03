@@ -405,8 +405,7 @@ public class TomoClickGui extends GuiScreen {
                             FontLoaders.arial16.drawString(v.getName() + ":" + modeValue.getModeAsString(), windowX + 455 + valuemodx, valuey + 10, theme.FONT.getRGB());
                             FontLoaders.arial18.drawString(">", windowX + width - 15, valuey + 9, theme.FONT_C.getRGB());
                             if (isHovered(windowX + 445 + valuemodx, valuey + 2, windowX + width - 5, valuey + 22, mouseX, mouseY) && Mouse.isButtonDown(0) && valuetimer.delay(300)) {
-                                if (Arrays.binarySearch(modeValue.getModes(), (v.getValue()))
-                                        + 1 < modeValue.getModes().length) {
+                                if (Arrays.binarySearch(modeValue.getModes(), modeValue.value) < modeValue.getModes().length - 1) {
                                     v.setValue(modeValue
                                             .getModes()[Arrays.binarySearch(modeValue.getModes(), (v.getValue())) + 1]);
                                 } else {

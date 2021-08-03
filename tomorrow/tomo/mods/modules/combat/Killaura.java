@@ -41,7 +41,7 @@ public class Killaura extends Module {
     private Option noSwing = new Option("NoSwing", false);
 
 
-    private Mode mode = new Mode("Mode", "Mode", new String[]{"Switch", "Single"}, "Switch");
+    private Mode mode = new Mode("Mode", "Mode", new String[]{"Switch", "Single", "Multi"}, "Switch");
     private Mode rot = new Mode("RotationMode", "RotationMode", new String[]{"Instant", "Animate"}, "Animate");
     private Mode priority = new Mode("Priority", "Priority", new String[]{"Distance", "Health", "Direction"}, "Distance");
     private Mode esp = new Mode("ESP", "ESP", new String[]{"NONE", "Box", "HeadBox", "RainbowBox", "VapeBox"}, "NONE");
@@ -88,7 +88,7 @@ public class Killaura extends Module {
         for (Entity entity : entities) {
             if (entity == mc.thePlayer) continue;
             if (!entity.isEntityAlive()) continue;
-            if(Teams.isOnSameTeam(entity)) continue;
+            if (Teams.isOnSameTeam(entity)) continue;
             if (((AntiBots) ModuleManager.getModuleByClass(AntiBots.class)).isServerBot(entity)) continue;
             if (curTargets.size() > targets.getValue().intValue()) continue;
             if (mc.thePlayer.getDistanceToEntity(entity) > range.getValue().doubleValue()) continue;
@@ -120,6 +120,9 @@ public class Killaura extends Module {
         filter(mc.theWorld.getLoadedEntityList());
         switchTarget();
         if (curTargets.size() != 0) {
+            if (cur > curTargets.size() - 1) {
+                cur = 0;
+            }
             target = curTargets.get(cur);
             float[] rotations = PlayerUtils.getRotations(target);
             rotate(rotations, e);
@@ -203,7 +206,7 @@ public class Killaura extends Module {
                 }
                 timer.reset();
             }
-        } else {
+        } else if (mode.isValid("Single")) {
             switch (priority.getValue().toString()) {
                 case "Distance":
                     curTargets.sort(((o1, o2) -> (int) (o2.getDistanceToEntity(mc.thePlayer) - o1.getDistanceToEntity(mc.thePlayer))));
@@ -216,6 +219,19 @@ public class Killaura extends Module {
                     break;
             }
             cur = 0;
+        } else if (mode.isValid("Multi")) {
+            if (timer.delay(80)) {
+                if (cur < curTargets.size() - 1) {
+                    if (((boolean) smart.getValue() && target != null && target.getHealth() < 5)) {
+                        timer.reset();
+                        return;
+                    }
+                    cur++;
+                } else {
+                    cur = 0;
+                }
+                timer.reset();
+            }
         }
     }
 }

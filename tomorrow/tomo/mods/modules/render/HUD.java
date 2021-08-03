@@ -4,6 +4,7 @@
 package tomorrow.tomo.mods.modules.render;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
@@ -95,7 +96,7 @@ public class HUD
             double xDist = mc.thePlayer.posX - mc.thePlayer.prevPosX;
             double zDist = mc.thePlayer.posZ - mc.thePlayer.prevPosZ;
             double moveSpeed = Math.sqrt(xDist * xDist + zDist * zDist) * 20;
-            String text = (Object) ((Object) EnumChatFormatting.GRAY) + "X" + (Object) ((Object) EnumChatFormatting.WHITE) + ": " + MathHelper.floor_double(mc.thePlayer.posX) + " " + (Object) ((Object) EnumChatFormatting.GRAY) + "Y" + (Object) ((Object) EnumChatFormatting.WHITE) + ": " + MathHelper.floor_double(mc.thePlayer.posY) + " " + (Object) ((Object) EnumChatFormatting.GRAY) + "Z" + (Object) ((Object) EnumChatFormatting.WHITE) + ": " + MathHelper.floor_double(mc.thePlayer.posZ) + "  " + Math.round(moveSpeed) + " \2477b/s\247r";
+            String text = (EnumChatFormatting.GRAY) + "FPS" + (Object) ((Object) EnumChatFormatting.WHITE) + ": " + Minecraft.debugFPS +  (Object) ((Object) EnumChatFormatting.GRAY) + "X" + (Object) ((Object) EnumChatFormatting.WHITE) + ": " + MathHelper.floor_double(mc.thePlayer.posX) + " " + (Object) ((Object) EnumChatFormatting.GRAY) + "Y" + (Object) ((Object) EnumChatFormatting.WHITE) + ": " + MathHelper.floor_double(mc.thePlayer.posY) + " " + (Object) ((Object) EnumChatFormatting.GRAY) + "Z" + (Object) ((Object) EnumChatFormatting.WHITE) + ": " + MathHelper.floor_double(mc.thePlayer.posZ) + "  " + Math.round(moveSpeed) + " \2477b/s\247r";
             Client.fontLoaders.msFont18.drawStringWithShadow(text, 4.0F, new ScaledResolution(mc).getScaledHeight() - 10, new Color(11, 12, 17).getRGB());
             drawPotionStatus(sr);
         } else if (mod.getValue().equals("OverWatch")) {
@@ -133,7 +134,7 @@ public class HUD
 
     private void drawPotionStatus(ScaledResolution sr) {
         CFontRenderer font = FontLoaders.arial16;
-        int y = 0;
+        int y = -5;
         for (PotionEffect effect : this.mc.thePlayer.getActivePotionEffects()) {
             int ychat;
             Potion potion = Potion.potionTypes[effect.getPotionID()];

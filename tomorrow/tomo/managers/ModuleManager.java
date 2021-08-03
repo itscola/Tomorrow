@@ -90,6 +90,7 @@ public class ModuleManager implements Manager {
         modules.add(new ScreenRader());
         modules.add(new DamageParticle());
         modules.add(new ChunkAnimator());
+        modules.add(new Xray());
 
         // Player
         modules.add(new FastUse());
@@ -188,7 +189,7 @@ public class ModuleManager implements Manager {
 
     @EventHandler
     public void onTick(EventTick e) {
-        if(IRCClient.user != null) {
+        if (IRCClient.user != null) {
             if (timerUtil.delay(3000)) {
                 if (Minecraft.getMinecraft().thePlayer != null) {
                     IRCClient.user.gameID = Minecraft.getMinecraft().thePlayer.getName();

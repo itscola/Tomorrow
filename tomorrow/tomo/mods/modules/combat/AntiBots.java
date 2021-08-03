@@ -29,9 +29,7 @@ public class AntiBots
     public void onUpdate(EventPreUpdate e) {
         if (Minecraft.getMinecraft().thePlayer.ticksExisted % 15 == 0) {
             for (net.minecraft.entity.Entity entity : Minecraft.getMinecraft().theWorld.loadedEntityList) {
-                if (isServerBot(entity)) {
-                    Minecraft.getMinecraft().theWorld.removeEntity(entity);
-                }
+                isServerBot(entity);
             }
         }
     }
@@ -58,7 +56,7 @@ public class AntiBots
                 if (entity.isInvisible()) {
                     entity.setInvisible(false);
                 }
-            } else {
+            } else if(!entity.getDisplayName().getFormattedText().toLowerCase().contains("npc") || !entity.getDisplayName().getFormattedText().toLowerCase().contains("\247r") || entity.getDisplayName().getFormattedText().contains("\u0e22\u0e07")){
                 mc.theWorld.removeEntity(entity);
             }
             return false;
