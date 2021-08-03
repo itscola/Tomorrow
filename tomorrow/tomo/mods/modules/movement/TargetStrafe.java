@@ -69,8 +69,8 @@ public final class TargetStrafe
     }
 
     public void strafe(EventMove event, double moveSpeed) {
-        if (canStrafe()) {
-            EntityLivingBase target = this.aura.target;
+        if (canStrafe() && Killaura.target != null) {
+            EntityLivingBase target = Killaura.target;
             float[] rotations = PlayerUtils.getRotations(target);
             if ((double) mc.thePlayer.getDistanceToEntity(target) <= this.radius.getValue().floatValue()) {
                 PlayerUtils.setSpeed(event, moveSpeed, rotations[0], this.direction, 0.0);

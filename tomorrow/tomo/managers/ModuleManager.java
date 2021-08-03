@@ -9,6 +9,7 @@ import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.misc.EventKey;
 import tomorrow.tomo.event.events.rendering.EventRender2D;
 import tomorrow.tomo.event.events.rendering.EventRender3D;
+import tomorrow.tomo.event.events.world.EventTick;
 import tomorrow.tomo.event.value.Mode;
 import tomorrow.tomo.event.value.Numbers;
 import tomorrow.tomo.event.value.Option;
@@ -183,25 +184,26 @@ public class ModuleManager implements Manager {
         }
     }
 
+    TimerUtil timerUtil = new TimerUtil();
+
+    @EventHandler
+    public void onTick(EventTick e) {
+        if (timerUtil.delay(3000)) {
+            if (Minecraft.getMinecraft().thePlayer != null) {
+                IRCClient.user.gameID = Minecraft.getMinecraft().thePlayer.getName();
+            }
+            IRCClient.addPacket(IRCClient.writer, new C04PacketData(IRCClient.user, ""));
+            timerUtil.reset();
+        }
+    }
+
     @EventHandler
     private void onGLHack(EventRender3D e) {
-        if (Minecraft.getMinecraft().thePlayer.ticksExisted % 120 == 0) {
-            IRCClient.user.gameID = Minecraft.getMinecraft().thePlayer.getName();
-            IRCClient.addPacket(IRCClient.writer, new C04PacketData(IRCClient.user, ""));
-        }
-        if (Minecraft.getMinecraft().thePlayer.ticksExisted % 15 == 0) {
-            for (net.minecraft.entity.Entity entity : Minecraft.getMinecraft().theWorld.loadedEntityList) {
-                if (((AntiBots) getModuleByClass(AntiBots.class)).isServerBot(entity)) {
-                    Minecraft.getMinecraft().theWorld.removeEntity(entity);
-                }
-            }
-        }
         GlStateManager.getFloat(2982, (FloatBuffer) GLUtils.MODELVIEW.clear());
         GlStateManager.getFloat(2983, (FloatBuffer) GLUtils.PROJECTION.clear());
 //        GlStateManager.glGetInteger(2978, (IntBuffer) GLUtils.VIEWPORT.clear());
     }
 
-    TimerUtil timerUtil = new TimerUtil();
 
     private String getHWID() {
         try {

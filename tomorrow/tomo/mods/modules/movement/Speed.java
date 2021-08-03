@@ -3,6 +3,7 @@
  */
 package tomorrow.tomo.mods.modules.movement;
 
+import net.minecraft.stats.StatList;
 import tomorrow.tomo.event.EventHandler;
 import tomorrow.tomo.event.events.world.EventMove;
 import tomorrow.tomo.event.events.world.EventPreUpdate;
@@ -53,8 +54,13 @@ public class Speed
                 this.mc.thePlayer.motionY = 0.412333f;
                 e.setY(0.412333f);
             }
-
-            this.mc.thePlayer.setMoveSpeed(e,MathUtil.getBaseMovementSpeed()*movementSpeed);
+            mc.thePlayer.triggerAchievement(StatList.jumpStat);
+            if (mc.thePlayer.isSprinting()) {
+                mc.thePlayer.addExhaustion(0.8F);
+            } else {
+                mc.thePlayer.addExhaustion(0.2F);
+            }
+            this.mc.thePlayer.setMoveSpeed(e,mc.thePlayer.getSpeed());
             if (this.mc.thePlayer.moving()) {
                 ++this.stage;
             }
