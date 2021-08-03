@@ -3,7 +3,6 @@
  */
 package tomorrow.tomo.mods.modules.combat;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiPlayerTabOverlay;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.entity.Entity;
@@ -19,6 +18,7 @@ import java.util.List;
 
 public class AntiBots
         extends Module {
+    private final ArrayList<EntityPlayer> bots = new ArrayList<>();
 
     public AntiBots() {
         super("AntiBots", "remove bots.", ModuleType.Combat);
@@ -27,39 +27,55 @@ public class AntiBots
 
     @EventHandler
     public void onUpdate(EventPreUpdate e) {
-        if (Minecraft.getMinecraft().thePlayer.ticksExisted % 15 == 0) {
-            for (net.minecraft.entity.Entity entity : Minecraft.getMinecraft().theWorld.loadedEntityList) {
-                isServerBot(entity);
+        this.setSuffix("Basic");
+        if (!mc.isSingleplayer()) {
+            for (Object entities : mc.theWorld.loadedEntityList) {
+                if (entities instanceof EntityPlayer) {
+                    EntityPlayer entityPlayer = (EntityPlayer) entities;
+                    if (entityPlayer != mc.thePlayer) {
+                        if (mc.thePlayer.getDistanceToEntity(entityPlayer) < 10) {
+                            if (!entityPlayer.getDisplayName().getFormattedText().contains("\u0e22\u0e07") || entityPlayer.isInvisible()
+                                    || entityPlayer.getDisplayName().getFormattedText().toLowerCase().contains("npc")
+                                    || entityPlayer.getDisplayName().getFormattedText().toLowerCase().contains("\247r")) {
+                                this.bots.add(entityPlayer);
+                            }
+                        }
+                        if (!this.bots.contains(entityPlayer)) {
+                            continue;
+                        }
+                        this.bots.remove(entityPlayer);
+                    }
+                }
+                for (final Entity entity2 : mc.theWorld.getLoadedEntityList()) {
+                    if (entity2 instanceof EntityPlayer) {
+                        EntityPlayer entityPlayer = (EntityPlayer) entity2;
+                        if (entityPlayer == mc.thePlayer) {
+                            continue;
+                        }
+                        if (!entityPlayer.isInvisible()) {
+                            continue;
+                        }
+                        if (entityPlayer.ticksExisted <= 105) {
+                            continue;
+                        }
+                        if (getTabPlayerList().contains(entityPlayer)) {
+                            if (!entityPlayer.isInvisible()) {
+                                continue;
+                            }
+                            entityPlayer.setInvisible(false);
+                        } else {
+                            entityPlayer.setInvisible(false);
+                            mc.theWorld.removeEntity(entityPlayer);
+                        }
+                    }
+                }
             }
         }
     }
 
-
     public boolean isServerBot(Entity entity) {
-        if (this.isEnabled() && entity instanceof EntityPlayer) {
-            if (entity == mc.thePlayer) {
-                return false;
-            }
-            if(entity.getName().equals("Blink"))
-                return false;
-            if (entity.ticksExisted <= 105) {
-                return true;
-            }
-            if (mc.thePlayer.getDistanceToEntity(entity) < 10) {
-                if (!entity.getDisplayName().getFormattedText().contains("\u0e22\u0e07") || entity.isInvisible()
-                        || entity.getDisplayName().getFormattedText().toLowerCase().contains("npc")
-                        || entity.getDisplayName().getFormattedText().toLowerCase().contains("\247r")) {
-                    return true;
-                }
-            }
-            if (getTabPlayerList().contains(entity)) {
-                if (entity.isInvisible()) {
-                    entity.setInvisible(false);
-                }
-            } else if(!entity.getDisplayName().getFormattedText().toLowerCase().contains("npc") || !entity.getDisplayName().getFormattedText().toLowerCase().contains("\247r") || entity.getDisplayName().getFormattedText().contains("\u0e22\u0e07")){
-                mc.theWorld.removeEntity(entity);
-            }
-            return false;
+        if (this.isEnabled()) {
+            return entity.getDisplayName().getFormattedText().startsWith("\u00a7") && !entity.isInvisible() && !entity.getDisplayName().getFormattedText().toLowerCase().contains("[npc]");
         }
         return false;
     }
