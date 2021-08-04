@@ -72,8 +72,8 @@ public class GuiTomoLogin extends GuiScreen {
         username.drawTextBox();
         if (isHovered(password.xPosition, password.yPosition + 30, password.xPosition + password.getWidth(), password.yPosition + 50, mouseX, mouseY)) {
             if (Mouse.isButtonDown(0)) {
-//                IRCClient.Start(username.getText(), password.getText(), hwid,"218.89.171.137",22127);
-                IRCClient.Start(username.getText(), password.getText(), hwid,"127.0.0.1",6666);
+                IRCClient.Start(username.getText(), password.getText(), hwid,"218.89.171.137",22127);
+//                IRCClient.Start(username.getText(), password.getText(), hwid,"127.0.0.1",6666);
                 Client.username = username.getText();
                 Client.password = password.getText();
                 IRCClient.user = new User(username.getText(), password.getText(), hwid);

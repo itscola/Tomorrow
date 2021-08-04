@@ -34,8 +34,8 @@ public class IRCClient {
     public static User user;
     static Socket socket;
     private static InputStream input;
-    public static BufferedReader reader;
-    public static PrintWriter writer;
+    public static MyBufferedReader reader;
+    public static MyPrintWriter writer;
     private static final char[] DIGITS_HEX = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     public static String toHex(String str) {

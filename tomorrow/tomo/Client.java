@@ -14,9 +14,9 @@ import java.io.File;
 
 public class Client {
     public static String CLIENT_NAME = "Tomo";
-    public static String username ,password;
+    public static String username, password;
     public static Client instance = new Client();
-    public static String VERSION = "R1.6";
+    public static String VERSION = "R1.7";
     public Minecraft mc;
     private ModuleManager modulemanager;
     private CommandManager commandmanager;
@@ -65,12 +65,12 @@ public class Client {
     public AltManager getAltManager() {
         return this.altmanager;
     }
-    
-    public LuneAutoLeak getLuneAutoLeak() {
-		return this.luneAutoLeak;
-	}
 
-	public void shutDown() {
+    public LuneAutoLeak getLuneAutoLeak() {
+        return this.luneAutoLeak;
+    }
+
+    public void shutDown() {
         modulemanager.saveSettings();
     }
 }
