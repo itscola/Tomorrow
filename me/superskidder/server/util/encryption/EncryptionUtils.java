@@ -7,6 +7,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -30,8 +31,8 @@ public class EncryptionUtils {
     public static String encryptIntoHexString(String data, String key) {
         try {
             Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding");
-            cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key.getBytes(), "AES"), IV_PARAMETER_SPEC);
-            return bytesConvertHexString(cipher.doFinal(Arrays.copyOf(data.getBytes(), 16 * ((data.getBytes().length / 16) + 1))));
+            cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "AES"), IV_PARAMETER_SPEC);
+            return bytesConvertHexString(cipher.doFinal(Arrays.copyOf(data.getBytes(StandardCharsets.UTF_8), 16 * ((data.getBytes(StandardCharsets.UTF_8).length / 16) + 1))));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -47,8 +48,8 @@ public class EncryptionUtils {
     public static String decryptByHexString(String data, String key) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException {
 
         Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding");
-        cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key.getBytes(), "AES"), IV_PARAMETER_SPEC);
-        return new String(cipher.doFinal(hexStringConvertBytes(data.toLowerCase())), "UTF-8");
+        cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "AES"), IV_PARAMETER_SPEC);
+        return new String(cipher.doFinal(hexStringConvertBytes(data.toLowerCase())), StandardCharsets.UTF_8);
     }
 
 
