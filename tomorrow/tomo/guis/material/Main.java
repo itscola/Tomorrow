@@ -83,7 +83,7 @@ public class Main extends GuiScreen {
                 modsY += 25;
                 for (Module m : Client.instance.getModuleManager().getModulesInType(mt.moduleType)) {
                     if (modsY > windowY + 30 && modsY < windowY + windowHeight) {
-                        if(!mt.needRemove) {
+                        if (!mt.needRemove) {
                             new Rect(windowX, modsY, animListX, 15, new Color(255, 255, 255), new Runnable() {
                                 @Override
                                 public void run() {
@@ -91,6 +91,13 @@ public class Main extends GuiScreen {
                                         m.setEnabled(!m.isEnabled());
                                     } else if (Mouse.isButtonDown(1)) {
                                         ModuleTab modT = new ModuleTab(m);
+                                        for (Tab m :
+                                                tabs) {
+                                            if(m.name.equals(modT.name)) {
+                                                currentTab = m;
+                                                return;
+                                            }
+                                        }
                                         tabs.add(modT);
                                         currentTab = modT;
                                     }
@@ -115,6 +122,34 @@ public class Main extends GuiScreen {
             }
 
             modsY += 25;
+        }
+
+
+        ArrayList<Tab> tabs2 = new ArrayList<>();
+        float x = 4;
+        for (Tab t : tabs) {
+            float swidth = FontLoaders.arial16.getStringWidth(t.name) + 14;
+            t.x = t.animationUtils.animate(windowX + x + animListX, t.x, drag ? 2 : 0.1F);
+            new Rect(t.x, windowY + 30, swidth, 20, new Color(0, 0, 0, 0), new Runnable() {
+                @Override
+                public void run() {
+                    if (Mouse.isButtonDown(0))
+                        currentTab = t;
+                }
+            }).render(mouseX, mouseY);
+
+
+            if (isHovered(t.x + swidth - 4, windowY + 30, t.x + swidth + 4, windowY + 50, mouseX, mouseY)) {
+                if (Mouse.isButtonDown(0)) {
+                    tabs2.add(t);
+                }
+            }
+
+            x += swidth;
+        }
+
+        for (Tab tab : tabs2) {
+            tabs.remove(tab);
         }
     }
 

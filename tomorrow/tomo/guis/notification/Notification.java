@@ -9,6 +9,7 @@ import tomorrow.tomo.utils.math.AnimationUtils;
 import tomorrow.tomo.utils.render.RenderUtil;
 
 import java.awt.*;
+import java.util.Locale;
 
 public class Notification {
     public float x;
@@ -52,7 +53,7 @@ public class Notification {
         if (timer != null) {
             RenderUtil.drawRect((float) (sr.getScaledWidth_double() - x), cy + height - 1, (float) ((sr.getScaledWidth_double() - x) + (this.timer.getTime() - timer.lastMS) / (lastTime * 1000) * width), cy + height, new Color(0, 110, 255));
         }
-        RenderUtil.drawCustomImageAlpha(sr.getScaledWidth() - x + 3, cy + 4, 12, 12, new ResourceLocation("client/notifications/" + type.name() + ".png"), -1, 255);
+        RenderUtil.drawCustomImageAlpha(sr.getScaledWidth() - x + 3, cy + 4, 12, 12, new ResourceLocation("client/back.png"), -1, 255);
 
         FontLoaders.arial16.drawString(name, (sr.getScaledWidth() - x) + 18, cy + 7, -1);
     }

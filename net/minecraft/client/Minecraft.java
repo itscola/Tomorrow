@@ -131,7 +131,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
      */
     public static byte[] memoryReserve = new byte[10485760];
     private static final List<DisplayMode> macDisplayModes = Lists.newArrayList(new DisplayMode[]{new DisplayMode(2560, 1600), new DisplayMode(2880, 1800)});
-    public static boolean should;
     private final File fileResourcepacks;
     private final PropertyMap twitchDetails;
     private final PropertyMap field_181038_N;
@@ -1662,10 +1661,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 //        if (this.thePlayer != null) {
             EventBus.getInstance().call(new EventTick());
 //        }
-        if (should) {
-            displayGuiScreen(new GuiMainMenu());
-            should = false;
-        }
 
         if (this.rightClickDelayTimer > 0) {
             --this.rightClickDelayTimer;

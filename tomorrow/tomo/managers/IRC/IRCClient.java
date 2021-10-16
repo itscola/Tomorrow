@@ -10,6 +10,7 @@ import me.superskidder.server.util.MyBufferedReader;
 import me.superskidder.server.util.MyPrintWriter;
 import me.superskidder.server.util.encryption.EncryptionUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiMainMenu;
 import tomorrow.tomo.Client;
 import tomorrow.tomo.login.GuiTomoLogin;
 import tomorrow.tomo.luneautoleak.LuneAutoLeak;
@@ -60,7 +61,6 @@ public class IRCClient {
     }
 
     public static void Start(String username, String password, String hwid, String ip, int port) {
-        Scanner scanner = new Scanner(System.in);
         try {
             socket = new Socket(ip, port);
         } catch (IOException e) {
@@ -126,7 +126,7 @@ public class IRCClient {
             } else if (sp.packetType.equals(PacketType.S01)) {
                 user = new User(Client.username, Client.password, LuneAutoLeak.getHWID());
                 if (Minecraft.getMinecraft().currentScreen instanceof GuiTomoLogin) {
-                    Minecraft.should = true;
+                    Minecraft.getMinecraft().displayGuiScreen(new GuiMainMenu());
                 }
             }
         }

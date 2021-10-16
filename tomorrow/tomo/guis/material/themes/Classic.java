@@ -48,14 +48,7 @@ public class Classic extends Main {
     @Override
     public void drawTasksBar() {
         super.drawTasksBar();
-
-        if (Bsettings.realized) {
-            this.tabs.add(new SettingsTab());
-            Bsettings.realized = false;
-        }
-
         RenderUtil.drawRect(windowX + animListX, windowY + 30, windowX + windowWidth, windowY + 50, ColorUtils.reAlpha(clientColor.getRGB(), 0.6f));
-        ArrayList<Tab> tabs2 = new ArrayList<>();
         float x = 4;
         for (Tab t : tabs) {
             if (currentTab == t)
@@ -73,10 +66,7 @@ public class Classic extends Main {
 
 
             if (isHovered(t.x + swidth - 4, windowY + 30, t.x + swidth + 4, windowY + 50, mouseX, mouseY)) {
-                FontLoaders.arial16.drawString("-", t.x + swidth - 6, windowY + 40, new Color(255, 0, 0).getRGB());
-                if (Mouse.isButtonDown(0)) {
-                    tabs2.add(t);
-                }
+                FontLoaders.arial18.drawString("-", t.x + swidth - 6, windowY + 40, new Color(255, 0, 0).getRGB());
             } else {
                 FontLoaders.arial18.drawString("-", t.x + swidth - 6, windowY + 40, new Color(255, 255, 255).getRGB());
             }
@@ -91,11 +81,17 @@ public class Classic extends Main {
             x += swidth;
         }
 
-        for (Tab tab : tabs2) {
-            tabs.remove(tab);
+        if (Bsettings.realized) {
+            Bsettings.realized = false;
+            for (Tab tab: tabs){
+                if (tab.name.equals("Settings")) {
+                    currentTab = tab;
+                    return;
+                }
+            }
+
+            this.tabs.add(new SettingsTab());
         }
-
-
     }
 
     @Override

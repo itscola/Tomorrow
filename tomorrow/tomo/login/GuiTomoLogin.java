@@ -1,6 +1,7 @@
 package tomorrow.tomo.login;
 
 import me.superskidder.server.data.User;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
@@ -72,6 +73,10 @@ public class GuiTomoLogin extends GuiScreen {
         username.drawTextBox();
         if (isHovered(password.xPosition, password.yPosition + 30, password.xPosition + password.getWidth(), password.yPosition + 50, mouseX, mouseY)) {
             if (Mouse.isButtonDown(0)) {
+                Minecraft.getMinecraft().displayGuiScreen(new GuiMainMenu());
+                if(true == true) {
+                    return;
+                }
                 IRCClient.Start(username.getText(), password.getText(), hwid,"218.89.171.137",22127);
 //                IRCClient.Start(username.getText(), password.getText(), hwid,"127.0.0.1",6666);
                 Client.username = username.getText();
