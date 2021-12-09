@@ -1,5 +1,6 @@
 package tomorrow.tomo.mods.modules.combat;
 
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -10,7 +11,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemSword;
 import net.minecraft.network.play.client.C02PacketUseEntity;
 import net.minecraft.network.play.client.C0APacketAnimation;
+import org.lwjgl.opengl.GL11;
 import tomorrow.tomo.event.EventHandler;
+import tomorrow.tomo.event.events.rendering.EventRender2D;
+import tomorrow.tomo.event.events.rendering.EventRender3D;
 import tomorrow.tomo.event.events.world.EventPostUpdate;
 import tomorrow.tomo.event.events.world.EventPreUpdate;
 import tomorrow.tomo.event.value.Mode;
@@ -19,12 +23,15 @@ import tomorrow.tomo.event.value.Option;
 import tomorrow.tomo.managers.ModuleManager;
 import tomorrow.tomo.mods.Module;
 import tomorrow.tomo.mods.ModuleType;
+import tomorrow.tomo.mods.modules.ClientSettings;
 import tomorrow.tomo.mods.modules.player.Teams;
 import tomorrow.tomo.mods.modules.world.Scaffold;
 import tomorrow.tomo.utils.cheats.player.PlayerUtils;
 import tomorrow.tomo.utils.cheats.world.TimerUtil;
 import tomorrow.tomo.utils.math.AnimationUtils;
+import tomorrow.tomo.utils.render.RenderUtil;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,12 +46,12 @@ public class Killaura extends Module {
     private Option block = new Option("Block", false);
     private Option smart = new Option("SmartSwitch", false);
     private Option noSwing = new Option("NoSwing", false);
+    private Option esp = new Option("Esp", true);
 
 
     private Mode mode = new Mode("Mode", "Mode", new String[]{"Switch", "Single", "Multi"}, "Switch");
     private Mode rot = new Mode("RotationMode", "RotationMode", new String[]{"Instant", "Animate"}, "Animate");
     private Mode priority = new Mode("Priority", "Priority", new String[]{"Distance", "Health", "Direction"}, "Distance");
-    private Mode esp = new Mode("ESP", "ESP", new String[]{"NONE", "Box", "HeadBox", "RainbowBox", "VapeBox"}, "NONE");
 
     private Numbers<Number> switchDelay = new Numbers<>("SwitchDelay", 150, 10, 2000, 10);
     private Numbers<Number> rotSpeed = new Numbers<>("RotationSpeed", 80, 1, 100, 1);
@@ -58,8 +65,9 @@ public class Killaura extends Module {
     private TimerUtil cpsTimer = new TimerUtil();
     private AnimationUtils animationUtils1 = new AnimationUtils();
     private AnimationUtils animationUtils2 = new AnimationUtils();
-
-
+    private AnimationUtils espAnimation = new AnimationUtils();
+    private float yPos = 0;
+    private boolean direction;
     private int cur = 0;
     private Criticals crit;
 
@@ -74,6 +82,91 @@ public class Killaura extends Module {
         crit = (Criticals) ModuleManager.getModuleByClass(Criticals.class);
     }
 
+    @EventHandler
+    private void onRender3D(EventRender3D e) {
+        if (target != null && ((boolean) esp.getValue())) {
+            drawShadow(target, e.getPartialTicks(), yPos, direction);
+            drawCircle(target, e.getPartialTicks(), yPos);
+        }
+    }
+    TimerUtil timerUtil = new TimerUtil();
+    @EventHandler
+    private void onRender2D(EventRender2D e) {
+        if(timerUtil.delay(20)) {
+            if (direction) {
+                yPos += 0.03;
+                if (2 - yPos < 0.02) {
+                    direction = false;
+                }
+            } else {
+                yPos -= 0.03;
+                if (yPos < 0.02) {
+                    direction = true;
+                }
+            }
+            timerUtil.reset();
+        }
+    }
+
+    private void drawShadow(Entity entity, float partialTicks, float pos, boolean direction) {
+        GL11.glPushMatrix();
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        GL11.glShadeModel((int) 7425);
+        double x = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * (double) partialTicks - mc.getRenderManager().viewerPosX;
+        double y = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double) partialTicks - mc.getRenderManager().viewerPosY + pos;
+        double z = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * (double) partialTicks - mc.getRenderManager().viewerPosZ;
+        GL11.glBegin(GL11.GL_QUAD_STRIP);
+        Color c = new Color(ClientSettings.r.getValue().intValue(), ClientSettings.g.getValue().intValue(), ClientSettings.b.getValue().intValue());
+        for (int i = 0; i <= 12; i++) {
+            double c1 = i * Math.PI * 2 / 12;
+            double c2 = (i + 1) * Math.PI * 2 / 12;
+            GL11.glColor4f(c.getRed() / 255f, (float) c.getGreen() / 255f, (float) c.getBlue() / 255f, 0.4f);
+            GL11.glVertex3d(x + 0.5 * Math.cos(c1), y, z + 0.5 * Math.sin(c1));
+            GL11.glVertex3d(x + 0.5 * Math.cos(c2), y, z + 0.5 * Math.sin(c2));
+            GL11.glColor4f(c.getRed() / 255f, (float) c.getGreen() / 255f, (float) c.getBlue() / 255f, 0f);
+
+            GL11.glVertex3d(x + 0.5 * Math.cos(c1), y + (direction ? -0.3 : 0.3), z + 0.5 * Math.sin(c1));
+            GL11.glVertex3d(x + 0.5 * Math.cos(c2), y + (direction ? -0.3 : 0.3), z + 0.5 * Math.sin(c2));
+
+
+        }
+        GL11.glEnd();
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glShadeModel((int) 7424);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glDisable(GL11.GL_BLEND);
+        GL11.glPopMatrix();
+    }
+
+    private void drawCircle(Entity entity, float partialTicks, float pos) {
+        GL11.glPushMatrix();
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        GL11.glShadeModel((int) 7425);
+        GL11.glLineWidth(2);
+        double x = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * (double) partialTicks - mc.getRenderManager().viewerPosX;
+        double y = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double) partialTicks - mc.getRenderManager().viewerPosY + pos;
+        double z = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * (double) partialTicks - mc.getRenderManager().viewerPosZ;
+        GL11.glBegin(GL11.GL_LINE_STRIP);
+        Color c = new Color(ClientSettings.r.getValue().intValue(), ClientSettings.g.getValue().intValue(), ClientSettings.b.getValue().intValue());
+        for (int i = 0; i <= 12; i++) {
+            double c1 = i * Math.PI * 2 / 12;
+            GL11.glColor4f(c.getRed() / 255f, (float) c.getGreen() / 255f, (float) c.getBlue() / 255f, 1);
+            GL11.glVertex3d(x + 0.5 * Math.cos(c1), y, z + 0.5 * Math.sin(c1));
+
+
+        }
+
+        GL11.glEnd();
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glShadeModel((int) 7424);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glDisable(GL11.GL_BLEND);
+        GL11.glPopMatrix();
+    }
     @Override
     public void onDisable() {
         super.onDisable();
@@ -89,7 +182,7 @@ public class Killaura extends Module {
             if (entity == mc.thePlayer) continue;
             if (!entity.isEntityAlive()) continue;
             if (Teams.isOnSameTeam(entity)) continue;
-            if (((AntiBots) ModuleManager.getModuleByClass(AntiBots.class)).isServerBot(entity)) continue;
+            if (AntiBots.isServerBot(entity)) continue;
             if (curTargets.size() > targets.getValue().intValue()) continue;
             if (mc.thePlayer.getDistanceToEntity(entity) > range.getValue().doubleValue()) continue;
 
@@ -114,6 +207,7 @@ public class Killaura extends Module {
 
     @EventHandler
     public void onPre(EventPreUpdate e) {
+
         this.setSuffix(this.mode.getModeAsString());
         if (ModuleManager.getModuleByClass(Scaffold.class).isEnabled())
             return;

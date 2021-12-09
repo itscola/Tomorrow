@@ -61,21 +61,11 @@ public class TpAura extends Module {
                         mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(pathElm.getX(), pathElm.getY(), pathElm.getZ(), true));//+ 4 - ((n + 1) >= vec3s.size() ? 1 : 0)
                         n++;
                     }
-//                    mc.thePlayer.sendQueue.addToSendQueue(new C08PacketPlayerBlockPlacement(new BlockPos(-1, -1, -1), 255,
-//                            mc.thePlayer.inventory.getCurrentItem(), 0.0F, 0.0F, 0.0F));
-//                    mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(pathElm.getX(), pathElm.getY() + 1.4, pathElm.getZ(), true));
-//                    mc.thePlayer.swingItem();
-//                    mc.getNetHandler().addToSendQueue(new C02PacketUseEntity(T, C02PacketUseEntity.Action.ATTACK));
                     mc.thePlayer.swingItem();
-//                    mc.thePlayer.fallDistance = 0.1f;
-//                    mc.thePlayer.onGround = false;
-                    //mc.thePlayer.setPosition(vec3s.get(vec3s.size()-1).getX(), vec3s.get(vec3s.size()-1).getY()+0.4, vec3s.get(vec3s.size()-1).getZ());
                     mc.playerController.attackEntity(mc.thePlayer, T);
-//                    mc.playerController.attackEntity(mc.thePlayer, T);
                     Collections.reverse(vec3s);
                     for (Vec3 pathElm : vec3s) {
                         mc.thePlayer.setPosition(pathElm.getX(), pathElm.getY(), pathElm.getZ());
-                        //mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer.C04PacketPlayerPosition(pathElm.getX(), pathElm.getY(), pathElm.getZ(), true));
                     }
                 }
 

@@ -58,28 +58,14 @@ public class Speed
 
             this.mc.thePlayer.setMoveSpeed(e, this.movementSpeed);
         } else if (this.mode.getValue().equals("Bhop")) {
-            this.mc.timer.timerSpeed = 1.07f;
-            if (this.canZoom() && this.stage == 1) {
-                this.movementSpeed = 2.55 * MathUtil.getBaseMovementSpeed() - 0.01;
-            } else if (this.canZoom() && this.stage == 2) {
-                this.mc.thePlayer.motionY = 0.3999;
-                e.setY(0.3999);
-                this.movementSpeed *= 2.1;
-            } else if (this.stage == 3) {
-                double difference = 0.66 * (this.distance - MathUtil.getBaseMovementSpeed());
-                this.movementSpeed = this.distance - difference;
+            if (this.canZoom()) {
+                e.setY(mc.thePlayer.motionY = 0.18F);
+                this.movementSpeed = 0.9f;
             } else {
-                List collidingList = this.mc.theWorld.getCollidingBoundingBoxes(this.mc.thePlayer, this.mc.thePlayer.boundingBox.offset(0.0, this.mc.thePlayer.motionY, 0.0));
-                if (collidingList.size() > 0 || this.mc.thePlayer.isCollidedVertically && this.stage > 0) {
-                    this.stage = this.mc.thePlayer.moving() ? 1 : 0;
-                }
-                this.movementSpeed = this.distance - this.distance / 159.0;
+                this.movementSpeed = 0.8f;
             }
-            this.movementSpeed = Math.max(this.movementSpeed, MathUtil.getBaseMovementSpeed());
+
             this.mc.thePlayer.setMoveSpeed(e, this.movementSpeed);
-            if (this.mc.thePlayer.moving()) {
-                ++this.stage;
-            }
         }
         ((TargetStrafe) ModuleManager.getModuleByClass(TargetStrafe.class)).strafe(e, movementSpeed);
     }

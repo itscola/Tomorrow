@@ -16,13 +16,11 @@ public class InvMove extends Module{
 
 	@EventHandler
 	public void onUpdate(EventPreUpdate event) {
-		if (this.mc.currentScreen instanceof Classic) {
 			KeyBinding[] key = { this.mc.gameSettings.keyBindForward, this.mc.gameSettings.keyBindBack, this.mc.gameSettings.keyBindLeft, this.mc.gameSettings.keyBindRight, this.mc.gameSettings.keyBindSprint, this.mc.gameSettings.keyBindJump };
 			KeyBinding[] array;
 			for (int length = (array = key).length, i = 0; i < length; ++i) {
 				KeyBinding b = array[i];
 				KeyBinding.setKeyBindState(b.getKeyCode(), Keyboard.isKeyDown(b.getKeyCode()));
 			}
-		}
 	}
 }

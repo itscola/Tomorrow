@@ -30,22 +30,22 @@ public class Particle {
    }
 
    public void drawScreen(int mouseX, int mouseY, int height) {
-      Color white = new Color(255, 255, 255);
+      Color white = new Color(255, 255, 255,120);
       this.changeRadius();
       this.changePos(height);
       RenderUtil.smoothCircle(this.x, this.y, this.radius, white);
-//      RenderUtil.drawLine(this.x, this.y - 1.8F, this.x, this.y + 1.8F, 1);
-//      RenderUtil.drawLine(this.x - 0.2F, this.y - 1.8F, this.x, this.y - 1.8F,1);
-//      RenderUtil.drawLine(this.x - 1.8F, this.y - 0.8F, this.x + 1.8F, this.y + 0.8F, 1);
-//      RenderUtil.drawLine(this.x - 1.8F, this.y + 0.8F, this.x + 1.8F, this.y - 0.8F, 1);
+      RenderUtil.drawLine(this.x, this.y - 1.8F, this.x, this.y + 1.8F, 0.3f);
+      RenderUtil.drawLine(this.x - 0.2F, this.y - 1.8F, this.x, this.y - 1.8F,0.3f);
+      RenderUtil.drawLine(this.x - 1.8F, this.y - 0.8F, this.x + 1.8F, this.y + 0.8F, 0.3f);
+      RenderUtil.drawLine(this.x - 1.8F, this.y + 0.8F, this.x + 1.8F, this.y - 0.8F, 0.3f);
    }
 
    private void changePos(int height) {
-      this.x += this.random.nextFloat() - 0.5F;
-      this.y = (float)((double)this.y + 1.2D);
-      if (this.y > (float)height) {
-         this.y = 0.0F;
-      }
+//      this.x += this.random.nextFloat() - 0.5F;
+//      this.y = (float)((double)this.y + 1.2D);
+//      if (this.y > (float)height) {
+//         this.y = 0.0F;
+//      }
 
    }
 
